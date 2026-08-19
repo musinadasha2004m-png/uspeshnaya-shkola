@@ -1,0 +1,78 @@
+/* Дизайн-токены «Успешная школа» — извлечены из мудборда.
+   Использовать эти переменные вместо цветов/размеров «на глаз». */
+
+:root {
+  /* --- Цветовая палитра --- */
+  --color-navy: #1B2455;      /* основной тёмный / текст заголовков */
+  --color-purple: #8A63F6;    /* основной акцентный / кнопки, ссылки */
+  --color-yellow: #FFD54A;    /* акцент "популярное", иллюстрации */
+  --color-blue: #6C8BFF;      /* акцент "знания", вторичные иконки */
+  --color-green: #7FD66A;     /* акцент "результат", success-состояния */
+  --color-pink: #FF7DB7;      /* акцент "поддержка" */
+
+  --color-bg-white: #FCFBFF;      /* базовый фон */
+  --color-bg-lavender: #FAF9FD;   /* альтернативный фон секций */
+  --color-bg-lavender-2: #E9E6FB; /* фон карточек / плашек */
+  --color-bg-lavender-3: #F2F1F9; /* фон карточек / плашек, светлее */
+
+  --color-text-primary: var(--color-navy);
+  --color-text-secondary: #5B6180; /* приглушённый серо-фиолетовый для подзаголовков */
+  --color-text-inverse: #FFFFFF;
+
+  /* --- Типографика --- */
+  --font-family-base: 'Manrope', sans-serif;
+
+  --font-size-h1: 56px;
+  --font-weight-h1: 800; /* ExtraBold */
+
+  --font-size-h2: 48px;
+  --font-weight-h2: 700; /* Bold */
+
+  --font-size-h3: 34px;
+  --font-weight-h3: 700; /* Bold */
+
+  --font-size-h4: 28px;
+  --font-weight-h4: 600; /* SemiBold */
+
+  --font-size-text: 20px;
+  --font-weight-text: 400; /* Regular */
+
+  --font-size-text-secondary: 18px;
+  --font-weight-text-secondary: 400; /* Regular */
+
+  --font-size-caption: 16px;
+  --font-weight-caption: 500; /* Medium */
+
+  --font-size-button: 18px;
+  --font-weight-button: 700; /* Bold */
+
+  /* --- Радиусы и тени (типично для этого стиля — светлый, мягкий) --- */
+  --radius-card: 20px;
+  --radius-button: 14px;
+  --shadow-card: 0 8px 24px rgba(27, 36, 85, 0.06);
+
+  /* --- Отступы (8px-сетка) --- */
+  --space-1: 8px;
+  --space-2: 16px;
+  --space-3: 24px;
+  --space-4: 32px;
+  --space-5: 48px;
+  --space-6: 64px;
+  --space-7: 96px;
+}
+
+/* Пример использования:
+.hero-title {
+  font-family: var(--font-family-base);
+  font-size: var(--font-size-h1);
+  font-weight: var(--font-weight-h1);
+  color: var(--color-text-primary);
+}
+.btn-primary {
+  background: var(--color-purple);
+  color: var(--color-text-inverse);
+  border-radius: var(--radius-button);
+  font-size: var(--font-size-button);
+  font-weight: var(--font-weight-button);
+}
+*/
