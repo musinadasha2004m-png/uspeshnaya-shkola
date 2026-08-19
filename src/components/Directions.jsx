@@ -66,10 +66,10 @@ export default function Directions() {
     <section id="directions" className="bg-bg-lavender">
       <Container className="py-16 md:py-20">
         <div className="max-w-2xl">
-          <h2 className="text-h2 font-h2 text-brand-navy">
+          <h2 className="text-[28px] font-bold leading-tight text-brand-navy lg:text-h2 lg:font-h2">
             Выберите направление
           </h2>
-          <p className="mt-3 text-body-sm leading-relaxed text-[#5B6180]">
+          <p className="mt-3 text-[15px] leading-relaxed text-[#5B6180] lg:text-body-sm">
             Мы поможем подобрать программу и ответим на все вопросы на
             бесплатной консультации.
           </p>
@@ -87,18 +87,18 @@ export default function Directions() {
                 >
                   <Icon size={14} strokeWidth={2.2} className="text-white" />
                 </span>
-                <h3 className="text-[22px] font-bold leading-snug text-brand-navy">
+                <h3 className="text-[18px] font-bold leading-snug text-brand-navy lg:text-[22px]">
                   {title}
                 </h3>
               </div>
 
-              <p className="mt-2 flex-1 text-body-sm leading-relaxed text-[#5B6180]">
+              <p className="mt-2 flex-1 text-[15px] leading-relaxed text-[#5B6180] lg:text-body-sm">
                 {description}
               </p>
 
               <a
                 href="#"
-                className="mt-3 inline-flex items-center gap-1.5 text-caption font-bold text-brand-purple transition-all hover:gap-2.5"
+                className="mt-3 inline-flex items-center gap-1.5 text-[13px] font-bold text-brand-purple transition-all hover:gap-2.5 lg:text-caption"
               >
                 Подробнее о программе
                 <ArrowRight size={16} strokeWidth={2.5} />
@@ -113,19 +113,19 @@ export default function Directions() {
                 alt=""
                 className="h-10 w-10 shrink-0 object-contain drop-shadow-[0_6px_14px_rgba(27,36,85,0.25)]"
               />
-              <h3 className="text-[22px] font-bold leading-snug text-white">
+              <h3 className="text-[18px] font-bold leading-snug text-white lg:text-[22px]">
                 Не нашли то, что нужно?
               </h3>
             </div>
 
-            <p className="mt-2 flex-1 text-body-sm leading-relaxed text-white/80">
+            <p className="mt-2 flex-1 text-[15px] leading-relaxed text-white/80 lg:text-body-sm">
               Расскажем на бесплатной консультации, какая программа подойдёт
               именно вашему ребенку
             </p>
 
             <a
               href="#"
-              className="mt-3 inline-flex items-center gap-1.5 text-caption font-bold text-white transition-all hover:gap-2.5"
+              className="mt-3 inline-flex items-center gap-1.5 text-[13px] font-bold text-white transition-all hover:gap-2.5 lg:text-caption"
             >
               Записаться на консультацию
               <ArrowRight size={16} strokeWidth={2.5} />

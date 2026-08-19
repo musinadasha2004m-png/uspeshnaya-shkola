@@ -46,12 +46,20 @@ export default function Hero() {
     <section className="bg-bg-white">
       <Container className="grid gap-8 py-6 md:py-8 lg:grid-cols-2 lg:items-center lg:gap-10">
         <div>
-          <h1 className="text-h1 font-h1 leading-[1.1] text-brand-navy">
-            От подготовки к школе до успешной сдачи ЕГЭ — всё необходимое для
-            обучения ребенка в одной онлайн-школе.
+          {/*
+            Разбивка на 2 строки — под ширину текстовой колонки на
+            каждом брейкпоинте (колонка растёт от ~343px на мобильном
+            до 445px на lg/1024, 573px на xl/1280, 653px на xl+/1440 —
+            поэтому и размер шрифта в 3 ступени, не только 2, чтобы
+            обе строки гарантированно помещались без 3-го переноса).
+          */}
+          <h1 className="text-[19px] font-extrabold leading-[1.2] text-brand-navy lg:text-[26px] xl:text-[34px]">
+            Поможем вашему ребенку стать
+            <br />
+            успешным и уверенным в себе.
           </h1>
 
-          <p className="mt-4 max-w-xl text-body-sm leading-relaxed text-[#5B6180]">
+          <p className="mt-4 max-w-xl text-[15px] leading-relaxed text-[#5B6180] lg:text-body-sm">
             Подготовка к школе, предметные репетиторы, нейроскорочтение,
             подготовка к ВПР, ОГЭ и ЕГЭ, профориентация — всё, что нужно
             ребенку для успешной учебы.
@@ -69,10 +77,10 @@ export default function Hero() {
                   <Icon size={22} strokeWidth={2.2} />
                 </span>
                 <span className="flex flex-col leading-tight">
-                  <span className="text-h4 font-extrabold text-brand-navy">
+                  <span className="text-[20px] font-extrabold text-brand-navy lg:text-h4">
                     {value}
                   </span>
-                  <span className="text-caption font-caption text-brand-navy/60">
+                  <span className="text-[13px] font-caption text-brand-navy/60 lg:text-caption">
                     {label}
                   </span>
                 </span>

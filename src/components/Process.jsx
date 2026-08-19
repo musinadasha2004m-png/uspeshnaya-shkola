@@ -90,10 +90,10 @@ export default function Process() {
   return (
     <section ref={sectionRef} className="bg-bg-white">
       <Container className="py-16 md:py-20">
-        <h2 className="max-w-2xl text-h2 font-h2 text-brand-navy">
+        <h2 className="max-w-2xl text-[28px] font-bold leading-tight text-brand-navy lg:text-h2 lg:font-h2">
           Как проходит обучение
         </h2>
-        <p className="mt-3 max-w-5xl text-body-sm leading-relaxed text-[#5B6180]">
+        <p className="mt-3 max-w-5xl text-[15px] leading-relaxed text-[#5B6180] xl:text-body-sm">
           Мы сопровождаем ребенка на каждом этапе — от первой консультации до
           достижения поставленных целей.
         </p>
@@ -128,10 +128,10 @@ export default function Process() {
                   <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-brand-purple text-[18px] font-bold text-white">
                     {i + 1}
                   </span>
-                  <h3 className="mt-4 text-[22px] font-bold leading-snug text-brand-navy">
+                  <h3 className="mt-4 text-[18px] font-bold leading-snug text-brand-navy xl:text-[22px]">
                     {step.title}
                   </h3>
-                  <p className="mt-1 text-body-sm leading-relaxed text-[#5B6180]">
+                  <p className="mt-1 text-[15px] leading-relaxed text-[#5B6180] xl:text-body-sm">
                     {step.description}
                   </p>
                 </div>

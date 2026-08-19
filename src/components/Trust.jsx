@@ -87,7 +87,7 @@ export default function Trust() {
   return (
     <section className="bg-bg-lavender">
       <Container className="py-16 md:py-20">
-        <h2 className="max-w-2xl text-h2 font-h2 text-brand-navy">
+        <h2 className="max-w-2xl text-[28px] font-bold leading-tight text-brand-navy lg:text-h2 lg:font-h2">
           Почему нам доверяют
         </h2>
 
@@ -172,7 +172,7 @@ export default function Trust() {
             <span className="text-[40px] font-extrabold leading-none text-brand-navy">
               300+
             </span>
-            <p className="mt-2 text-caption font-caption text-brand-navy/70">
+            <p className="mt-2 text-[15px] font-caption text-brand-navy/70">
               семей уже доверили нам обучение своих детей
             </p>
           </div>
@@ -189,10 +189,10 @@ export default function Trust() {
                   <Icon size={20} strokeWidth={2} className="text-white" />
                 </span>
                 <div>
-                  <h3 className="text-[22px] font-bold leading-snug text-brand-navy">
+                  <h3 className="text-[18px] font-bold leading-snug text-brand-navy">
                     {title}
                   </h3>
-                  <p className="mt-1 text-body-sm leading-relaxed text-[#5B6180]">
+                  <p className="mt-1 text-[15px] leading-relaxed text-[#5B6180]">
                     {description}
                   </p>
                 </div>
