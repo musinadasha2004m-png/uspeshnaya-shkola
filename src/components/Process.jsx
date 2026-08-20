@@ -117,7 +117,9 @@ export default function Process() {
                   key={step.title}
                   ref={(el) => (cardRefs.current[i] = el)}
                   data-index={i}
-                  className="relative z-10 flex flex-col items-start rounded-card border-2 bg-white p-5 text-left transition-all duration-500 ease-out"
+                  className={`relative z-10 flex flex-col items-start rounded-card border-2 bg-white p-5 text-left transition-all duration-500 ease-out ${
+                    i === 1 ? 'pb-3' : ''
+                  }`}
                   style={{
                     borderColor: highlighted ? '#8A63F6' : 'transparent',
                     boxShadow: highlighted
@@ -134,6 +136,14 @@ export default function Process() {
                   <p className="mt-1 text-[15px] leading-relaxed text-[#5B6180] xl:text-body-sm">
                     {step.description}
                   </p>
+                  {i === 1 && (
+                    <a
+                      href="#"
+                      className="mt-2 w-full shrink-0 rounded-button bg-brand-purple py-1.5 text-center text-[13px] font-bold leading-none text-white transition-opacity hover:opacity-90"
+                    >
+                      Записаться
+                    </a>
+                  )}
                 </div>
               )
             })}

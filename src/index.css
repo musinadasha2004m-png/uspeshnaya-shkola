@@ -26,3 +26,14 @@
     animation: none;
   }
 }
+
+/* Скрывает нативный скроллбар у горизонтальных каруселей — сам скролл
+   (свайп/колесо/стрелки) при этом работает как обычно. */
+.scrollbar-hide {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}

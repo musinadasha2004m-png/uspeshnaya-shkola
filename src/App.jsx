@@ -4,6 +4,8 @@ import Directions from './components/Directions'
 import Community from './components/Community'
 import Trust from './components/Trust'
 import Process from './components/Process'
+import Promo from './components/Promo'
+import Testimonials from './components/Testimonials'
 
 function App() {
   return (
@@ -14,6 +16,8 @@ function App() {
       <Community />
       <Trust />
       <Process />
+      <Promo />
+      <Testimonials />
     </div>
   )
 }
