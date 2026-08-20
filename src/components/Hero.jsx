@@ -32,13 +32,17 @@ const STATS = [
 // design/homepage-reference.png, нижняя дуга (силуэт мальчика) пустая.
 // Размер (width) одинаковый у всех — эталон взят с иконки мозга.
 const ICON_SIZE = 68
+// На мобильных (узкий квадрат-контейнер) фото мальчика занимает почти
+// всю высоту вплотную к верхнему краю — верхние две иконки (мозг,
+// звезда) на исходном top:5.4% заезжают на фото. mobileTop поднимает
+// их выше, за верхний край подложки, только до sm; с sm — как задумано.
 const FLOATING_ICONS = [
-  { src: iconBrain, alt: '', left: '30%', top: '5.4%', width: ICON_SIZE, rotate: -8, delay: 0, duration: 4.6 },
-  { src: iconStar, alt: '', left: '70%', top: '5.4%', width: ICON_SIZE, rotate: 8, delay: 0.9, duration: 5 },
-  { src: iconLightbulb, alt: '', left: '97%', top: '34.7%', width: ICON_SIZE, rotate: -4, delay: 0.4, duration: 5.2 },
-  { src: iconBackpack, alt: '', left: '92.3%', top: '74.7%', width: ICON_SIZE, rotate: 8, delay: 1.1, duration: 4.4 },
-  { src: iconTarget, alt: '', left: '7.7%', top: '74.7%', width: ICON_SIZE, rotate: -14, delay: 0.2, duration: 5 },
-  { src: iconBook, alt: '', left: '3%', top: '34.7%', width: ICON_SIZE, rotate: -15, delay: 1.5, duration: 4.8 },
+  { src: iconBrain, alt: '', left: '30%', top: '5.4%', mobileTop: '-6%', width: ICON_SIZE, rotate: -8, delay: 0, duration: 4.6 },
+  { src: iconStar, alt: '', left: '70%', top: '5.4%', mobileTop: '-6%', width: ICON_SIZE, rotate: 8, delay: 0.9, duration: 5 },
+  { src: iconLightbulb, alt: '', left: '97%', top: '34.7%', mobileTop: '34.7%', width: ICON_SIZE, rotate: -4, delay: 0.4, duration: 5.2 },
+  { src: iconBackpack, alt: '', left: '92.3%', top: '74.7%', mobileTop: '74.7%', width: ICON_SIZE, rotate: 8, delay: 1.1, duration: 4.4 },
+  { src: iconTarget, alt: '', left: '7.7%', top: '74.7%', mobileTop: '74.7%', width: ICON_SIZE, rotate: -14, delay: 0.2, duration: 5 },
+  { src: iconBook, alt: '', left: '3%', top: '34.7%', mobileTop: '34.7%', width: ICON_SIZE, rotate: -15, delay: 1.5, duration: 4.8 },
 ]
 
 export default function Hero() {
@@ -46,17 +50,8 @@ export default function Hero() {
     <section className="bg-bg-white">
       <Container className="grid gap-8 py-6 md:py-8 lg:grid-cols-2 lg:items-center lg:gap-10">
         <div>
-          {/*
-            Разбивка на 2 строки — под ширину текстовой колонки на
-            каждом брейкпоинте (колонка растёт от ~343px на мобильном
-            до 445px на lg/1024, 573px на xl/1280, 653px на xl+/1440 —
-            поэтому и размер шрифта в 3 ступени, не только 2, чтобы
-            обе строки гарантированно помещались без 3-го переноса).
-          */}
-          <h1 className="text-[19px] font-extrabold leading-[1.2] text-brand-navy lg:text-[26px] xl:text-[34px]">
-            Поможем вашему ребенку стать
-            <br />
-            успешным и уверенным в себе.
+          <h1 className="text-[28px] font-bold leading-tight text-brand-navy lg:text-h2 lg:font-h2">
+            Поможем вашему ребенку стать успешным и уверенным в себе.
           </h1>
 
           <p className="mt-4 max-w-xl text-[15px] leading-relaxed text-[#5B6180] lg:text-body-sm">
@@ -116,11 +111,11 @@ export default function Hero() {
             className="absolute left-1/2 top-1/2 z-10 h-[92%] w-auto -translate-x-1/2 -translate-y-1/2 object-contain"
           />
 
-          {FLOATING_ICONS.map(({ src, alt, left, top, width, rotate, delay, duration }, i) => (
+          {FLOATING_ICONS.map(({ src, alt, left, top, mobileTop, width, rotate, delay, duration }, i) => (
             <div
               key={i}
-              className="absolute z-20 hidden sm:block"
-              style={{ left, top, transform: 'translate(-50%, -50%)' }}
+              className="absolute z-20 top-[var(--top-mobile)] sm:top-[var(--top-desktop)]"
+              style={{ left, '--top-mobile': mobileTop, '--top-desktop': top, transform: 'translate(-50%, -50%)' }}
             >
               <div
                 className="animate-hero-float"
@@ -129,8 +124,8 @@ export default function Hero() {
                 <img
                   src={src}
                   alt={alt}
-                  style={{ transform: `rotate(${rotate}deg)`, width: `${width}px` }}
-                  className="h-auto max-w-none drop-shadow-[0_8px_16px_rgba(27,36,85,0.12)]"
+                  style={{ transform: `rotate(${rotate}deg)`, '--icon-w': `${width}px` }}
+                  className="h-auto w-[46px] max-w-none drop-shadow-[0_8px_16px_rgba(27,36,85,0.12)] sm:w-[56px] lg:w-[var(--icon-w)]"
                 />
               </div>
             </div>
