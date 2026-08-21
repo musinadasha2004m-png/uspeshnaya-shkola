@@ -57,7 +57,7 @@ export default function Community() {
                 rel="noreferrer"
                 className="flex items-center justify-center gap-3 rounded-button bg-white px-6 py-2.5 font-button text-button text-brand-purple shadow-card transition-opacity hover:opacity-90"
               >
-                <TelegramIcon width={22} height={22} />
+                <TelegramIcon className="h-7 w-7 shrink-0 sm:h-[22px] sm:w-[22px]" />
                 Перейти в Telegram-канал
               </a>
               <a
@@ -66,7 +66,7 @@ export default function Community() {
                 rel="noreferrer"
                 className="flex items-center justify-center gap-3 rounded-button bg-white px-6 py-2.5 font-button text-button text-brand-purple shadow-card transition-opacity hover:opacity-90"
               >
-                <MaxIcon width={22} height={22} />
+                <MaxIcon className="h-7 w-7 shrink-0 sm:h-[22px] sm:w-[22px]" />
                 Перейти в сообщество MAX
               </a>
             </div>

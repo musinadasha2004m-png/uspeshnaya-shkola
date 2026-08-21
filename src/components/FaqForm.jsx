@@ -294,7 +294,7 @@ export default function FaqForm() {
                 rel="noreferrer"
                 className="flex items-center gap-2.5 rounded-button bg-white px-5 py-2.5 font-button text-[15px] text-brand-navy shadow-card transition-opacity hover:opacity-90"
               >
-                <TelegramIcon width={20} height={20} />
+                <TelegramIcon className="h-6 w-6 shrink-0 sm:h-5 sm:w-5" />
                 Написать в Telegram
               </a>
               <a
@@ -303,7 +303,7 @@ export default function FaqForm() {
                 rel="noreferrer"
                 className="flex items-center gap-2.5 rounded-button bg-white px-5 py-2.5 font-button text-[15px] text-brand-navy shadow-card transition-opacity hover:opacity-90"
               >
-                <MaxIcon width={20} height={20} />
+                <MaxIcon className="h-6 w-6 shrink-0 sm:h-5 sm:w-5" />
                 Написать в MAX
               </a>
             </div>
@@ -339,7 +339,7 @@ export default function FaqForm() {
                 rel="noreferrer"
                 className="flex items-center gap-2.5 rounded-button border border-bg-lavender2 bg-bg-white px-5 py-2.5 font-button text-[15px] text-brand-navy transition-colors hover:bg-bg-lavender3"
               >
-                <TelegramIcon width={20} height={20} />
+                <TelegramIcon className="h-6 w-6 shrink-0 sm:h-5 sm:w-5" />
                 Написать в Telegram
               </a>
               <a
@@ -348,7 +348,7 @@ export default function FaqForm() {
                 rel="noreferrer"
                 className="flex items-center gap-2.5 rounded-button border border-bg-lavender2 bg-bg-white px-5 py-2.5 font-button text-[15px] text-brand-navy transition-colors hover:bg-bg-lavender3"
               >
-                <MaxIcon width={20} height={20} />
+                <MaxIcon className="h-6 w-6 shrink-0 sm:h-5 sm:w-5" />
                 Написать в MAX
               </a>
             </div>

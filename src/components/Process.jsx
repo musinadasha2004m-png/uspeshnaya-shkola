@@ -100,7 +100,7 @@ export default function Process() {
 
         <div className="relative mt-8 md:mt-12">
           {/* Вертикальная линия — мобайл/планшет (статичная, без заливки) */}
-          <div className="absolute bottom-6 left-[42px] top-6 w-px bg-bg-lavender2 xl:hidden" />
+          <div className="absolute bottom-6 left-8 top-6 w-px bg-bg-lavender2 xl:hidden" />
 
           {/* Горизонтальная линия — десктоп, с заливкой по скроллу */}
           <div className="absolute left-0 right-0 top-[42px] hidden h-px bg-bg-lavender2 xl:block" />
@@ -127,13 +127,15 @@ export default function Process() {
                       : '0 10px 28px rgba(27, 36, 85, 0.12)',
                   }}
                 >
-                  <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-brand-purple text-[18px] font-bold text-white">
-                    {i + 1}
-                  </span>
-                  <h3 className="mt-3 text-[18px] font-bold leading-snug text-brand-navy md:mt-4 xl:text-[22px]">
-                    {step.title}
-                  </h3>
-                  <p className="mt-1 text-[15px] leading-relaxed text-[#5B6180] xl:text-body-sm">
+                  <div className="flex w-full items-center gap-3 xl:block">
+                    <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-brand-purple text-[14px] font-bold text-white xl:h-11 xl:w-11 xl:text-[18px]">
+                      {i + 1}
+                    </span>
+                    <h3 className="text-[18px] font-bold leading-snug text-brand-navy xl:mt-4 xl:text-[22px]">
+                      {step.title}
+                    </h3>
+                  </div>
+                  <p className="mt-2 text-[15px] leading-relaxed text-[#5B6180] xl:mt-1 xl:text-body-sm">
                     {step.description}
                   </p>
                   {i === 1 && (
