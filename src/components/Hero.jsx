@@ -51,7 +51,7 @@ export default function Hero() {
       <Container className="grid gap-16 py-6 md:py-8 lg:grid-cols-2 lg:items-center lg:gap-10">
         <div>
           <h1 className="text-[28px] font-bold leading-tight text-brand-navy lg:text-h2 lg:font-h2">
-            Поможем вашему ребенку стать успешным и уверенным в себе.
+            Поможем вашему ребенку стать успешным и уверенным в себе
           </h1>
 
           <p className="mt-4 max-w-xl text-[15px] leading-relaxed text-[#5B6180] lg:text-body-sm">
