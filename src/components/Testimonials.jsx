@@ -1,10 +1,6 @@
 import { useRef } from 'react'
 import { ArrowRight, Check, ChevronLeft, ChevronRight } from 'lucide-react'
 import Container from './Container'
-import { TelegramIcon, MaxIcon } from './icons'
-
-const TELEGRAM_REVIEWS_HREF = 'https://t.me/otzyvuspeshnoshcola'
-const MAX_REVIEWS_HREF = 'https://max.ru/join/FiNtXI2voP4aN0sry44dN3pcGUTR2NVIvnDeNuLey3I'
 
 // Порядок кейсов подобран так, чтобы одинаковый предмет не шёл
 // подряд, — сохраняй именно эту последовательность, не перемешивать.
@@ -132,7 +128,7 @@ export default function Testimonials() {
             type="button"
             onClick={() => scrollByCards(-1)}
             aria-label="Прокрутить влево"
-            className="absolute left-2 top-1/2 z-20 hidden h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full bg-brand-blue text-white shadow-card transition-opacity hover:opacity-90 lg:flex"
+            className="absolute left-2 top-1/2 z-20 hidden h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full bg-brand-purple text-white shadow-card transition-opacity hover:opacity-90 lg:flex"
           >
             <ChevronLeft size={22} strokeWidth={2.5} />
           </button>
@@ -140,7 +136,7 @@ export default function Testimonials() {
             type="button"
             onClick={() => scrollByCards(1)}
             aria-label="Прокрутить вправо"
-            className="absolute right-2 top-1/2 z-20 hidden h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full bg-brand-blue text-white shadow-card transition-opacity hover:opacity-90 lg:flex"
+            className="absolute right-2 top-1/2 z-20 hidden h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full bg-brand-purple text-white shadow-card transition-opacity hover:opacity-90 lg:flex"
           >
             <ChevronRight size={22} strokeWidth={2.5} />
           </button>
@@ -204,39 +200,6 @@ export default function Testimonials() {
                 Перейти
                 <ArrowRight size={18} strokeWidth={2.5} />
               </span>
-            </a>
-          </div>
-        </div>
-
-        <div className="mt-10 flex flex-col items-start gap-5 rounded-card bg-brand-blue px-6 py-5 text-left sm:flex-row sm:items-center sm:justify-between sm:px-8 sm:py-6">
-          <div>
-            <h3 className="text-[24px] font-bold leading-tight text-white lg:text-h3 lg:font-h3">
-              Больше реальных отзывов от наших родителей
-            </h3>
-            <p className="mt-2 max-w-xl text-[15px] leading-relaxed text-white/90 lg:text-body-sm">
-              Родители регулярно делятся впечатлениями о занятиях, успехах
-              своих детей и результатах обучения в наших сообществах.
-            </p>
-          </div>
-
-          <div className="flex shrink-0 gap-3">
-            <a
-              href={TELEGRAM_REVIEWS_HREF}
-              target="_blank"
-              rel="noreferrer"
-              className="flex items-center gap-2.5 rounded-button bg-white px-6 py-3.5 font-button text-button text-brand-blue shadow-card transition-opacity hover:opacity-90"
-            >
-              <TelegramIcon width={24} height={24} />
-              Telegram
-            </a>
-            <a
-              href={MAX_REVIEWS_HREF}
-              target="_blank"
-              rel="noreferrer"
-              className="flex items-center gap-2.5 rounded-button bg-white px-6 py-3.5 font-button text-button text-brand-blue shadow-card transition-opacity hover:opacity-90"
-            >
-              <MaxIcon width={24} height={24} />
-              MAX
             </a>
           </div>
         </div>

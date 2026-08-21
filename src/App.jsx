@@ -6,6 +6,7 @@ import Trust from './components/Trust'
 import Process from './components/Process'
 import Promo from './components/Promo'
 import Testimonials from './components/Testimonials'
+import ParentReviews from './components/ParentReviews'
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
       <Process />
       <Promo />
       <Testimonials />
+      <ParentReviews />
     </div>
   )
 }
