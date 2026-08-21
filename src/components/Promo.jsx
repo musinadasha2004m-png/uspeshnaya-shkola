@@ -17,8 +17,8 @@ const STARS = [
 export default function Promo() {
   return (
     <section className="bg-bg-white">
-      <Container className="py-16 md:py-20">
-        <div className="relative rounded-card bg-brand-pink px-6 py-4 sm:py-3 md:px-10 md:py-2">
+      <Container className="py-10 md:py-14">
+        <div className="relative rounded-card bg-brand-pink px-4 py-4 sm:py-3 md:px-10 md:py-2">
           {/* Компактный вариант — только для самых узких экранов (< sm) */}
           <img
             src={giftBox}
@@ -46,7 +46,8 @@ export default function Promo() {
 
           <div className="relative z-10 text-center sm:pl-16 sm:pr-48 sm:text-left md:pl-16 md:pr-[22rem] lg:pr-[26rem]">
             <h2 className="text-[30px] font-extrabold leading-[1.15] text-white sm:whitespace-nowrap sm:text-[44px] sm:leading-[1.05] lg:text-[48px]">
-              Профориентация в подарок
+              Профориентация
+              <br className="sm:hidden" /> в подарок
             </h2>
             <p className="mt-3 text-[15px] leading-relaxed text-white/90 lg:text-body-sm">
               При покупке годовой программы. Поможем ребенку определиться с

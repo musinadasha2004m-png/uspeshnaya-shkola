@@ -64,7 +64,7 @@ const DIRECTIONS = [
 export default function Directions() {
   return (
     <section id="directions" className="bg-bg-lavender">
-      <Container className="py-16 md:py-20">
+      <Container className="py-10 md:py-14">
         <div className="max-w-2xl">
           <h2 className="text-[28px] font-bold leading-tight text-brand-navy lg:text-h2 lg:font-h2">
             Выберите направление
@@ -75,11 +75,11 @@ export default function Directions() {
           </p>
         </div>
 
-        <div className="mt-10 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+        <div className="mt-6 grid grid-cols-1 gap-4 sm:grid-cols-2 md:mt-10 md:gap-5 lg:grid-cols-3 xl:grid-cols-4">
           {DIRECTIONS.map(({ icon: Icon, tint, title, description }) => (
             <div
               key={title}
-              className="flex h-full flex-col rounded-card bg-white p-5 shadow-card"
+              className="flex h-full flex-col rounded-card bg-white p-4 shadow-card md:p-5"
             >
               <div className="flex items-center gap-3">
                 <span
@@ -106,7 +106,7 @@ export default function Directions() {
             </div>
           ))}
 
-          <div className="flex h-full flex-col rounded-card bg-brand-purple p-5 shadow-card">
+          <div className="flex h-full flex-col rounded-card bg-brand-purple p-4 shadow-card md:p-5">
             <div className="flex items-center gap-3">
               <img
                 src={iconBackpack}

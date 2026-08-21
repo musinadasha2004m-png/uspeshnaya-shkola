@@ -86,7 +86,7 @@ function cardLeftX(isLeft, row) {
 export default function Trust() {
   return (
     <section className="bg-bg-lavender">
-      <Container className="py-16 md:py-20">
+      <Container className="py-10 md:py-14">
         <h2 className="max-w-2xl text-[28px] font-bold leading-tight text-brand-navy lg:text-h2 lg:font-h2">
           Почему нам доверяют
         </h2>
@@ -168,7 +168,7 @@ export default function Trust() {
 
         {/* Планшет/моб: карточка "300+" сверху + вертикальный список */}
         <div className="xl:hidden">
-          <div className="mx-auto mt-6 max-w-md rounded-card bg-bg-lavender2 p-6 text-center">
+          <div className="mx-auto mt-4 max-w-md rounded-card bg-bg-lavender2 p-5 text-center md:mt-6 md:p-6">
             <span className="text-[40px] font-extrabold leading-none text-brand-navy">
               300+
             </span>
@@ -177,11 +177,11 @@ export default function Trust() {
             </p>
           </div>
 
-          <div className="mt-8 flex flex-col gap-4">
+          <div className="mt-5 flex flex-col gap-3 md:mt-8 md:gap-4">
             {TRUST_ITEMS.map(({ icon: Icon, tint, title, description }) => (
               <div
                 key={title}
-                className="flex gap-4 rounded-card bg-white p-5 shadow-card"
+                className="flex gap-4 rounded-card bg-white p-4 shadow-card md:p-5"
               >
                 <span
                   className={`flex h-11 w-11 shrink-0 items-center justify-center rounded-xl ${tint}`}

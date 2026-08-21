@@ -22,8 +22,8 @@ const DECOR = [
 export default function Community() {
   return (
     <section className="bg-bg-white">
-      <Container className="py-8 md:py-10">
-        <div className="relative isolate flex flex-col items-center gap-4 rounded-card bg-brand-purple p-5 text-center md:p-6">
+      <Container className="py-6 md:py-10">
+        <div className="relative isolate flex flex-col items-center gap-3 rounded-card bg-brand-purple px-4 py-5 text-center md:gap-4 md:p-6">
           {DECOR.map(({ src, size, circle, style }, i) => (
             <span
               key={i}

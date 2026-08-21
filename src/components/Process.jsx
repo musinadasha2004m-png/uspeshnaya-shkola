@@ -89,7 +89,7 @@ export default function Process() {
 
   return (
     <section ref={sectionRef} className="bg-bg-white">
-      <Container className="py-16 md:py-20">
+      <Container className="py-10 md:py-14">
         <h2 className="max-w-2xl text-[28px] font-bold leading-tight text-brand-navy lg:text-h2 lg:font-h2">
           Как проходит обучение
         </h2>
@@ -98,7 +98,7 @@ export default function Process() {
           достижения поставленных целей.
         </p>
 
-        <div className="relative mt-12">
+        <div className="relative mt-8 md:mt-12">
           {/* Вертикальная линия — мобайл/планшет (статичная, без заливки) */}
           <div className="absolute bottom-6 left-[42px] top-6 w-px bg-bg-lavender2 xl:hidden" />
 
@@ -109,7 +109,7 @@ export default function Process() {
             style={{ width: `${lineProgress * 100}%` }}
           />
 
-          <div className="grid grid-cols-1 gap-5 xl:grid-cols-6 xl:gap-4">
+          <div className="grid grid-cols-1 gap-4 xl:grid-cols-6 xl:gap-4">
             {STEPS.map((step, i) => {
               const highlighted = visibleSteps.has(i) && !isDesktop
               return (
@@ -117,7 +117,7 @@ export default function Process() {
                   key={step.title}
                   ref={(el) => (cardRefs.current[i] = el)}
                   data-index={i}
-                  className={`relative z-10 flex flex-col items-start rounded-card border-2 bg-white p-5 text-left transition-all duration-500 ease-out ${
+                  className={`relative z-10 flex flex-col items-start rounded-card border-2 bg-white p-4 text-left transition-all duration-500 ease-out md:p-5 ${
                     i === 1 ? 'pb-3' : ''
                   }`}
                   style={{
@@ -130,7 +130,7 @@ export default function Process() {
                   <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-brand-purple text-[18px] font-bold text-white">
                     {i + 1}
                   </span>
-                  <h3 className="mt-4 text-[18px] font-bold leading-snug text-brand-navy xl:text-[22px]">
+                  <h3 className="mt-3 text-[18px] font-bold leading-snug text-brand-navy md:mt-4 xl:text-[22px]">
                     {step.title}
                   </h3>
                   <p className="mt-1 text-[15px] leading-relaxed text-[#5B6180] xl:text-body-sm">

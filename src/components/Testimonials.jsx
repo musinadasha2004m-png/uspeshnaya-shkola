@@ -113,7 +113,7 @@ export default function Testimonials() {
 
   return (
     <section className="bg-bg-lavender">
-      <Container className="py-16 md:py-20">
+      <Container className="py-10 md:py-14">
         <h2 className="max-w-2xl text-[28px] font-bold leading-tight text-brand-navy lg:text-h2 lg:font-h2">
           Успехи наших учеников
         </h2>
@@ -123,7 +123,7 @@ export default function Testimonials() {
           которых мечтали, и делают первые шаги к будущей профессии.
         </p>
 
-        <div className="relative mt-10">
+        <div className="relative mt-6 md:mt-10">
           <button
             type="button"
             onClick={() => scrollByCards(-1)}

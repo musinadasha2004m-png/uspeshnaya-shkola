@@ -177,12 +177,12 @@ export default function ParentReviews() {
 
   return (
     <section className="bg-bg-lavender">
-      <Container className="py-16 md:py-20">
+      <Container className="py-10 md:py-14">
         <h2 className="text-[28px] font-bold leading-tight text-brand-navy lg:text-h2 lg:font-h2">
           Отзывы родителей
         </h2>
 
-        <div className="relative mt-10">
+        <div className="relative mt-6 md:mt-10">
           <button
             type="button"
             onClick={() => scrollByCards(-1)}
@@ -230,7 +230,7 @@ export default function ParentReviews() {
           </div>
         </div>
 
-        <div className="mt-10 flex flex-col items-start gap-5 rounded-card bg-brand-blue px-6 py-5 text-left sm:flex-row sm:items-center sm:justify-between sm:px-8 sm:py-6">
+        <div className="mt-6 flex flex-col items-start gap-5 rounded-card bg-brand-blue px-4 py-5 text-left sm:flex-row sm:items-center sm:justify-between sm:px-8 sm:py-6 md:mt-10">
           <div>
             <h3 className="text-[24px] font-bold leading-tight text-white lg:text-h3 lg:font-h3">
               Больше реальных отзывов от наших родителей
