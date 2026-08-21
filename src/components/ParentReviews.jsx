@@ -2,9 +2,19 @@ import { useEffect, useLayoutEffect, useRef, useState } from 'react'
 import { ArrowRight, ChevronLeft, ChevronRight } from 'lucide-react'
 import Container from './Container'
 import { TelegramIcon, MaxIcon } from './icons'
+import iconStar from '../assets/icon-star.png'
 
 const TELEGRAM_REVIEWS_HREF = 'https://t.me/otzyvuspeshnoshcola'
 const MAX_REVIEWS_HREF = 'https://max.ru/join/FiNtXI2voP4aN0sry44dN3pcGUTR2NVIvnDeNuLey3I'
+
+// Декор по тому же принципу, что в фиолетовой плашке "Будьте ближе..."
+// и розовой "Профориентация в подарок" — звёзды со светлой круглой
+// подложкой, частично выступающие за края блока.
+const BLUE_DECOR = [
+  { size: 40, circle: 60, style: { top: '-20px', left: '24px' } },
+  { size: 26, circle: 40, style: { bottom: '-12px', right: '90px' } },
+  { size: 52, circle: 76, style: { bottom: '-26px', right: '18px' } },
+]
 
 const AVATAR_TINTS = [
   'bg-brand-purple/15 text-brand-purple',
@@ -230,7 +240,17 @@ export default function ParentReviews() {
           </div>
         </div>
 
-        <div className="mt-6 flex flex-col items-start gap-5 rounded-card bg-brand-blue px-4 py-5 text-left sm:flex-row sm:items-center sm:justify-between sm:px-8 sm:py-6 md:mt-10">
+        <div className="relative isolate mt-6 flex flex-col items-start gap-5 rounded-card bg-brand-blue px-4 py-5 text-left sm:flex-row sm:items-center sm:justify-between sm:px-8 sm:py-6 md:mt-10">
+          {BLUE_DECOR.map(({ size, circle, style }, i) => (
+            <span
+              key={i}
+              className="pointer-events-none absolute -z-10 flex items-center justify-center rounded-full bg-white/15"
+              style={{ width: circle, height: circle, ...style }}
+            >
+              <img src={iconStar} alt="" style={{ width: size, height: size }} className="object-contain" />
+            </span>
+          ))}
+
           <div>
             <h3 className="text-[24px] font-bold leading-tight text-white lg:text-h3 lg:font-h3">
               Больше реальных отзывов от наших родителей

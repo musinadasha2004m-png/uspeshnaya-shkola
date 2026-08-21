@@ -2,10 +2,19 @@ import { useLayoutEffect, useRef, useState } from 'react'
 import { CheckCircle2, Plus } from 'lucide-react'
 import Container from './Container'
 import { TelegramIcon, MaxIcon } from './icons'
+import iconStar from '../assets/icon-star.png'
 
 const TELEGRAM_HREF = 'https://t.me/DariaYSPESHNO'
 const MAX_HREF =
   'https://max.ru/u/f9LHodD0cOIAsGNqHrsBHmBuQ_E92Z2BhD2_J4ybwT0oPafu1hB_p2op9YA'
+
+// Декор по тому же принципу, что в фиолетовой/розовой/синей плашках —
+// звёзды со светлой круглой подложкой, частично выступающие за края.
+const FAQ_DECOR = [
+  { size: 36, circle: 54, style: { top: '-18px', left: '20px' } },
+  { size: 24, circle: 38, style: { top: '-10px', right: '100px' } },
+  { size: 44, circle: 64, style: { bottom: '-22px', right: '24px' } },
+]
 
 const FAQ_ITEMS = [
   {
@@ -99,9 +108,9 @@ function FaqItem({ question, answer, isOpen, onToggle }) {
   )
 }
 
-function Field({ label, name, value, onChange, error, type = 'text', placeholder }) {
+function Field({ label, name, value, onChange, error, type = 'text', placeholder, className = '' }) {
   return (
-    <label className="flex flex-col gap-1.5 text-left">
+    <label className={`flex flex-col gap-1.5 text-left ${className}`}>
       <span className="text-[13px] font-bold text-brand-navy/70">{label}</span>
       <input
         type={type}
@@ -118,9 +127,9 @@ function Field({ label, name, value, onChange, error, type = 'text', placeholder
   )
 }
 
-function SelectField({ label, name, value, onChange, error, options, placeholder }) {
+function SelectField({ label, name, value, onChange, error, options, placeholder, className = '' }) {
   return (
-    <label className="flex flex-col gap-1.5 text-left">
+    <label className={`flex flex-col gap-1.5 text-left ${className}`}>
       <span className="text-[13px] font-bold text-brand-navy/70">{label}</span>
       <select
         name={name}
@@ -144,7 +153,7 @@ function SelectField({ label, name, value, onChange, error, options, placeholder
   )
 }
 
-const EMPTY_VALUES = { name: '', phone: '', grade: '', direction: '' }
+const EMPTY_VALUES = { phone: '', grade: '', direction: '' }
 
 function ConsultForm() {
   const [values, setValues] = useState(EMPTY_VALUES)
@@ -159,7 +168,6 @@ function ConsultForm() {
 
   const validate = () => {
     const errs = {}
-    if (!values.name.trim()) errs.name = 'Введите имя'
     if (!isValidPhone(values.phone)) errs.phone = 'Введите корректный номер телефона'
     if (!values.grade.trim()) errs.grade = 'Укажите класс ребенка'
     if (!values.direction) errs.direction = 'Выберите направление'
@@ -190,14 +198,6 @@ function ConsultForm() {
       {status === 'idle' ? (
         <form onSubmit={handleSubmit} noValidate className="grid gap-4 sm:grid-cols-2">
           <Field
-            label="Имя"
-            name="name"
-            value={values.name}
-            onChange={handleChange}
-            error={errors.name}
-            placeholder="Как к вам обращаться"
-          />
-          <Field
             label="Телефон"
             name="phone"
             type="tel"
@@ -222,6 +222,7 @@ function ConsultForm() {
             error={errors.direction}
             options={DIRECTIONS}
             placeholder="Выберите направление"
+            className="sm:col-span-2"
           />
 
           <button
@@ -253,7 +254,7 @@ export default function FaqForm() {
           Остались вопросы? Мы ответили на самые популярные
         </h2>
 
-        <div className="mt-6 flex max-w-3xl flex-col gap-3 md:mt-10">
+        <div className="mt-6 grid grid-cols-1 gap-3 md:mt-10 lg:grid-cols-2 lg:gap-4">
           {FAQ_ITEMS.map((item, i) => (
             <FaqItem
               key={item.question}
@@ -263,37 +264,52 @@ export default function FaqForm() {
               onToggle={() => setOpenIndex((cur) => (cur === i ? null : i))}
             />
           ))}
-        </div>
 
-        <div className="mt-6 flex max-w-3xl flex-col items-start gap-4 rounded-card bg-bg-lavender3 p-5 sm:flex-row sm:items-center sm:justify-between md:mt-8 md:p-6">
-          <p className="text-[15px] leading-relaxed text-[#5B6180] lg:text-body-sm">
-            Наш администратор всегда на связи и с удовольствием поможет
-            разобраться в любой ситуации.
-          </p>
-          <div className="flex shrink-0 gap-3">
-            <a
-              href={TELEGRAM_HREF}
-              target="_blank"
-              rel="noreferrer"
-              className="flex items-center gap-2.5 rounded-button bg-white px-5 py-2.5 font-button text-[15px] text-brand-purple shadow-card transition-opacity hover:opacity-90"
-            >
-              <TelegramIcon width={20} height={20} />
-              Написать в Telegram
-            </a>
-            <a
-              href={MAX_HREF}
-              target="_blank"
-              rel="noreferrer"
-              className="flex items-center gap-2.5 rounded-button bg-white px-5 py-2.5 font-button text-[15px] text-brand-purple shadow-card transition-opacity hover:opacity-90"
-            >
-              <MaxIcon width={20} height={20} />
-              Написать в MAX
-            </a>
+          <div className="relative isolate flex flex-col items-start gap-4 rounded-card bg-brand-yellow p-5 sm:flex-row sm:items-center sm:justify-between md:p-6 lg:col-span-2">
+            {FAQ_DECOR.map(({ size, circle, style }, i) => (
+              <span
+                key={i}
+                className="pointer-events-none absolute -z-10 flex items-center justify-center rounded-full bg-white/25"
+                style={{ width: circle, height: circle, ...style }}
+              >
+                <img
+                  src={iconStar}
+                  alt=""
+                  style={{ width: size, height: size }}
+                  className="object-contain"
+                />
+              </span>
+            ))}
+
+            <p className="text-[15px] leading-relaxed text-brand-navy lg:text-body-sm">
+              Наш администратор всегда на связи и с удовольствием поможет
+              разобраться в любой ситуации.
+            </p>
+            <div className="flex shrink-0 gap-3">
+              <a
+                href={TELEGRAM_HREF}
+                target="_blank"
+                rel="noreferrer"
+                className="flex items-center gap-2.5 rounded-button bg-white px-5 py-2.5 font-button text-[15px] text-brand-navy shadow-card transition-opacity hover:opacity-90"
+              >
+                <TelegramIcon width={20} height={20} />
+                Написать в Telegram
+              </a>
+              <a
+                href={MAX_HREF}
+                target="_blank"
+                rel="noreferrer"
+                className="flex items-center gap-2.5 rounded-button bg-white px-5 py-2.5 font-button text-[15px] text-brand-navy shadow-card transition-opacity hover:opacity-90"
+              >
+                <MaxIcon width={20} height={20} />
+                Написать в MAX
+              </a>
+            </div>
           </div>
         </div>
 
         <div className="mt-10 rounded-card bg-white p-6 shadow-card md:p-10 md:mt-14">
-          <div className="max-w-2xl">
+          <div>
             <h3 className="text-[24px] font-bold leading-tight text-brand-navy lg:text-h3 lg:font-h3">
               Давайте вместе найдем лучшее решение для обучения вашего
               ребенка
