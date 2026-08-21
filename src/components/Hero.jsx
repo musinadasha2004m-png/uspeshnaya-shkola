@@ -48,7 +48,7 @@ const FLOATING_ICONS = [
 export default function Hero() {
   return (
     <section className="bg-bg-white">
-      <Container className="grid gap-8 py-6 md:py-8 lg:grid-cols-2 lg:items-center lg:gap-10">
+      <Container className="grid gap-16 py-6 md:py-8 lg:grid-cols-2 lg:items-center lg:gap-10">
         <div>
           <h1 className="text-[28px] font-bold leading-tight text-brand-navy lg:text-h2 lg:font-h2">
             Поможем вашему ребенку стать успешным и уверенным в себе.
