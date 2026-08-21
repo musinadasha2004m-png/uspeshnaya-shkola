@@ -250,8 +250,10 @@ export default function FaqForm() {
   return (
     <section className="bg-bg-white" id="faq">
       <Container className="py-10 md:py-14">
-        <h2 className="max-w-2xl text-[28px] font-bold leading-tight text-brand-navy lg:text-h2 lg:font-h2">
-          Остались вопросы? Мы ответили на самые популярные
+        <h2 className="text-[28px] font-bold leading-tight text-brand-navy lg:text-h2 lg:font-h2">
+          Остались вопросы?
+          <br className="min-[1407px]:hidden" /> Мы ответили на
+          <br className="min-[1407px]:hidden" /> самые популярные
         </h2>
 
         <div className="mt-6 grid grid-cols-1 gap-3 md:mt-10 lg:grid-cols-2 lg:gap-4">
