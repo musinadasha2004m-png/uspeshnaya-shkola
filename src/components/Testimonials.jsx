@@ -148,16 +148,16 @@ export default function Testimonials() {
             {CASES.map(({ tag, name, challenge, results }) => (
               <div
                 key={name}
-                className="flex w-[260px] shrink-0 snap-start flex-col rounded-card bg-white p-6 shadow-card sm:w-[280px] lg:w-[300px]"
+                className="flex w-[260px] shrink-0 snap-start flex-col rounded-card bg-white p-5 shadow-card sm:w-[280px] lg:w-[300px]"
               >
                 <span className="inline-flex w-fit items-center rounded-full bg-brand-purple/10 px-3 py-1 text-[13px] font-bold text-brand-purple">
                   {tag}
                 </span>
-                <p className="mt-3 text-[15px] font-bold text-brand-navy lg:text-body-sm">
+                <p className="mt-2 text-[15px] font-bold text-brand-navy lg:text-body-sm">
                   {name}
                 </p>
 
-                <div className="mt-4">
+                <div className="mt-3">
                   <p className="text-[12px] font-bold uppercase tracking-wide text-brand-navy/50">
                     С чем пришли
                   </p>
@@ -166,11 +166,11 @@ export default function Testimonials() {
                   </p>
                 </div>
 
-                <div className="mt-4">
+                <div className="mt-3">
                   <p className="text-[12px] font-bold uppercase tracking-wide text-brand-navy/50">
                     Результат
                   </p>
-                  <ul className="mt-2 flex flex-col gap-1.5">
+                  <ul className="mt-1.5 flex flex-col gap-1">
                     {results.map((r) => (
                       <li key={r} className="flex items-start gap-2">
                         <Check
@@ -191,7 +191,7 @@ export default function Testimonials() {
             {/* 10-я карточка — не кейс, а переход на страницу всех историй */}
             <a
               href="#"
-              className="flex w-[260px] shrink-0 snap-start flex-col items-center justify-center gap-4 rounded-card bg-brand-purple p-6 text-center shadow-card transition-opacity hover:opacity-90 sm:w-[280px] lg:w-[300px]"
+              className="flex w-[260px] shrink-0 snap-start flex-col items-center justify-center gap-4 rounded-card bg-brand-purple p-5 text-center shadow-card transition-opacity hover:opacity-90 sm:w-[280px] lg:w-[300px]"
             >
               <p className="text-[18px] font-bold leading-snug text-white">
                 Смотреть все истории учеников

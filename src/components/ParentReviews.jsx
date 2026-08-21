@@ -1,4 +1,4 @@
-import { useRef } from 'react'
+import { useEffect, useLayoutEffect, useRef, useState } from 'react'
 import { ArrowRight, ChevronLeft, ChevronRight } from 'lucide-react'
 import Container from './Container'
 import { TelegramIcon, MaxIcon } from './icons'
@@ -80,10 +80,89 @@ const REVIEWS = [
 ]
 
 const CARD_WIDTH = 300 // px, шаг прокрутки по стрелке = ширина карточки + gap
+// Высота текстового блока в свёрнутом виде — подобрана так, чтобы
+// итоговая высота карточки отзыва совпадала с высотой карточки кейса
+// в карусели "Успехи наших учеников" выше. Текст в карточке кейса
+// переходит на увеличенный шрифт только с lg (1024px), поэтому и здесь
+// два значения — под ту же границу.
+const COLLAPSED_TEXT_H_BASE = 365
+const COLLAPSED_TEXT_H_LG = 433
+const LG_QUERY = '(min-width: 1024px)'
 
 function initialOf(name) {
   const last = name.trim().split(' ').pop()
   return last.charAt(0).toUpperCase()
+}
+
+function useIsLgUp() {
+  const [isLg, setIsLg] = useState(
+    () => typeof window !== 'undefined' && window.matchMedia(LG_QUERY).matches
+  )
+  useEffect(() => {
+    const mq = window.matchMedia(LG_QUERY)
+    const handler = (e) => setIsLg(e.matches)
+    mq.addEventListener('change', handler)
+    return () => mq.removeEventListener('change', handler)
+  }, [])
+  return isLg
+}
+
+function ReviewCard({ name, subject, text, tint }) {
+  const [expanded, setExpanded] = useState(false)
+  const textRef = useRef(null)
+  const [fullHeight, setFullHeight] = useState(null)
+  const isLg = useIsLgUp()
+  const collapsedH = isLg ? COLLAPSED_TEXT_H_LG : COLLAPSED_TEXT_H_BASE
+
+  useLayoutEffect(() => {
+    if (textRef.current) setFullHeight(textRef.current.scrollHeight)
+  }, [isLg])
+
+  const overflowing = fullHeight !== null && fullHeight > collapsedH
+  const toggle = () => setExpanded((v) => !v)
+
+  return (
+    <div className="flex w-[260px] shrink-0 snap-start flex-col rounded-card bg-white p-5 shadow-card sm:w-[280px] lg:w-[300px]">
+      <div className="flex items-center gap-3">
+        <span
+          className={`flex h-12 w-12 shrink-0 items-center justify-center rounded-full text-[18px] font-bold ${tint}`}
+        >
+          {initialOf(name)}
+        </span>
+        <div className="flex flex-col">
+          <p className="text-[15px] font-bold text-brand-navy lg:text-body-sm">{name}</p>
+          <p className="text-[13px] text-brand-navy/50">{subject}</p>
+        </div>
+      </div>
+
+      {/* Свёрнутая высота фиксирована (не max-height), чтобы карточки с
+          короткими и длинными отзывами были одной высоты — растёт только
+          при явном раскрытии. */}
+      <div
+        className="relative mt-4 overflow-hidden transition-[height] duration-300 ease-in-out"
+        style={{ height: expanded ? (fullHeight ?? collapsedH) : collapsedH }}
+      >
+        <p
+          ref={textRef}
+          className="text-[15px] leading-relaxed text-[#5B6180] lg:text-body-sm"
+        >
+          «{text}»
+        </p>
+        {!expanded && overflowing && (
+          <div className="pointer-events-none absolute inset-x-0 bottom-0 h-10 bg-gradient-to-t from-white to-transparent" />
+        )}
+      </div>
+
+      <button
+        type="button"
+        onClick={toggle}
+        disabled={!overflowing}
+        className={`mt-2 self-start text-[13px] font-bold text-brand-purple transition-opacity hover:opacity-80 ${overflowing ? '' : 'invisible'}`}
+      >
+        {expanded ? 'Свернуть' : 'Развернуть'}
+      </button>
+    </div>
+  )
 }
 
 export default function ParentReviews() {
@@ -123,40 +202,22 @@ export default function ParentReviews() {
 
           <div
             ref={scrollerRef}
-            className="scrollbar-hide flex snap-x snap-mandatory gap-5 overflow-x-auto scroll-smooth pb-2"
+            className="scrollbar-hide flex snap-x snap-mandatory items-start gap-5 overflow-x-auto scroll-smooth pb-2"
           >
             {REVIEWS.map(({ name, subject, text }, i) => (
-              <div
+              <ReviewCard
                 key={name + i}
-                className="flex h-[300px] w-[260px] shrink-0 snap-start flex-col rounded-card bg-white p-6 shadow-card sm:w-[280px] lg:w-[300px]"
-              >
-                <div className="flex items-center gap-3">
-                  <span
-                    className={`flex h-12 w-12 shrink-0 items-center justify-center rounded-full text-[18px] font-bold ${AVATAR_TINTS[i % AVATAR_TINTS.length]}`}
-                  >
-                    {initialOf(name)}
-                  </span>
-                  <div className="flex flex-col">
-                    <p className="text-[15px] font-bold text-brand-navy lg:text-body-sm">
-                      {name}
-                    </p>
-                    <p className="text-[13px] text-brand-navy/50">{subject}</p>
-                  </div>
-                </div>
-
-                <div className="relative mt-4 flex-1 overflow-hidden">
-                  <p className="text-[15px] leading-relaxed text-[#5B6180] lg:text-body-sm">
-                    «{text}»
-                  </p>
-                  <div className="pointer-events-none absolute inset-x-0 bottom-0 h-10 bg-gradient-to-t from-white to-transparent" />
-                </div>
-              </div>
+                name={name}
+                subject={subject}
+                text={text}
+                tint={AVATAR_TINTS[i % AVATAR_TINTS.length]}
+              />
             ))}
 
             {/* 13-я карточка — переход на страницу со всеми отзывами */}
             <a
               href="#"
-              className="flex h-[300px] w-[260px] shrink-0 snap-start flex-col items-center justify-center gap-4 rounded-card bg-brand-blue p-6 text-center shadow-card transition-opacity hover:opacity-90 sm:w-[280px] lg:w-[300px]"
+              className="flex h-[497px] w-[260px] shrink-0 snap-start flex-col items-center justify-center gap-4 rounded-card bg-brand-blue p-5 text-center shadow-card transition-opacity hover:opacity-90 sm:w-[280px] lg:h-[565px] lg:w-[300px]"
             >
               <p className="text-[18px] font-bold leading-snug text-white">
                 Смотреть все отзывы родителей
