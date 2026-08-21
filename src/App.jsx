@@ -7,6 +7,7 @@ import Process from './components/Process'
 import Promo from './components/Promo'
 import Testimonials from './components/Testimonials'
 import ParentReviews from './components/ParentReviews'
+import FaqForm from './components/FaqForm'
 
 function App() {
   return (
@@ -20,6 +21,7 @@ function App() {
       <Promo />
       <Testimonials />
       <ParentReviews />
+      <FaqForm />
     </div>
   )
 }
