@@ -88,9 +88,24 @@ const METHOD_DIAGRAM_H = 800
 const METHOD_ORIGIN_X = METHOD_DIAGRAM_W * METHOD_ORIGIN_X_RATIO
 const METHOD_ORIGIN_Y = METHOD_DIAGRAM_H - 40 // на уровне флет-края купола
 
-// Порядок — как в контенте, слева направо через веер (крайняя левая
-// капсула — первый пункт списка, крайняя правая — последний).
 const METHOD_FAN_OFFSETS = [-72, -54, -36, -18, 0, 18, 36, 54, 72]
+
+// Порядок капсул в веере — по длине формулировки: самые короткие у
+// центра/верха (там капсулы почти вертикальные и уже), самые длинные —
+// у крайних/нижних пар (там капсулы почти горизонтальные, для
+// длинного текста больше места). Порядок в METHOD_SKILLS (контент,
+// мобильный список) не меняется — это только раскладка веера.
+const METHOD_FAN_SKILLS = [
+  'межполушарное взаимодействие', // offset -72, крайняя левая
+  'периферическое зрение', // offset -54
+  'понимание текста', // offset -36
+  'внимание', // offset -18
+  'память', // offset 0, центр
+  'концентрация', // offset 18
+  'логическое мышление', // offset 36
+  'навык анализа прочитанного', // offset 54
+  'скорость обработки информации', // offset 72, крайняя правая
+]
 
 function methodFanPosition(offset) {
   const cssAngle = -90 + offset
@@ -325,7 +340,7 @@ export default function NeuroskorochtenieDirection() {
               </span>
             </div>
 
-            {METHOD_SKILLS.map((skill, i) => {
+            {METHOD_FAN_SKILLS.map((skill, i) => {
               const offset = METHOD_FAN_OFFSETS[i]
               const { cssAngle, left, top } = methodFanPosition(offset)
               const icon = METHOD_ICONS[skill]
@@ -342,16 +357,25 @@ export default function NeuroskorochtenieDirection() {
                   }}
                 >
                   <div className="flex w-max items-center gap-2 whitespace-nowrap rounded-full bg-white py-2.5 pl-2.5 pr-5 shadow-card">
-                    <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-brand-purple/10">
-                      {icon ? (
-                        <img src={icon} alt="" className="h-4 w-4 object-contain" />
-                      ) : (
-                        <span className="h-2 w-2 rounded-full bg-brand-purple" />
-                      )}
-                    </span>
-                    <span className="text-[14px] font-bold leading-snug text-brand-navy">
-                      {skill}
-                    </span>
+                    {/* Контейнер капсулы остаётся под углом наклона —
+                        а её содержимое (иконка+текст) повёрнуто в
+                        обратную сторону, чтобы всегда быть строго
+                        горизонтальным и читаемым. */}
+                    <div
+                      className="flex items-center gap-2"
+                      style={{ transform: `rotate(${-cssAngle}deg)` }}
+                    >
+                      <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-brand-purple/10">
+                        {icon ? (
+                          <img src={icon} alt="" className="h-4 w-4 object-contain" />
+                        ) : (
+                          <span className="h-2 w-2 rounded-full bg-brand-purple" />
+                        )}
+                      </span>
+                      <span className="text-[14px] font-bold leading-snug text-brand-navy">
+                        {skill}
+                      </span>
+                    </div>
                   </div>
                 </div>
               )
