@@ -52,8 +52,7 @@ const METHOD_TEXT =
   'В основе — нейропсихологический подход методики Регины Казарян. Его задача не в том, чтобы научить ребёнка быстрее произносить слова, а в том, чтобы перестроить процессы обработки информации мозгом.'
 
 const METHOD_SKILLS = [
-  'внимание',
-  'концентрация',
+  'внимание и концентрация',
   'память',
   'периферическое зрение',
   'межполушарное взаимодействие',
@@ -66,44 +65,51 @@ const METHOD_SKILLS = [
 // Иконки — не к каждому пункту, только там, где ассоциация читается
 // сразу (по смыслу слова), для визуального акцента, а не подписи.
 const METHOD_ICONS = {
-  внимание: iconTarget,
+  'внимание и концентрация': iconTarget,
   память: iconBrain,
   'логическое мышление': iconLightbulb,
   'понимание текста': iconBook,
 }
 
-// Круговая композиция (десктоп, xl+) — по образцу диаграммы "Почему нам
-// доверяют" с главной: центральный круг + пункты вокруг него овальными
-// плашками, соединённые тонкими линиями. 9 пунктов не делятся поровну
-// на строки, поэтому — 5 слева / 4 справа, как в Trust.jsx, но без
-// "лепестков": только мягкие rounded-full плашки.
+// Композиция "веер" (десктоп, xl+): слева — полукруглая форма-щит
+// (флет-край слева, дуга справа), от её выпуклой стороны под разными
+// углами расходятся 8 капсул-плашек — как лучи/пальцы, не идеальной
+// окружностью. Угол задаёт направление и наклон каждой капсулы; точка
+// крепления к дуге — по СЖАТОМУ по вертикали эллипсу (RY < RX), иначе
+// капсулы под крайними углами (~±65°) улетают на сотни px вверх/вниз
+// вместе с их длиной по тексту. Длина капсулы — её собственная ширина
+// по тексту (не фиксированная), поэтому длины и так получаются
+// разными. Самые длинные формулировки намеренно посажены на самые
+// пологие углы (ближе к горизонтали), короткие — на самые крутые, —
+// это дополнительно сдерживает разброс по высоте.
 const METHOD_CENTER_LABEL = 'Нейропсихологический подход'
-const METHOD_DIAGRAM_W = 1040
-const METHOD_DIAGRAM_H = 480
-const METHOD_CENTER_X = 520
-const METHOD_CENTER_Y = 240
-const METHOD_CIRCLE_R = 100
-const METHOD_CARD_W = 340
-const METHOD_GAP = 36
-const METHOD_LEFT_Y = [30, 148, 240, 332, 450]
-const METHOD_RIGHT_Y = [60, 190, 290, 420]
+const METHOD_SHIELD_R = 210 // радиус дуги щита = его ширина
+const METHOD_ANCHOR_RY = METHOD_SHIELD_R // точка крепления — настоящая окружность
+const METHOD_DIAGRAM_H = 760
+const METHOD_DIAGRAM_W = 1180
+const METHOD_ORIGIN_Y = METHOD_DIAGRAM_H / 2
 
-function methodEdgeX(isLeft) {
-  return isLeft
-    ? METHOD_CENTER_X - METHOD_CIRCLE_R - METHOD_GAP
-    : METHOD_CENTER_X + METHOD_CIRCLE_R + METHOD_GAP
-}
+// Порядок для десктопного веера отличается от порядка в контенте —
+// подобран так, чтобы длинные формулировки не улетали далеко по
+// вертикали (см. комментарий выше). Мобильный список ниже использует
+// исходный METHOD_SKILLS, порядок содержимого не меняется.
+const METHOD_FAN_ORDER = [
+  { skill: 'скорость обработки информации', angle: 9 },
+  { skill: 'межполушарное взаимодействие', angle: -9 },
+  { skill: 'навык анализа прочитанного', angle: 26 },
+  { skill: 'внимание и концентрация', angle: -26 },
+  { skill: 'периферическое зрение', angle: 44 },
+  { skill: 'логическое мышление', angle: -44 },
+  { skill: 'понимание текста', angle: 63 },
+  { skill: 'память', angle: -63 },
+]
 
-function methodLeftX(isLeft) {
-  const edge = methodEdgeX(isLeft)
-  return isLeft ? edge - METHOD_CARD_W : edge
-}
-
-function methodPosition(i) {
-  const isLeft = i < 5
-  const row = isLeft ? i : i - 5
-  const y = isLeft ? METHOD_LEFT_Y[row] : METHOD_RIGHT_Y[row]
-  return { isLeft, y, left: methodLeftX(isLeft) }
+function methodFanPosition(angle) {
+  const rad = (angle * Math.PI) / 180
+  return {
+    left: METHOD_SHIELD_R * Math.cos(rad),
+    top: METHOD_ORIGIN_Y + METHOD_ANCHOR_RY * Math.sin(rad),
+  }
 }
 
 const PROGRAM_TEXT =
@@ -308,68 +314,52 @@ export default function NeuroskorochtenieDirection() {
             На занятиях одновременно развиваются
           </p>
 
-          {/* Десктоп: центральный круг + пункты вокруг него */}
+          {/* Десктоп: щит-полукруг слева + веер капсул вправо от его дуги */}
           <div
             className="relative mx-auto mt-8 hidden xl:block"
             style={{ width: METHOD_DIAGRAM_W, height: METHOD_DIAGRAM_H }}
           >
-            <svg
-              className="absolute inset-0"
-              width={METHOD_DIAGRAM_W}
-              height={METHOD_DIAGRAM_H}
-              aria-hidden="true"
-            >
-              {METHOD_SKILLS.map((skill, i) => {
-                const { y, isLeft } = methodPosition(i)
-                const x = methodEdgeX(isLeft)
-                return (
-                  <line
-                    key={skill}
-                    x1={METHOD_CENTER_X}
-                    y1={METHOD_CENTER_Y}
-                    x2={x}
-                    y2={y}
-                    stroke="#E9E6FB"
-                    strokeWidth="1.5"
-                  />
-                )
-              })}
-            </svg>
-
             <div
-              className="absolute flex flex-col items-center justify-center rounded-full bg-brand-purple/10 p-6 text-center"
+              className="absolute left-0 flex items-center justify-center bg-brand-purple px-6 text-center"
               style={{
-                left: METHOD_CENTER_X,
-                top: METHOD_CENTER_Y,
-                width: METHOD_CIRCLE_R * 2,
-                height: METHOD_CIRCLE_R * 2,
-                transform: 'translate(-50%, -50%)',
+                top: (METHOD_DIAGRAM_H - METHOD_SHIELD_R * 2) / 2,
+                width: METHOD_SHIELD_R,
+                height: METHOD_SHIELD_R * 2,
+                borderRadius: '0 9999px 9999px 0',
               }}
             >
-              <span className="text-[20px] font-bold leading-snug text-brand-purple">
+              <span className="text-[16px] font-bold leading-snug text-white">
                 {METHOD_CENTER_LABEL}
               </span>
             </div>
 
-            {METHOD_SKILLS.map((skill, i) => {
-              const { y, left } = methodPosition(i)
+            {METHOD_FAN_ORDER.map(({ skill, angle }) => {
+              const { left, top } = methodFanPosition(angle)
               const icon = METHOD_ICONS[skill]
               return (
                 <div
                   key={skill}
-                  className="absolute flex items-center gap-3 rounded-full bg-white px-4 py-3 shadow-card"
-                  style={{ left, top: y, width: METHOD_CARD_W, transform: 'translateY(-50%)' }}
+                  className="absolute flex items-center"
+                  style={{
+                    left,
+                    top,
+                    height: 0,
+                    transform: `rotate(${angle}deg)`,
+                    transformOrigin: 'left center',
+                  }}
                 >
-                  <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-brand-purple/10">
-                    {icon ? (
-                      <img src={icon} alt="" className="h-4 w-4 object-contain" />
-                    ) : (
-                      <span className="h-2 w-2 rounded-full bg-brand-purple" />
-                    )}
-                  </span>
-                  <span className="text-[15px] font-bold leading-snug text-brand-navy">
-                    {skill}
-                  </span>
+                  <div className="flex w-max items-center gap-2 whitespace-nowrap rounded-full bg-white py-2.5 pl-2.5 pr-5 shadow-card">
+                    <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-brand-purple/10">
+                      {icon ? (
+                        <img src={icon} alt="" className="h-4 w-4 object-contain" />
+                      ) : (
+                        <span className="h-2 w-2 rounded-full bg-brand-purple" />
+                      )}
+                    </span>
+                    <span className="text-[14px] font-bold leading-snug text-brand-navy">
+                      {skill}
+                    </span>
+                  </div>
                 </div>
               )
             })}
