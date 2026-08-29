@@ -82,9 +82,13 @@ const METHOD_ICONS = {
 // rotate() это переводится как -90 + offset (0° в rotate() = "вправо").
 const METHOD_CENTER_LABEL = 'Нейропсихологический подход'
 const METHOD_DOME_R = 220 // радиус купола = его половина ширины
+// Радиус, на котором стартует внутренний край каждой капсулы — заметно
+// больше радиуса купола (видимый зазор между куполом и веером капсул),
+// одинаковый для всех 9 капсул независимо от угла.
+const METHOD_ANCHOR_R = 300
 const METHOD_ORIGIN_X_RATIO = 0.5 // купол по центру диаграммы
-const METHOD_DIAGRAM_W = 1300
-const METHOD_DIAGRAM_H = 800
+const METHOD_DIAGRAM_W = 1180
+const METHOD_DIAGRAM_H = 860
 const METHOD_ORIGIN_X = METHOD_DIAGRAM_W * METHOD_ORIGIN_X_RATIO
 const METHOD_ORIGIN_Y = METHOD_DIAGRAM_H - 40 // на уровне флет-края купола
 
@@ -112,8 +116,8 @@ function methodFanPosition(offset) {
   const rad = (cssAngle * Math.PI) / 180
   return {
     cssAngle,
-    left: METHOD_ORIGIN_X + METHOD_DOME_R * Math.cos(rad),
-    top: METHOD_ORIGIN_Y + METHOD_DOME_R * Math.sin(rad),
+    left: METHOD_ORIGIN_X + METHOD_ANCHOR_R * Math.cos(rad),
+    top: METHOD_ORIGIN_Y + METHOD_ANCHOR_R * Math.sin(rad),
   }
 }
 
@@ -356,7 +360,7 @@ export default function NeuroskorochtenieDirection() {
                     transformOrigin: 'left center',
                   }}
                 >
-                  <div className="flex w-max items-center gap-2 whitespace-nowrap rounded-full bg-white py-2.5 pl-2.5 pr-5 shadow-card">
+                  <div className="flex w-max items-center gap-2 whitespace-nowrap rounded-full bg-bg-lavender2 py-2.5 pl-2.5 pr-5 shadow-card">
                     {/* Контейнер капсулы остаётся под углом наклона —
                         а её содержимое (иконка+текст) повёрнуто в
                         обратную сторону, чтобы всегда быть строго
