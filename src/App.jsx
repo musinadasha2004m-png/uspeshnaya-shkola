@@ -1,28 +1,28 @@
-import Header from './components/Header'
-import Hero from './components/Hero'
-import Directions from './components/Directions'
-import Community from './components/Community'
-import Trust from './components/Trust'
-import Process from './components/Process'
-import Promo from './components/Promo'
-import Testimonials from './components/Testimonials'
-import ParentReviews from './components/ParentReviews'
-import FaqForm from './components/FaqForm'
+import { useEffect } from 'react'
+import { Route, Routes, useLocation } from 'react-router-dom'
+import HomePage from './pages/HomePage'
+import NeuroskorochtenieDirection from './pages/NeuroskorochtenieDirection'
+
+function ScrollToTop() {
+  const { pathname, hash } = useLocation()
+  useEffect(() => {
+    if (!hash) window.scrollTo(0, 0)
+  }, [pathname, hash])
+  return null
+}
 
 function App() {
   return (
-    <div className="min-h-screen bg-bg-white">
-      <Header />
-      <Hero />
-      <Directions />
-      <Community />
-      <Trust />
-      <Process />
-      <Promo />
-      <Testimonials />
-      <ParentReviews />
-      <FaqForm />
-    </div>
+    <>
+      <ScrollToTop />
+      <Routes>
+        <Route path="/" element={<HomePage />} />
+        <Route
+          path="/napravleniya/neuroskorochtenie"
+          element={<NeuroskorochtenieDirection />}
+        />
+      </Routes>
+    </>
   )
 }
 

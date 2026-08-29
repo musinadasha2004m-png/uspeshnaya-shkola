@@ -4,7 +4,7 @@ import Container from './Container'
 
 // Порядок кейсов подобран так, чтобы одинаковый предмет не шёл
 // подряд, — сохраняй именно эту последовательность, не перемешивать.
-const CASES = [
+export const CASES = [
   {
     tag: 'ЕГЭ по математике (профиль)',
     name: 'Александр, 11 класс',
@@ -101,7 +101,13 @@ const CASES = [
 
 const CARD_WIDTH = 300 // px, шаг прокрутки по стрелке = ширина карточки + gap
 
-export default function Testimonials() {
+export default function Testimonials({
+  items = CASES,
+  title = 'Успехи наших учеников',
+  subtitle = 'Более 200 семей уже доверили нам обучение своих детей. Сегодня наши ученики уверенно сдают экзамены, поступают в колледжи и вузы, о которых мечтали, и делают первые шаги к будущей профессии.',
+  showCta = true,
+  sectionBg = 'bg-bg-lavender',
+}) {
   const scrollerRef = useRef(null)
 
   const scrollByCards = (direction) => {
@@ -112,16 +118,16 @@ export default function Testimonials() {
   }
 
   return (
-    <section className="bg-bg-lavender">
+    <section className={sectionBg}>
       <Container className="py-10 md:py-14">
         <h2 className="max-w-2xl text-[28px] font-bold leading-tight text-brand-navy lg:text-h2 lg:font-h2">
-          Успехи наших учеников
+          {title}
         </h2>
-        <p className="mt-3 max-w-3xl text-[15px] leading-relaxed text-[#5B6180] lg:text-body-sm">
-          Более 200 семей уже доверили нам обучение своих детей. Сегодня наши
-          ученики уверенно сдают экзамены, поступают в колледжи и вузы, о
-          которых мечтали, и делают первые шаги к будущей профессии.
-        </p>
+        {subtitle && (
+          <p className="mt-3 max-w-3xl text-[15px] leading-relaxed text-[#5B6180] lg:text-body-sm">
+            {subtitle}
+          </p>
+        )}
 
         <div className="relative mt-6 md:mt-10">
           <button
@@ -145,7 +151,7 @@ export default function Testimonials() {
             ref={scrollerRef}
             className="scrollbar-hide flex snap-x snap-mandatory gap-5 overflow-x-auto scroll-smooth pb-2"
           >
-            {CASES.map(({ tag, name, challenge, results }) => (
+            {items.map(({ tag, name, challenge, results }) => (
               <div
                 key={name}
                 className="flex w-[260px] shrink-0 snap-start flex-col rounded-card bg-white p-5 shadow-card sm:w-[280px] lg:w-[300px]"
@@ -188,19 +194,21 @@ export default function Testimonials() {
               </div>
             ))}
 
-            {/* 10-я карточка — не кейс, а переход на страницу всех историй */}
-            <a
-              href="#"
-              className="flex w-[260px] shrink-0 snap-start flex-col items-center justify-center gap-4 rounded-card bg-brand-purple p-5 text-center shadow-card transition-opacity hover:opacity-90 sm:w-[280px] lg:w-[300px]"
-            >
-              <p className="text-[18px] font-bold leading-snug text-white">
-                Смотреть все истории учеников
-              </p>
-              <span className="flex items-center gap-2 text-[15px] font-bold text-white">
-                Перейти
-                <ArrowRight size={18} strokeWidth={2.5} />
-              </span>
-            </a>
+            {/* Не кейс, а переход на страницу всех историй */}
+            {showCta && (
+              <a
+                href="#"
+                className="flex w-[260px] shrink-0 snap-start flex-col items-center justify-center gap-4 rounded-card bg-brand-purple p-5 text-center shadow-card transition-opacity hover:opacity-90 sm:w-[280px] lg:w-[300px]"
+              >
+                <p className="text-[18px] font-bold leading-snug text-white">
+                  Смотреть все истории учеников
+                </p>
+                <span className="flex items-center gap-2 text-[15px] font-bold text-white">
+                  Перейти
+                  <ArrowRight size={18} strokeWidth={2.5} />
+                </span>
+              </a>
+            )}
           </div>
         </div>
       </Container>

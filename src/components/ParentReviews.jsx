@@ -26,7 +26,7 @@ const AVATAR_TINTS = [
 
 // Порядок подобран так, чтобы один предмет не шёл дважды подряд —
 // сохраняй именно эту последовательность, не перемешивать.
-const REVIEWS = [
+export const REVIEWS = [
   {
     name: 'Мама Алина',
     subject: 'Скорочтение',
@@ -175,7 +175,13 @@ function ReviewCard({ name, subject, text, tint }) {
   )
 }
 
-export default function ParentReviews() {
+export default function ParentReviews({
+  items = REVIEWS,
+  title = 'Отзывы родителей',
+  showCta = true,
+  showBlueBlock = true,
+  sectionBg = 'bg-bg-lavender',
+}) {
   const scrollerRef = useRef(null)
 
   const scrollByCards = (direction) => {
@@ -186,10 +192,10 @@ export default function ParentReviews() {
   }
 
   return (
-    <section className="bg-bg-lavender">
+    <section className={sectionBg}>
       <Container className="py-10 md:py-14">
         <h2 className="text-[28px] font-bold leading-tight text-brand-navy lg:text-h2 lg:font-h2">
-          Отзывы родителей
+          {title}
         </h2>
 
         <div className="relative mt-6 md:mt-10">
@@ -214,7 +220,7 @@ export default function ParentReviews() {
             ref={scrollerRef}
             className="scrollbar-hide flex snap-x snap-mandatory items-start gap-5 overflow-x-auto scroll-smooth pb-2"
           >
-            {REVIEWS.map(({ name, subject, text }, i) => (
+            {items.map(({ name, subject, text }, i) => (
               <ReviewCard
                 key={name + i}
                 name={name}
@@ -224,64 +230,68 @@ export default function ParentReviews() {
               />
             ))}
 
-            {/* 13-я карточка — переход на страницу со всеми отзывами */}
-            <a
-              href="#"
-              className="flex h-[497px] w-[260px] shrink-0 snap-start flex-col items-center justify-center gap-4 rounded-card bg-brand-blue p-5 text-center shadow-card transition-opacity hover:opacity-90 sm:w-[280px] lg:h-[565px] lg:w-[300px]"
-            >
-              <p className="text-[18px] font-bold leading-snug text-white">
-                Смотреть все отзывы родителей
-              </p>
-              <span className="flex items-center gap-2 text-[15px] font-bold text-white">
-                Перейти
-                <ArrowRight size={18} strokeWidth={2.5} />
+            {/* Не отзыв, а переход на страницу со всеми отзывами */}
+            {showCta && (
+              <a
+                href="#"
+                className="flex h-[497px] w-[260px] shrink-0 snap-start flex-col items-center justify-center gap-4 rounded-card bg-brand-blue p-5 text-center shadow-card transition-opacity hover:opacity-90 sm:w-[280px] lg:h-[565px] lg:w-[300px]"
+              >
+                <p className="text-[18px] font-bold leading-snug text-white">
+                  Смотреть все отзывы родителей
+                </p>
+                <span className="flex items-center gap-2 text-[15px] font-bold text-white">
+                  Перейти
+                  <ArrowRight size={18} strokeWidth={2.5} />
+                </span>
+              </a>
+            )}
+          </div>
+        </div>
+
+        {showBlueBlock && (
+          <div className="relative isolate mt-6 flex flex-col items-start gap-5 rounded-card bg-brand-blue px-4 py-5 text-left sm:flex-row sm:items-center sm:justify-between sm:px-8 sm:py-6 md:mt-10">
+            {BLUE_DECOR.map(({ size, circle, style }, i) => (
+              <span
+                key={i}
+                className="pointer-events-none absolute -z-10 flex items-center justify-center rounded-full bg-white/15"
+                style={{ width: circle, height: circle, ...style }}
+              >
+                <img src={iconStar} alt="" style={{ width: size, height: size }} className="object-contain" />
               </span>
-            </a>
-          </div>
-        </div>
+            ))}
 
-        <div className="relative isolate mt-6 flex flex-col items-start gap-5 rounded-card bg-brand-blue px-4 py-5 text-left sm:flex-row sm:items-center sm:justify-between sm:px-8 sm:py-6 md:mt-10">
-          {BLUE_DECOR.map(({ size, circle, style }, i) => (
-            <span
-              key={i}
-              className="pointer-events-none absolute -z-10 flex items-center justify-center rounded-full bg-white/15"
-              style={{ width: circle, height: circle, ...style }}
-            >
-              <img src={iconStar} alt="" style={{ width: size, height: size }} className="object-contain" />
-            </span>
-          ))}
+            <div>
+              <h3 className="text-[24px] font-bold leading-tight text-white lg:text-h3 lg:font-h3">
+                Больше реальных отзывов от наших родителей
+              </h3>
+              <p className="mt-2 max-w-xl text-[15px] leading-relaxed text-white/90 lg:text-body-sm">
+                Родители регулярно делятся впечатлениями о занятиях, успехах
+                своих детей и результатах обучения в наших сообществах.
+              </p>
+            </div>
 
-          <div>
-            <h3 className="text-[24px] font-bold leading-tight text-white lg:text-h3 lg:font-h3">
-              Больше реальных отзывов от наших родителей
-            </h3>
-            <p className="mt-2 max-w-xl text-[15px] leading-relaxed text-white/90 lg:text-body-sm">
-              Родители регулярно делятся впечатлениями о занятиях, успехах
-              своих детей и результатах обучения в наших сообществах.
-            </p>
+            <div className="flex shrink-0 gap-3">
+              <a
+                href={TELEGRAM_REVIEWS_HREF}
+                target="_blank"
+                rel="noreferrer"
+                className="flex items-center gap-2.5 rounded-button bg-white px-6 py-3.5 font-button text-button text-brand-blue shadow-card transition-opacity hover:opacity-90"
+              >
+                <TelegramIcon width={24} height={24} />
+                Telegram
+              </a>
+              <a
+                href={MAX_REVIEWS_HREF}
+                target="_blank"
+                rel="noreferrer"
+                className="flex items-center gap-2.5 rounded-button bg-white px-6 py-3.5 font-button text-button text-brand-blue shadow-card transition-opacity hover:opacity-90"
+              >
+                <MaxIcon width={24} height={24} />
+                MAX
+              </a>
+            </div>
           </div>
-
-          <div className="flex shrink-0 gap-3">
-            <a
-              href={TELEGRAM_REVIEWS_HREF}
-              target="_blank"
-              rel="noreferrer"
-              className="flex items-center gap-2.5 rounded-button bg-white px-6 py-3.5 font-button text-button text-brand-blue shadow-card transition-opacity hover:opacity-90"
-            >
-              <TelegramIcon width={24} height={24} />
-              Telegram
-            </a>
-            <a
-              href={MAX_REVIEWS_HREF}
-              target="_blank"
-              rel="noreferrer"
-              className="flex items-center gap-2.5 rounded-button bg-white px-6 py-3.5 font-button text-button text-brand-blue shadow-card transition-opacity hover:opacity-90"
-            >
-              <MaxIcon width={24} height={24} />
-              MAX
-            </a>
-          </div>
-        </div>
+        )}
       </Container>
     </section>
   )

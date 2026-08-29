@@ -8,6 +8,7 @@ import {
   GraduationCap,
   School,
 } from 'lucide-react'
+import { Link } from 'react-router-dom'
 import Container from './Container'
 import iconBackpack from '../assets/icon-backpack.png'
 
@@ -17,6 +18,7 @@ const DIRECTIONS = [
     tint: 'bg-brand-blue',
     title: 'Подготовка к школе',
     description: 'Занятия онлайн интересны и познавательны даже детям 5–7 лет.',
+    href: '#',
   },
   {
     icon: BookOpen,
@@ -24,6 +26,7 @@ const DIRECTIONS = [
     title: 'Предметные репетиторы',
     description:
       'Определим уровень знаний ребенка, найдем пробелы и составим план обучения.',
+    href: '#',
   },
   {
     icon: Brain,
@@ -31,6 +34,7 @@ const DIRECTIONS = [
     title: 'Нейроскорочтение',
     description:
       'Развиваем память, внимание и скорость чтения через интересные упражнения.',
+    href: '/napravleniya/neuroskorochtenie',
   },
   {
     icon: ClipboardCheck,
@@ -38,12 +42,14 @@ const DIRECTIONS = [
     title: 'Подготовка к ВПР',
     description:
       'Разберем структуру проверочной работы и поможем уверенно справиться с заданиями.',
+    href: '#',
   },
   {
     icon: FileText,
     tint: 'bg-brand-green',
     title: 'Подготовка к ОГЭ',
     description: 'Научим понимать логику экзамена и подготовим к каждому заданию.',
+    href: '#',
   },
   {
     icon: GraduationCap,
@@ -51,6 +57,7 @@ const DIRECTIONS = [
     title: 'Подготовка к ЕГЭ',
     description:
       'Поможем получить высокий балл и уверенно поступить в выбранный вуз.',
+    href: '#',
   },
   {
     icon: Compass,
@@ -58,6 +65,7 @@ const DIRECTIONS = [
     title: 'Профориентация',
     description:
       'Поможем выбрать профессию, которая соответствует интересам и способностям ребенка.',
+    href: '#',
   },
 ]
 
@@ -76,7 +84,7 @@ export default function Directions() {
         </div>
 
         <div className="mt-6 grid grid-cols-1 gap-4 sm:grid-cols-2 md:mt-10 md:gap-5 lg:grid-cols-3 xl:grid-cols-4">
-          {DIRECTIONS.map(({ icon: Icon, tint, title, description }) => (
+          {DIRECTIONS.map(({ icon: Icon, tint, title, description, href }) => (
             <div
               key={title}
               className="flex h-full flex-col rounded-card bg-white p-4 shadow-card md:p-5"
@@ -96,13 +104,23 @@ export default function Directions() {
                 {description}
               </p>
 
-              <a
-                href="#"
-                className="mt-3 inline-flex items-center gap-1.5 text-[13px] font-bold text-brand-purple transition-all hover:gap-2.5 lg:text-caption"
-              >
-                Подробнее о программе
-                <ArrowRight size={16} strokeWidth={2.5} />
-              </a>
+              {href.startsWith('/') ? (
+                <Link
+                  to={href}
+                  className="mt-3 inline-flex items-center gap-1.5 text-[13px] font-bold text-brand-purple transition-all hover:gap-2.5 lg:text-caption"
+                >
+                  Подробнее о программе
+                  <ArrowRight size={16} strokeWidth={2.5} />
+                </Link>
+              ) : (
+                <a
+                  href={href}
+                  className="mt-3 inline-flex items-center gap-1.5 text-[13px] font-bold text-brand-purple transition-all hover:gap-2.5 lg:text-caption"
+                >
+                  Подробнее о программе
+                  <ArrowRight size={16} strokeWidth={2.5} />
+                </a>
+              )}
             </div>
           ))}
 

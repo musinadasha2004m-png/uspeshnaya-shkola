@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { Link } from 'react-router-dom'
 import { ChevronDown, Menu, Phone, X } from 'lucide-react'
 import { LogoMark, MaxIcon, TelegramIcon, WhatsAppIcon } from './icons'
 import Container from './Container'
@@ -6,7 +7,7 @@ import Container from './Container'
 const DIRECTIONS = [
   { label: 'Подготовка к школе', href: '#' },
   { label: 'Предметные репетиторы', href: '#' },
-  { label: 'Нейроскорочтение', href: '#' },
+  { label: 'Нейроскорочтение', href: '/napravleniya/neuroskorochtenie' },
   { label: 'Подготовка к ВПР', href: '#' },
   { label: 'Подготовка к ОГЭ', href: '#' },
   { label: 'Подготовка к ЕГЭ', href: '#' },
@@ -84,23 +85,23 @@ export default function Header() {
       </div>
 
       <Container className="flex items-center justify-between py-4">
-        <a
-          href="/"
+        <Link
+          to="/"
           className="flex shrink-0 items-center gap-1.5 self-center whitespace-nowrap"
         >
           <LogoMark className="h-6 w-6 shrink-0" />
           <span className="whitespace-nowrap text-[18px] font-extrabold leading-none tracking-tight text-brand-navy">
             УСПЕШНОшкола
           </span>
-        </a>
+        </Link>
 
         <nav className="hidden items-center gap-6 xl:flex">
-          <a
-            href={NAV_LINKS[0].href}
+          <Link
+            to={NAV_LINKS[0].href}
             className="font-caption text-caption text-brand-navy transition-colors hover:text-brand-purple"
           >
             {NAV_LINKS[0].label}
-          </a>
+          </Link>
 
           <div
             className="relative"
@@ -124,15 +125,25 @@ export default function Header() {
             {directionsOpen && (
               <div className="absolute left-1/2 top-full z-20 w-64 -translate-x-1/2 pt-3">
                 <div className="rounded-card border border-bg-lavender2 bg-bg-white p-2 shadow-card">
-                  {DIRECTIONS.map((item) => (
-                    <a
-                      key={item.label}
-                      href={item.href}
-                      className="block rounded-lg px-3 py-2 font-caption text-caption text-brand-navy transition-colors hover:bg-bg-lavender3 hover:text-brand-purple"
-                    >
-                      {item.label}
-                    </a>
-                  ))}
+                  {DIRECTIONS.map((item) =>
+                    item.href.startsWith('/') ? (
+                      <Link
+                        key={item.label}
+                        to={item.href}
+                        className="block rounded-lg px-3 py-2 font-caption text-caption text-brand-navy transition-colors hover:bg-bg-lavender3 hover:text-brand-purple"
+                      >
+                        {item.label}
+                      </Link>
+                    ) : (
+                      <a
+                        key={item.label}
+                        href={item.href}
+                        className="block rounded-lg px-3 py-2 font-caption text-caption text-brand-navy transition-colors hover:bg-bg-lavender3 hover:text-brand-purple"
+                      >
+                        {item.label}
+                      </a>
+                    ),
+                  )}
                 </div>
               </div>
             )}
@@ -170,12 +181,12 @@ export default function Header() {
         <div className="border-t border-bg-lavender2 xl:hidden">
           <Container className="pb-6 pt-4">
             <nav className="flex flex-col gap-4">
-            <a
-              href={NAV_LINKS[0].href}
+            <Link
+              to={NAV_LINKS[0].href}
               className="font-caption text-caption text-brand-navy"
             >
               {NAV_LINKS[0].label}
-            </a>
+            </Link>
 
             <div>
               <button
@@ -193,15 +204,25 @@ export default function Header() {
               </button>
               {directionsOpen && (
                 <div className="mt-2 flex flex-col gap-1 pl-3">
-                  {DIRECTIONS.map((item) => (
-                    <a
-                      key={item.label}
-                      href={item.href}
-                      className="py-1 font-caption text-caption text-brand-navy/80"
-                    >
-                      {item.label}
-                    </a>
-                  ))}
+                  {DIRECTIONS.map((item) =>
+                    item.href.startsWith('/') ? (
+                      <Link
+                        key={item.label}
+                        to={item.href}
+                        className="py-1 font-caption text-caption text-brand-navy/80"
+                      >
+                        {item.label}
+                      </Link>
+                    ) : (
+                      <a
+                        key={item.label}
+                        href={item.href}
+                        className="py-1 font-caption text-caption text-brand-navy/80"
+                      >
+                        {item.label}
+                      </a>
+                    ),
+                  )}
                 </div>
               )}
             </div>
