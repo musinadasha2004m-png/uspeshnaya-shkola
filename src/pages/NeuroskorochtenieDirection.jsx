@@ -266,7 +266,7 @@ export default function NeuroskorochtenieDirection() {
           <p className="mt-3 max-w-4xl text-[15px] leading-relaxed text-[#5B6180] lg:text-body-sm">
             {WHO_FOR_INTRO}
           </p>
-          <p className="mt-4 text-[13px] font-bold uppercase tracking-wide text-brand-purple">
+          <p className="mt-4 text-[20px] font-bold uppercase tracking-wide text-brand-purple">
             Чаще всего к нам обращаются, если ребёнок:
           </p>
           <div className="mt-6 grid grid-cols-1 gap-2 sm:grid-cols-2 md:mt-8">
@@ -282,18 +282,15 @@ export default function NeuroskorochtenieDirection() {
               </div>
             ))}
 
-            <div className="flex flex-col items-start justify-center gap-3 rounded-card bg-brand-purple p-4 shadow-card">
-              <p className="text-[16px] font-bold leading-snug text-white">
+            <a
+              href="/#faq"
+              className="animate-card-glow flex items-center gap-3 rounded-card bg-brand-purple p-4 transition-opacity hover:opacity-90"
+            >
+              <span className="text-[15px] font-bold leading-relaxed text-white lg:text-body-sm">
                 Похоже на вашего ребёнка?
-              </p>
-              <a
-                href="/#faq"
-                className="flex items-center justify-center gap-2 rounded-button bg-white px-5 py-2.5 font-button text-button text-brand-purple transition-opacity hover:opacity-90"
-              >
-                Записаться на консультацию
-                <ArrowRight size={18} strokeWidth={2.5} />
-              </a>
-            </div>
+              </span>
+              <ArrowRight size={18} strokeWidth={2.5} className="ml-auto shrink-0 text-white" />
+            </a>
           </div>
         </Container>
       </section>

@@ -27,6 +27,28 @@
   }
 }
 
+/* Мягкая пульсация свечения — сигнал "это кликабельно" для карточек-CTA,
+   медленная и ненавязчивая, без резких вспышек. */
+@keyframes card-glow {
+  0%,
+  100% {
+    box-shadow: 0 10px 28px rgba(138, 99, 246, 0.25);
+  }
+  50% {
+    box-shadow: 0 12px 40px rgba(138, 99, 246, 0.55);
+  }
+}
+
+.animate-card-glow {
+  animation: card-glow 3.2s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-card-glow {
+    animation: none;
+  }
+}
+
 /* Скрывает нативный скроллбар у горизонтальных каруселей — сам скролл
    (свайп/колесо/стрелки) при этом работает как обычно. */
 .scrollbar-hide {
