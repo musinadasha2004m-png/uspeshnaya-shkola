@@ -52,7 +52,8 @@ const METHOD_TEXT =
   'В основе — нейропсихологический подход методики Регины Казарян. Его задача не в том, чтобы научить ребёнка быстрее произносить слова, а в том, чтобы перестроить процессы обработки информации мозгом.'
 
 const METHOD_SKILLS = [
-  'внимание и концентрация',
+  'внимание',
+  'концентрация',
   'память',
   'периферическое зрение',
   'межполушарное взаимодействие',
@@ -65,50 +66,39 @@ const METHOD_SKILLS = [
 // Иконки — не к каждому пункту, только там, где ассоциация читается
 // сразу (по смыслу слова), для визуального акцента, а не подписи.
 const METHOD_ICONS = {
-  'внимание и концентрация': iconTarget,
+  внимание: iconTarget,
   память: iconBrain,
   'логическое мышление': iconLightbulb,
   'понимание текста': iconBook,
 }
 
-// Композиция "веер" (десктоп, xl+): слева — полукруглая форма-щит
-// (флет-край слева, дуга справа), от её выпуклой стороны под разными
-// углами расходятся 8 капсул-плашек — как лучи/пальцы, не идеальной
-// окружностью. Угол задаёт направление и наклон каждой капсулы; точка
-// крепления к дуге — по СЖАТОМУ по вертикали эллипсу (RY < RX), иначе
-// капсулы под крайними углами (~±65°) улетают на сотни px вверх/вниз
-// вместе с их длиной по тексту. Длина капсулы — её собственная ширина
-// по тексту (не фиксированная), поэтому длины и так получаются
-// разными. Самые длинные формулировки намеренно посажены на самые
-// пологие углы (ближе к горизонтали), короткие — на самые крутые, —
-// это дополнительно сдерживает разброс по высоте.
+// Композиция "купол + веер вверх" (десктоп, xl+): внизу по центру —
+// купол-полукруг (флет снизу, дуга сверху, "половина солнца на
+// горизонте"), от его верхней дуги веером расходятся вверх 9 капсул —
+// одна строго по центру (вертикально вверх), остальные 8 — зеркальными
+// парами по бокам, угол от вертикали растёт по мере удаления от
+// центра (крайние пары — самые пологие). offset — отклонение от
+// вертикали в градусах (0 = вверх, "-" влево, "+" вправо); в CSS
+// rotate() это переводится как -90 + offset (0° в rotate() = "вправо").
 const METHOD_CENTER_LABEL = 'Нейропсихологический подход'
-const METHOD_SHIELD_R = 210 // радиус дуги щита = его ширина
-const METHOD_ANCHOR_RY = METHOD_SHIELD_R // точка крепления — настоящая окружность
-const METHOD_DIAGRAM_H = 760
-const METHOD_DIAGRAM_W = 1180
-const METHOD_ORIGIN_Y = METHOD_DIAGRAM_H / 2
+const METHOD_DOME_R = 220 // радиус купола = его половина ширины
+const METHOD_ORIGIN_X_RATIO = 0.5 // купол по центру диаграммы
+const METHOD_DIAGRAM_W = 1300
+const METHOD_DIAGRAM_H = 800
+const METHOD_ORIGIN_X = METHOD_DIAGRAM_W * METHOD_ORIGIN_X_RATIO
+const METHOD_ORIGIN_Y = METHOD_DIAGRAM_H - 40 // на уровне флет-края купола
 
-// Порядок для десктопного веера отличается от порядка в контенте —
-// подобран так, чтобы длинные формулировки не улетали далеко по
-// вертикали (см. комментарий выше). Мобильный список ниже использует
-// исходный METHOD_SKILLS, порядок содержимого не меняется.
-const METHOD_FAN_ORDER = [
-  { skill: 'скорость обработки информации', angle: 9 },
-  { skill: 'межполушарное взаимодействие', angle: -9 },
-  { skill: 'навык анализа прочитанного', angle: 26 },
-  { skill: 'внимание и концентрация', angle: -26 },
-  { skill: 'периферическое зрение', angle: 44 },
-  { skill: 'логическое мышление', angle: -44 },
-  { skill: 'понимание текста', angle: 63 },
-  { skill: 'память', angle: -63 },
-]
+// Порядок — как в контенте, слева направо через веер (крайняя левая
+// капсула — первый пункт списка, крайняя правая — последний).
+const METHOD_FAN_OFFSETS = [-72, -54, -36, -18, 0, 18, 36, 54, 72]
 
-function methodFanPosition(angle) {
-  const rad = (angle * Math.PI) / 180
+function methodFanPosition(offset) {
+  const cssAngle = -90 + offset
+  const rad = (cssAngle * Math.PI) / 180
   return {
-    left: METHOD_SHIELD_R * Math.cos(rad),
-    top: METHOD_ORIGIN_Y + METHOD_ANCHOR_RY * Math.sin(rad),
+    cssAngle,
+    left: METHOD_ORIGIN_X + METHOD_DOME_R * Math.cos(rad),
+    top: METHOD_ORIGIN_Y + METHOD_DOME_R * Math.sin(rad),
   }
 }
 
@@ -314,27 +304,30 @@ export default function NeuroskorochtenieDirection() {
             На занятиях одновременно развиваются
           </p>
 
-          {/* Десктоп: щит-полукруг слева + веер капсул вправо от его дуги */}
+          {/* Десктоп: купол снизу по центру + веер капсул вверх от его дуги */}
           <div
             className="relative mx-auto mt-8 hidden xl:block"
             style={{ width: METHOD_DIAGRAM_W, height: METHOD_DIAGRAM_H }}
           >
             <div
-              className="absolute left-0 flex items-center justify-center bg-brand-purple px-6 text-center"
+              className="absolute flex items-start justify-center bg-brand-purple pt-6 text-center"
               style={{
-                top: (METHOD_DIAGRAM_H - METHOD_SHIELD_R * 2) / 2,
-                width: METHOD_SHIELD_R,
-                height: METHOD_SHIELD_R * 2,
-                borderRadius: '0 9999px 9999px 0',
+                left: METHOD_ORIGIN_X,
+                bottom: METHOD_DIAGRAM_H - METHOD_ORIGIN_Y,
+                width: METHOD_DOME_R * 2,
+                height: METHOD_DOME_R,
+                transform: 'translateX(-50%)',
+                borderRadius: '9999px 9999px 0 0',
               }}
             >
-              <span className="text-[16px] font-bold leading-snug text-white">
+              <span className="max-w-[220px] text-[16px] font-bold leading-snug text-white">
                 {METHOD_CENTER_LABEL}
               </span>
             </div>
 
-            {METHOD_FAN_ORDER.map(({ skill, angle }) => {
-              const { left, top } = methodFanPosition(angle)
+            {METHOD_SKILLS.map((skill, i) => {
+              const offset = METHOD_FAN_OFFSETS[i]
+              const { cssAngle, left, top } = methodFanPosition(offset)
               const icon = METHOD_ICONS[skill]
               return (
                 <div
@@ -344,7 +337,7 @@ export default function NeuroskorochtenieDirection() {
                     left,
                     top,
                     height: 0,
-                    transform: `rotate(${angle}deg)`,
+                    transform: `rotate(${cssAngle}deg)`,
                     transformOrigin: 'left center',
                   }}
                 >
