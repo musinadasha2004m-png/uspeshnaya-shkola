@@ -2,6 +2,7 @@ import { ArrowRight, Check } from 'lucide-react'
 import { Link } from 'react-router-dom'
 import Header from '../components/Header'
 import Container from '../components/Container'
+import StepsFlow from '../components/StepsFlow'
 import Testimonials, { CASES } from '../components/Testimonials'
 import ParentReviews, { REVIEWS } from '../components/ParentReviews'
 import iconBrain from '../assets/icon-brain.png'
@@ -47,6 +48,40 @@ const METHOD_ICONS = {
   'понимание текста': iconBook,
 }
 
+// Круговая композиция (десктоп, xl+) — по образцу диаграммы "Почему нам
+// доверяют" с главной: центральный круг + пункты вокруг него овальными
+// плашками, соединённые тонкими линиями. 9 пунктов не делятся поровну
+// на строки, поэтому — 5 слева / 4 справа, как в Trust.jsx, но без
+// "лепестков": только мягкие rounded-full плашки.
+const METHOD_CENTER_LABEL = 'Нейропсихологический подход'
+const METHOD_DIAGRAM_W = 1040
+const METHOD_DIAGRAM_H = 480
+const METHOD_CENTER_X = 520
+const METHOD_CENTER_Y = 240
+const METHOD_CIRCLE_R = 100
+const METHOD_CARD_W = 340
+const METHOD_GAP = 36
+const METHOD_LEFT_Y = [30, 148, 240, 332, 450]
+const METHOD_RIGHT_Y = [60, 190, 290, 420]
+
+function methodEdgeX(isLeft) {
+  return isLeft
+    ? METHOD_CENTER_X - METHOD_CIRCLE_R - METHOD_GAP
+    : METHOD_CENTER_X + METHOD_CIRCLE_R + METHOD_GAP
+}
+
+function methodLeftX(isLeft) {
+  const edge = methodEdgeX(isLeft)
+  return isLeft ? edge - METHOD_CARD_W : edge
+}
+
+function methodPosition(i) {
+  const isLeft = i < 5
+  const row = isLeft ? i : i - 5
+  const y = isLeft ? METHOD_LEFT_Y[row] : METHOD_RIGHT_Y[row]
+  return { isLeft, y, left: methodLeftX(isLeft) }
+}
+
 const PROGRAM_TEXT =
   'Слово «нейро» в названии — не маркетинговый приём, а суть метода. Ребёнок не просто читает тексты, а выполняет упражнения, которые активизируют разные участки мозга и формируют новые нейронные связи:'
 
@@ -70,19 +105,37 @@ const PROGRAM_ICONS = {
   'упражнения на скорость мышления': iconLightbulb,
 }
 
-const CLASSES_TEXT =
-  'Всё обучение — полностью онлайн. Мы принципиально не делаем больших потоков: группа — от 4 до 10 человек, это сохраняет индивидуальный подход и одновременно даёт пользу групповой динамики.'
-
-const CLASSES_FORMAT = [
-  'постоянно взаимодействует с преподавателем',
-  'участвует в игровых упражнениях',
-  'выполняет задания разного уровня сложности',
-  'переключается между видами активности каждые несколько минут',
-  'получает обратную связь практически сразу',
+const PATH_STEPS = [
+  {
+    title: 'Бесплатная консультация',
+    description:
+      'Определяем, с какими именно сложностями сталкивается ребёнок, и подбираем оптимальную программу под его возраст и уровень.',
+  },
+  {
+    title: 'Онлайн-занятия',
+    description:
+      'Полностью дистанционно, в Zoom или Яндекс Телемост. Небольшие группы (4–10 человек) или индивидуально. Яркая, красочная методика с печатными пособиями (рабочая тетрадь и тексты для чтения). Каждые несколько минут — смена активности, поэтому даже дети 6–7 лет спокойно занимаются 90 минут без потери внимания.',
+  },
+  {
+    title: 'Постоянная обратная связь с родителями',
+    description:
+      'На связи вне уроков в Telegram, отвечаем на вопросы по успеваемости и занятиям.',
+  },
+  {
+    title: 'Отслеживание результатов',
+    description:
+      'Регулярно измеряем скорость чтения и отслеживаем, с какими заданиями у ребёнка ещё остаются сложности, при необходимости корректируем программу.',
+  },
+  {
+    title: 'Результат',
+    description:
+      'Ребёнок становится увереннее не только в чтении, но и в любом школьном предмете.',
+  },
 ]
 
-const CLASSES_NOTE =
-  'Даже дети 6–7 лет спокойно занимаются 90 минут без потери внимания — за счёт постоянной смены активности.'
+const ONLINE_EASY_TITLE = 'Онлайн — это не сложно, даже для дошкольников'
+const ONLINE_EASY_TEXT =
+  'Формат подходит и по-настоящему увлекает даже детей 5–6 лет — занятия построены как игра, с постоянной сменой активности, а не как урок за партой. Если сомневаетесь, подойдёт ли это именно вашему ребёнку — убедиться проще всего на бесплатной диагностике: за одну встречу будет видно, комфортно ли ребёнку в таком формате.'
 
 const RESULTS = [
   'скорость чтения увеличивается в несколько раз',
@@ -246,18 +299,96 @@ export default function NeuroskorochtenieDirection() {
           <p className="mt-4 text-[13px] font-bold uppercase tracking-wide text-brand-navy/50">
             На занятиях одновременно развиваются
           </p>
-          <div className="mt-3 flex flex-wrap gap-2 md:mt-4">
-            {METHOD_SKILLS.map((skill) => (
-              <span
-                key={skill}
-                className="flex items-center gap-2 rounded-full bg-brand-purple/10 px-4 py-2 text-[14px] font-bold text-brand-purple"
-              >
-                {METHOD_ICONS[skill] && (
-                  <img src={METHOD_ICONS[skill]} alt="" className="h-4 w-4 object-contain" />
-                )}
-                {skill}
+
+          {/* Десктоп: центральный круг + пункты вокруг него */}
+          <div
+            className="relative mx-auto mt-8 hidden xl:block"
+            style={{ width: METHOD_DIAGRAM_W, height: METHOD_DIAGRAM_H }}
+          >
+            <svg
+              className="absolute inset-0"
+              width={METHOD_DIAGRAM_W}
+              height={METHOD_DIAGRAM_H}
+              aria-hidden="true"
+            >
+              {METHOD_SKILLS.map((skill, i) => {
+                const { y, isLeft } = methodPosition(i)
+                const x = methodEdgeX(isLeft)
+                return (
+                  <line
+                    key={skill}
+                    x1={METHOD_CENTER_X}
+                    y1={METHOD_CENTER_Y}
+                    x2={x}
+                    y2={y}
+                    stroke="#E9E6FB"
+                    strokeWidth="1.5"
+                  />
+                )
+              })}
+            </svg>
+
+            <div
+              className="absolute flex flex-col items-center justify-center rounded-full bg-brand-purple/10 p-6 text-center"
+              style={{
+                left: METHOD_CENTER_X,
+                top: METHOD_CENTER_Y,
+                width: METHOD_CIRCLE_R * 2,
+                height: METHOD_CIRCLE_R * 2,
+                transform: 'translate(-50%, -50%)',
+              }}
+            >
+              <span className="text-[20px] font-bold leading-snug text-brand-purple">
+                {METHOD_CENTER_LABEL}
               </span>
-            ))}
+            </div>
+
+            {METHOD_SKILLS.map((skill, i) => {
+              const { y, left } = methodPosition(i)
+              const icon = METHOD_ICONS[skill]
+              return (
+                <div
+                  key={skill}
+                  className="absolute flex items-center gap-3 rounded-full bg-white px-4 py-3 shadow-card"
+                  style={{ left, top: y, width: METHOD_CARD_W, transform: 'translateY(-50%)' }}
+                >
+                  <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-brand-purple/10">
+                    {icon ? (
+                      <img src={icon} alt="" className="h-4 w-4 object-contain" />
+                    ) : (
+                      <span className="h-2 w-2 rounded-full bg-brand-purple" />
+                    )}
+                  </span>
+                  <span className="text-[15px] font-bold leading-snug text-brand-navy">
+                    {skill}
+                  </span>
+                </div>
+              )
+            })}
+          </div>
+
+          {/* Планшет/моб: обычный вертикальный список */}
+          <div className="mt-3 flex flex-col gap-2 xl:hidden md:mt-4">
+            {METHOD_SKILLS.map((skill) => {
+              const icon = METHOD_ICONS[skill]
+              return (
+                <div
+                  key={skill}
+                  className="flex items-center gap-3 rounded-card bg-white p-4 shadow-card"
+                >
+                  <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-brand-purple/10">
+                    {icon ? (
+                      <img src={icon} alt="" className="h-4 w-4 object-contain" />
+                    ) : (
+                      <span className="h-2 w-2 rounded-full bg-brand-purple" />
+                    )}
+                  </span>
+                  <span className="text-[15px] font-bold leading-snug text-brand-navy">
+                    {skill}
+                  </span>
+                </div>
+              )
+            })}
           </div>
         </Container>
       </section>
@@ -323,22 +454,40 @@ export default function NeuroskorochtenieDirection() {
         </Container>
       </section>
 
-      {/* Как проходят занятия */}
+      {/* Путь ребёнка и родителя */}
       <section className="bg-bg-white">
         <Container className="py-10 md:py-14">
           <h2 className="text-[28px] font-bold leading-tight text-brand-navy lg:text-h2 lg:font-h2">
-            Как проходят занятия
+            Путь ребёнка и родителя
           </h2>
-          <p className="mt-3 max-w-3xl text-[15px] leading-relaxed text-[#5B6180] lg:text-body-sm">
-            {CLASSES_TEXT}
+          <p className="mt-3 max-w-5xl text-[15px] leading-relaxed text-[#5B6180] lg:text-body-sm">
+            От первого контакта до результата — вот как это устроено.
           </p>
-          <p className="mt-4 text-[13px] font-bold uppercase tracking-wide text-brand-navy/50">
-            На занятии ребёнок:
-          </p>
-          <BulletList items={CLASSES_FORMAT} />
-          <p className="mt-4 max-w-3xl text-[15px] italic leading-relaxed text-[#5B6180] lg:text-body-sm">
-            {CLASSES_NOTE}
-          </p>
+
+          <StepsFlow steps={PATH_STEPS} />
+        </Container>
+      </section>
+
+      {/* Онлайн — это не сложно, даже для дошкольников */}
+      <section className="bg-bg-lavender2">
+        <Container className="py-10 md:py-14">
+          <div className="flex flex-col items-center gap-8 lg:flex-row lg:gap-12">
+            <div className="flex-1">
+              <h3 className="text-[24px] font-bold leading-tight text-brand-navy lg:text-h3 lg:font-h3">
+                {ONLINE_EASY_TITLE}
+              </h3>
+              <p className="mt-3 max-w-2xl text-[15px] leading-relaxed text-[#5B6180] lg:text-body-sm">
+                {ONLINE_EASY_TEXT}
+              </p>
+            </div>
+            <div className="relative flex h-32 w-32 shrink-0 items-center justify-center rounded-full bg-white/60 md:h-40 md:w-40">
+              <img
+                src={iconTarget}
+                alt=""
+                className="h-16 w-16 object-contain drop-shadow-[0_10px_20px_rgba(27,36,85,0.15)] md:h-20 md:w-20"
+              />
+            </div>
+          </div>
         </Container>
       </section>
 
