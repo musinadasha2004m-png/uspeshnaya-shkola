@@ -11,27 +11,28 @@ import iconLightbulb from '../assets/icon-lightbulb.png'
 import iconStar from '../assets/icon-star.png'
 import iconTarget from '../assets/icon-target.png'
 
-// Буквы вокруг мозга в hero — расставлены по кругу на равном
-// расстоянии друг от друга (8 точек через 45°), как иконки вокруг
-// фото ребёнка в Hero на главной. Цвета кружков идут по кругу из
-// палитры токенов, при нехватке — повторяются.
-const LETTER_TINTS = [
-  { bg: 'bg-brand-purple', text: 'text-white' },
-  { bg: 'bg-brand-yellow', text: 'text-brand-navy' },
-  { bg: 'bg-brand-blue', text: 'text-white' },
-  { bg: 'bg-brand-green', text: 'text-white' },
-  { bg: 'bg-brand-pink', text: 'text-white' },
+// Буквы вокруг мозга в hero — просто цветной текст, без подложки.
+// Цвета идут по палитре токенов, при нехватке — повторяются.
+const LETTER_COLORS = [
+  'text-brand-purple',
+  'text-brand-yellow',
+  'text-brand-blue',
+  'text-brand-green',
+  'text-brand-pink',
 ]
 
+// Расставлены по кругу вокруг мозга (7 точек, ~51° друг от друга), как
+// иконки вокруг фото ребёнка в Hero на главной, но с разбросом —
+// у каждой буквы свой радиус (±15–20% от базового), угол поворота
+// (-15…15°) и размер шрифта, чтобы не выглядело как ровный штамп.
 const BRAIN_LETTERS = [
-  { letter: 'А', left: '50%', top: '10%', delay: 0, duration: 4.6 },
-  { letter: 'Б', left: '78%', top: '22%', delay: 0.3, duration: 5 },
-  { letter: 'В', left: '90%', top: '50%', delay: 0.6, duration: 4.4 },
-  { letter: 'Г', left: '78%', top: '78%', delay: 0.9, duration: 5.2 },
-  { letter: 'Д', left: '50%', top: '90%', delay: 1.2, duration: 4.8 },
-  { letter: 'Е', left: '22%', top: '78%', delay: 1.5, duration: 5 },
-  { letter: 'Ж', left: '10%', top: '50%', delay: 1.8, duration: 4.6 },
-  { letter: 'З', left: '22%', top: '22%', delay: 2.1, duration: 5.2 },
+  { letter: 'А', left: '50%', top: '14%', rotate: -8, size: 24, delay: 0, duration: 4.6 },
+  { letter: 'Б', left: '83%', top: '24%', rotate: 12, size: 34, delay: 0.3, duration: 5 },
+  { letter: 'В', left: '87%', top: '59%', rotate: -14, size: 20, delay: 0.6, duration: 4.4 },
+  { letter: 'Г', left: '69%', top: '90%', rotate: 6, size: 30, delay: 0.9, duration: 5.2 },
+  { letter: 'Д', left: '35%', top: '81%', rotate: 15, size: 26, delay: 1.2, duration: 4.8 },
+  { letter: 'Е', left: '13%', top: '60%', rotate: -5, size: 22, delay: 1.5, duration: 5 },
+  { letter: 'Ж', left: '20%', top: '26%', rotate: 10, size: 28, delay: 1.8, duration: 4.6 },
 ]
 
 const WHO_FOR_INTRO =
@@ -229,7 +230,7 @@ export default function NeuroskorochtenieDirection() {
       {/* Hero */}
       <section className="bg-bg-white">
         <Container className="py-10 md:py-14">
-          <div className="grid gap-8 lg:grid-cols-[1fr_300px] lg:items-center lg:gap-10">
+          <div className="grid gap-8 lg:grid-cols-[1fr_320px] lg:items-center lg:gap-10">
             <div>
               <h1 className="text-[32px] font-extrabold leading-tight text-brand-navy md:text-[40px] lg:text-h1 lg:font-h1">
                 Нейроскорочтение
@@ -256,37 +257,36 @@ export default function NeuroskorochtenieDirection() {
             {/* Декоративная композиция — по духу Hero главной страницы:
                 статичный мозг на круглой подложке в центре, вокруг —
                 плавающие буквы-кружки по кругу, вместо фото ребёнка. */}
-            <div className="relative mx-auto hidden aspect-square w-full max-w-[280px] lg:block">
-              {/* Мозг в центре — полностью статичен, без анимации */}
-              <div className="absolute left-1/2 top-1/2 flex h-[55%] w-[55%] -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full bg-brand-purple/10">
+            <div className="relative mx-auto hidden aspect-square w-full max-w-[320px] lg:block">
+              {/* Мозг в центре — главный элемент композиции, полностью
+                  статичен, без анимации */}
+              <div className="absolute left-1/2 top-1/2 flex h-[58%] w-[58%] -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full bg-brand-purple/10">
                 <img
                   src={iconBrain}
                   alt=""
-                  className="h-auto w-24 max-w-none drop-shadow-[0_10px_20px_rgba(27,36,85,0.18)]"
+                  className="h-auto w-36 max-w-none drop-shadow-[0_10px_20px_rgba(27,36,85,0.18)]"
                 />
               </div>
 
-              {BRAIN_LETTERS.map(({ letter, left, top, delay, duration }, i) => {
-                const tint = LETTER_TINTS[i % LETTER_TINTS.length]
-                return (
+              {BRAIN_LETTERS.map(({ letter, left, top, rotate, size, delay, duration }, i) => (
+                <div
+                  key={letter}
+                  className="absolute"
+                  style={{ left, top, transform: 'translate(-50%, -50%)' }}
+                >
                   <div
-                    key={letter}
-                    className="absolute"
-                    style={{ left, top, transform: 'translate(-50%, -50%)' }}
+                    className="animate-hero-float"
+                    style={{ animationDelay: `${delay}s`, animationDuration: `${duration}s` }}
                   >
-                    <div
-                      className="animate-hero-float"
-                      style={{ animationDelay: `${delay}s`, animationDuration: `${duration}s` }}
+                    <span
+                      className={`inline-block font-extrabold leading-none ${LETTER_COLORS[i % LETTER_COLORS.length]}`}
+                      style={{ fontSize: `${size}px`, transform: `rotate(${rotate}deg)` }}
                     >
-                      <span
-                        className={`flex h-11 w-11 items-center justify-center rounded-full text-[18px] font-bold shadow-card ${tint.bg} ${tint.text}`}
-                      >
-                        {letter}
-                      </span>
-                    </div>
+                      {letter}
+                    </span>
                   </div>
-                )
-              })}
+                </div>
+              ))}
             </div>
           </div>
         </Container>
