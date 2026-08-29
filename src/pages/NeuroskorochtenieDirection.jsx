@@ -360,14 +360,17 @@ export default function NeuroskorochtenieDirection() {
                     transformOrigin: 'left center',
                   }}
                 >
-                  <div className="flex w-max items-center gap-2 whitespace-nowrap rounded-full bg-bg-lavender2 py-2.5 pl-2.5 pr-5 shadow-card">
+                  <div className="flex w-[312px] items-center gap-2 whitespace-nowrap rounded-full bg-bg-lavender2 py-2.5 pl-2.5 pr-5 shadow-card">
                     {/* Контейнер капсулы остаётся под углом наклона —
                         а её содержимое (иконка+текст) повёрнуто в
                         обратную сторону, чтобы всегда быть строго
                         горизонтальным и читаемым. */}
                     <div
                       className="flex items-center gap-2"
-                      style={{ transform: `rotate(${-cssAngle}deg)` }}
+                      style={{
+                        transform: `rotate(${-cssAngle}deg)`,
+                        transformOrigin: 'left center',
+                      }}
                     >
                       <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-brand-purple/10">
                         {icon ? (
