@@ -187,41 +187,6 @@ const MID_CTA_DECOR = [
   { size: 56, circle: 82, style: { bottom: '-28px', right: '8%' } },
 ]
 
-function BulletList({ items }) {
-  return (
-    <div className="mt-6 grid grid-cols-1 gap-2 sm:grid-cols-2 md:mt-8">
-      {items.map((item) => (
-        <div
-          key={item}
-          className="flex items-start gap-3 rounded-card bg-white p-4 shadow-card"
-        >
-          <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-brand-purple" />
-          <span className="text-[15px] leading-relaxed text-[#5B6180] lg:text-body-sm">
-            {item}
-          </span>
-        </div>
-      ))}
-    </div>
-  )
-}
-
-function InlineCta({ text, buttonLabel }) {
-  return (
-    <div className="mt-6 flex flex-col items-start gap-4 rounded-card border-2 border-brand-purple bg-white p-5 sm:flex-row sm:items-center sm:justify-between md:mt-8">
-      <p className="text-[16px] font-bold leading-snug text-brand-navy lg:text-[18px]">
-        {text}
-      </p>
-      <a
-        href="/#faq"
-        className="flex shrink-0 items-center justify-center gap-2 rounded-button bg-brand-purple px-6 py-3 font-button text-button text-white transition-opacity hover:opacity-90"
-      >
-        {buttonLabel}
-        <ArrowRight size={18} strokeWidth={2.5} />
-      </a>
-    </div>
-  )
-}
-
 export default function NeuroskorochtenieDirection() {
   return (
     <div className="min-h-screen bg-bg-white">
@@ -298,18 +263,38 @@ export default function NeuroskorochtenieDirection() {
           <h2 className="text-[28px] font-bold leading-tight text-brand-navy lg:text-h2 lg:font-h2">
             Кому подходит
           </h2>
-          <p className="mt-3 max-w-3xl text-[15px] leading-relaxed text-[#5B6180] lg:text-body-sm">
+          <p className="mt-3 max-w-4xl text-[15px] leading-relaxed text-[#5B6180] lg:text-body-sm">
             {WHO_FOR_INTRO}
           </p>
-          <p className="mt-4 text-[13px] font-bold uppercase tracking-wide text-brand-navy/50">
+          <p className="mt-4 text-[13px] font-bold uppercase tracking-wide text-brand-purple">
             Чаще всего к нам обращаются, если ребёнок:
           </p>
-          <BulletList items={WHO_FOR} />
+          <div className="mt-6 grid grid-cols-1 gap-2 sm:grid-cols-2 md:mt-8">
+            {WHO_FOR.map((item) => (
+              <div
+                key={item}
+                className="flex items-start gap-3 rounded-card bg-white p-4 shadow-card"
+              >
+                <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-brand-purple" />
+                <span className="text-[15px] leading-relaxed text-[#5B6180] lg:text-body-sm">
+                  {item}
+                </span>
+              </div>
+            ))}
 
-          <InlineCta
-            text="Похоже на вашего ребёнка? Запишитесь на бесплатную консультацию"
-            buttonLabel="Записаться на консультацию"
-          />
+            <div className="flex flex-col items-start justify-center gap-3 rounded-card bg-brand-purple p-4 shadow-card">
+              <p className="text-[16px] font-bold leading-snug text-white">
+                Похоже на вашего ребёнка?
+              </p>
+              <a
+                href="/#faq"
+                className="flex items-center justify-center gap-2 rounded-button bg-white px-5 py-2.5 font-button text-button text-brand-purple transition-opacity hover:opacity-90"
+              >
+                Записаться на консультацию
+                <ArrowRight size={18} strokeWidth={2.5} />
+              </a>
+            </div>
+          </div>
         </Container>
       </section>
 
