@@ -26,13 +26,13 @@ const LETTER_COLORS = [
 // у каждой буквы свой радиус (±15–20% от базового), угол поворота
 // (-15…15°) и размер шрифта, чтобы не выглядело как ровный штамп.
 const BRAIN_LETTERS = [
-  { letter: 'А', left: '50%', top: '14%', rotate: -8, size: 24, delay: 0, duration: 4.6 },
-  { letter: 'Б', left: '83%', top: '24%', rotate: 12, size: 34, delay: 0.3, duration: 5 },
-  { letter: 'В', left: '87%', top: '59%', rotate: -14, size: 20, delay: 0.6, duration: 4.4 },
-  { letter: 'Г', left: '69%', top: '90%', rotate: 6, size: 30, delay: 0.9, duration: 5.2 },
-  { letter: 'Д', left: '35%', top: '81%', rotate: 15, size: 26, delay: 1.2, duration: 4.8 },
-  { letter: 'Е', left: '13%', top: '60%', rotate: -5, size: 22, delay: 1.5, duration: 5 },
-  { letter: 'Ж', left: '20%', top: '26%', rotate: 10, size: 28, delay: 1.8, duration: 4.6 },
+  { letter: 'А', left: '50%', top: '10%', rotate: -8, size: 36, delay: 0, duration: 4.6 },
+  { letter: 'Б', left: '87%', top: '22%', rotate: 12, size: 50, delay: 0.3, duration: 5 },
+  { letter: 'В', left: '92%', top: '59%', rotate: -14, size: 32, delay: 0.6, duration: 4.4 },
+  { letter: 'Г', left: '71%', top: '94%', rotate: 6, size: 46, delay: 0.9, duration: 5.2 },
+  { letter: 'Д', left: '31%', top: '87%', rotate: 15, size: 40, delay: 1.2, duration: 4.8 },
+  { letter: 'Е', left: '7%', top: '61%', rotate: -5, size: 34, delay: 1.5, duration: 5 },
+  { letter: 'Ж', left: '14%', top: '23%', rotate: 10, size: 44, delay: 1.8, duration: 4.6 },
 ]
 
 const WHO_FOR_INTRO =
@@ -230,7 +230,7 @@ export default function NeuroskorochtenieDirection() {
       {/* Hero */}
       <section className="bg-bg-white">
         <Container className="py-10 md:py-14">
-          <div className="grid gap-8 lg:grid-cols-[1fr_320px] lg:items-center lg:gap-10">
+          <div className="grid gap-8 lg:grid-cols-[1fr_360px] lg:items-center lg:gap-10">
             <div>
               <h1 className="text-[32px] font-extrabold leading-tight text-brand-navy md:text-[40px] lg:text-h1 lg:font-h1">
                 Нейроскорочтение
@@ -257,7 +257,7 @@ export default function NeuroskorochtenieDirection() {
             {/* Декоративная композиция — по духу Hero главной страницы:
                 статичный мозг на круглой подложке в центре, вокруг —
                 плавающие буквы-кружки по кругу, вместо фото ребёнка. */}
-            <div className="relative mx-auto hidden aspect-square w-full max-w-[320px] lg:block">
+            <div className="relative mx-auto hidden aspect-square w-full max-w-[360px] lg:block">
               {/* Мозг в центре — главный элемент композиции, полностью
                   статичен, без анимации */}
               <div className="absolute left-1/2 top-1/2 flex h-[58%] w-[58%] -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full bg-brand-purple/10">
