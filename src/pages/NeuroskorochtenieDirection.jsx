@@ -11,6 +11,29 @@ import iconLightbulb from '../assets/icon-lightbulb.png'
 import iconStar from '../assets/icon-star.png'
 import iconTarget from '../assets/icon-target.png'
 
+// Буквы вокруг мозга в hero — расставлены по кругу на равном
+// расстоянии друг от друга (8 точек через 45°), как иконки вокруг
+// фото ребёнка в Hero на главной. Цвета кружков идут по кругу из
+// палитры токенов, при нехватке — повторяются.
+const LETTER_TINTS = [
+  { bg: 'bg-brand-purple', text: 'text-white' },
+  { bg: 'bg-brand-yellow', text: 'text-brand-navy' },
+  { bg: 'bg-brand-blue', text: 'text-white' },
+  { bg: 'bg-brand-green', text: 'text-white' },
+  { bg: 'bg-brand-pink', text: 'text-white' },
+]
+
+const BRAIN_LETTERS = [
+  { letter: 'А', left: '50%', top: '10%', delay: 0, duration: 4.6 },
+  { letter: 'Б', left: '78%', top: '22%', delay: 0.3, duration: 5 },
+  { letter: 'В', left: '90%', top: '50%', delay: 0.6, duration: 4.4 },
+  { letter: 'Г', left: '78%', top: '78%', delay: 0.9, duration: 5.2 },
+  { letter: 'Д', left: '50%', top: '90%', delay: 1.2, duration: 4.8 },
+  { letter: 'Е', left: '22%', top: '78%', delay: 1.5, duration: 5 },
+  { letter: 'Ж', left: '10%', top: '50%', delay: 1.8, duration: 4.6 },
+  { letter: 'З', left: '22%', top: '22%', delay: 2.1, duration: 5.2 },
+]
+
 const WHO_FOR_INTRO =
   'Направление — для дошкольников и учеников начальной школы, а также для детей постарше, если есть трудности с чтением, пониманием текста или обработкой информации.'
 
@@ -231,36 +254,39 @@ export default function NeuroskorochtenieDirection() {
             </div>
 
             {/* Декоративная композиция — по духу Hero главной страницы:
-                круглая подложка + плавающие иконки вместо фото ребёнка. */}
+                статичный мозг на круглой подложке в центре, вокруг —
+                плавающие буквы-кружки по кругу, вместо фото ребёнка. */}
             <div className="relative mx-auto hidden aspect-square w-full max-w-[280px] lg:block">
-              <div className="absolute inset-[8%] rounded-full bg-brand-purple/10" />
-              <div className="absolute inset-[14%] rounded-full border border-dashed border-bg-lavender2" />
-
-              <div
-                className="animate-hero-float absolute"
-                style={{ left: '32%', top: '32%', transform: 'translate(-50%, -50%)' }}
-              >
+              {/* Мозг в центре — полностью статичен, без анимации */}
+              <div className="absolute left-1/2 top-1/2 flex h-[55%] w-[55%] -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full bg-brand-purple/10">
                 <img
                   src={iconBrain}
                   alt=""
-                  className="h-auto w-20 max-w-none drop-shadow-[0_10px_20px_rgba(27,36,85,0.18)]"
+                  className="h-auto w-24 max-w-none drop-shadow-[0_10px_20px_rgba(27,36,85,0.18)]"
                 />
               </div>
-              <div
-                className="animate-hero-float absolute"
-                style={{
-                  left: '70%',
-                  top: '66%',
-                  transform: 'translate(-50%, -50%)',
-                  animationDelay: '0.8s',
-                }}
-              >
-                <img
-                  src={iconBook}
-                  alt=""
-                  className="h-auto w-16 max-w-none drop-shadow-[0_10px_20px_rgba(27,36,85,0.18)]"
-                />
-              </div>
+
+              {BRAIN_LETTERS.map(({ letter, left, top, delay, duration }, i) => {
+                const tint = LETTER_TINTS[i % LETTER_TINTS.length]
+                return (
+                  <div
+                    key={letter}
+                    className="absolute"
+                    style={{ left, top, transform: 'translate(-50%, -50%)' }}
+                  >
+                    <div
+                      className="animate-hero-float"
+                      style={{ animationDelay: `${delay}s`, animationDuration: `${duration}s` }}
+                    >
+                      <span
+                        className={`flex h-11 w-11 items-center justify-center rounded-full text-[18px] font-bold shadow-card ${tint.bg} ${tint.text}`}
+                      >
+                        {letter}
+                      </span>
+                    </div>
+                  </div>
+                )
+              })}
             </div>
           </div>
         </Container>
