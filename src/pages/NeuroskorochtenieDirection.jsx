@@ -348,6 +348,17 @@ export default function NeuroskorochtenieDirection() {
               const offset = METHOD_FAN_OFFSETS[i]
               const { cssAngle, left, top } = methodFanPosition(offset)
               const icon = METHOD_ICONS[skill]
+              // Капсулы слева от центра (offset < 0) наклонены "за
+              // вертикаль" (cssAngle < -90°) — если текст просто
+              // наследует общий поворот капсулы, он окажется вверх
+              // ногами. Разворачиваем ТОЛЬКО текст на 180° вокруг его
+              // собственного центра (это не сдвигает его positions —
+              // поворот на ровно 180° вокруг своего центра сохраняет
+              // рамку) — итоговый угол текста уходит в читаемый
+              // диапазон, а сам текст остаётся выровнен вдоль капсулы
+              // (не горизонтально), поэтому никогда не вылезает за её
+              // узкие границы, как было при полном counter-rotate.
+              const flipText = offset < 0
               return (
                 <div
                   key={skill}
@@ -361,28 +372,19 @@ export default function NeuroskorochtenieDirection() {
                   }}
                 >
                   <div className="flex w-[312px] items-center gap-2 whitespace-nowrap rounded-full bg-bg-lavender2 py-2.5 pl-2.5 pr-5 shadow-card">
-                    {/* Контейнер капсулы остаётся под углом наклона —
-                        а её содержимое (иконка+текст) повёрнуто в
-                        обратную сторону, чтобы всегда быть строго
-                        горизонтальным и читаемым. */}
-                    <div
-                      className="flex items-center gap-2"
-                      style={{
-                        transform: `rotate(${-cssAngle}deg)`,
-                        transformOrigin: 'left center',
-                      }}
+                    <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-brand-purple/10">
+                      {icon ? (
+                        <img src={icon} alt="" className="h-4 w-4 object-contain" />
+                      ) : (
+                        <span className="h-2 w-2 rounded-full bg-brand-purple" />
+                      )}
+                    </span>
+                    <span
+                      className="inline-block text-[14px] font-bold leading-snug text-brand-navy"
+                      style={flipText ? { transform: 'rotate(180deg)' } : undefined}
                     >
-                      <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-brand-purple/10">
-                        {icon ? (
-                          <img src={icon} alt="" className="h-4 w-4 object-contain" />
-                        ) : (
-                          <span className="h-2 w-2 rounded-full bg-brand-purple" />
-                        )}
-                      </span>
-                      <span className="text-[14px] font-bold leading-snug text-brand-navy">
-                        {skill}
-                      </span>
-                    </div>
+                      {skill}
+                    </span>
                   </div>
                 </div>
               )
