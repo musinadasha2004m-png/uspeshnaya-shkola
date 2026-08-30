@@ -6,8 +6,6 @@ import StepsFlow from '../components/StepsFlow'
 import Testimonials, { CASES } from '../components/Testimonials'
 import ParentReviews, { REVIEWS } from '../components/ParentReviews'
 import iconBrain from '../assets/icon-brain.png'
-import iconBook from '../assets/icon-book.png'
-import iconLightbulb from '../assets/icon-lightbulb.png'
 import iconStar from '../assets/icon-star.png'
 import iconTarget from '../assets/icon-target.png'
 
@@ -63,15 +61,6 @@ const METHOD_SKILLS = [
   'навык анализа прочитанного',
 ]
 
-// Иконки — не к каждому пункту, только там, где ассоциация читается
-// сразу (по смыслу слова), для визуального акцента, а не подписи.
-const METHOD_ICONS = {
-  внимание: iconTarget,
-  память: iconBrain,
-  'логическое мышление': iconLightbulb,
-  'понимание текста': iconBook,
-}
-
 const PROGRAM_TEXT =
   'Слово «нейро» в названии — не маркетинговый приём, а суть метода. Ребёнок не просто читает тексты, а выполняет упражнения, которые активизируют разные участки мозга и формируют новые нейронные связи:'
 
@@ -86,14 +75,6 @@ const PROGRAM_ITEMS = [
   'задания на понимание текста',
   'упражнения на скорость мышления',
 ]
-
-const PROGRAM_ICONS = {
-  нейроигры: iconStar,
-  'задания на развитие памяти': iconBrain,
-  'задания на координацию': iconTarget,
-  'задания на понимание текста': iconBook,
-  'упражнения на скорость мышления': iconLightbulb,
-}
 
 const PATH_STEPS = [
   {
@@ -267,7 +248,7 @@ export default function NeuroskorochtenieDirection() {
           <h2 className="text-[28px] font-bold leading-tight text-brand-navy lg:text-h2 lg:font-h2">
             Как устроена методика
           </h2>
-          <p className="mt-3 max-w-3xl text-[15px] leading-relaxed text-[#5B6180] lg:text-body-sm">
+          <p className="mt-3 max-w-5xl text-[15px] leading-relaxed text-[#5B6180] lg:text-body-sm">
             {METHOD_TEXT}
           </p>
           <p className="mt-4 text-[20px] font-bold uppercase tracking-wide text-brand-purple">
@@ -275,26 +256,17 @@ export default function NeuroskorochtenieDirection() {
           </p>
 
           <div className="mt-6 grid grid-cols-1 gap-3 sm:grid-cols-3 md:mt-8">
-            {METHOD_SKILLS.map((skill) => {
-              const icon = METHOD_ICONS[skill]
-              return (
-                <div
-                  key={skill}
-                  className="flex items-center gap-3 rounded-card bg-white p-4 shadow-card"
-                >
-                  <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-brand-purple/10">
-                    {icon ? (
-                      <img src={icon} alt="" className="h-4 w-4 object-contain" />
-                    ) : (
-                      <span className="h-2 w-2 rounded-full bg-brand-purple" />
-                    )}
-                  </span>
-                  <span className="text-[15px] font-bold leading-snug text-brand-navy">
-                    {skill}
-                  </span>
-                </div>
-              )
-            })}
+            {METHOD_SKILLS.map((skill) => (
+              <div
+                key={skill}
+                className="flex items-center gap-3 rounded-card bg-white p-4 shadow-card"
+              >
+                <span className="h-1.5 w-1.5 shrink-0 rounded-full bg-brand-purple" />
+                <span className="text-[15px] font-bold leading-snug text-brand-navy">
+                  {skill}
+                </span>
+              </div>
+            ))}
           </div>
         </Container>
       </section>
@@ -305,7 +277,7 @@ export default function NeuroskorochtenieDirection() {
           <h2 className="text-[28px] font-bold leading-tight text-brand-navy lg:text-h2 lg:font-h2">
             Что входит в программу
           </h2>
-          <p className="mt-3 max-w-3xl text-[15px] leading-relaxed text-[#5B6180] lg:text-body-sm">
+          <p className="mt-3 max-w-5xl text-[15px] leading-relaxed text-[#5B6180] lg:text-body-sm">
             {PROGRAM_TEXT}
           </p>
           <div className="mt-6 grid grid-cols-2 gap-3 sm:grid-cols-3 md:mt-8">
@@ -314,15 +286,7 @@ export default function NeuroskorochtenieDirection() {
                 key={item}
                 className="flex items-center gap-2.5 rounded-xl border border-bg-lavender2 bg-white px-3 py-2.5"
               >
-                {PROGRAM_ICONS[item] ? (
-                  <img
-                    src={PROGRAM_ICONS[item]}
-                    alt=""
-                    className="h-5 w-5 shrink-0 object-contain"
-                  />
-                ) : (
-                  <span className="h-1.5 w-1.5 shrink-0 rounded-full bg-brand-purple" />
-                )}
+                <span className="h-1.5 w-1.5 shrink-0 rounded-full bg-brand-purple" />
                 <span className="text-[14px] font-medium leading-snug text-brand-navy">
                   {item}
                 </span>
