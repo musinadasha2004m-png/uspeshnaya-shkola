@@ -72,66 +72,6 @@ const METHOD_ICONS = {
   'понимание текста': iconBook,
 }
 
-// Композиция "купол + веер вверх" (десктоп, xl+): внизу по центру —
-// купол-полукруг (флет снизу, дуга сверху, "половина солнца на
-// горизонте"), над его дугой веером расходятся 9 капсул — одна строго
-// по центру (выше всех), остальные 8 — зеркальными парами по бокам,
-// шире расходятся по мере удаления от центра. Сами капсулы — строго
-// горизонтальные (без поворота); "веер" здесь — это положение (радиус
-// и разброс по X растут от центра к краям), а не наклон плашек.
-// Явные уровни по Y (не чистая тригонометрия одного радиуса) — иначе
-// соседние капсулы на близких углах почти касаются по высоте и
-// накладываются друг на друга при горизонтальной, нерастянутой форме.
-const METHOD_CENTER_LABEL = 'Нейропсихологический подход'
-const METHOD_DOME_R = 220 // радиус купола = его половина ширины
-const METHOD_ORIGIN_X_RATIO = 0.5 // купол по центру диаграммы
-const METHOD_DIAGRAM_W = 1180
-const METHOD_DIAGRAM_H = 680
-const METHOD_ORIGIN_X = METHOD_DIAGRAM_W * METHOD_ORIGIN_X_RATIO
-const METHOD_ORIGIN_Y = METHOD_DIAGRAM_H - 40 // на уровне флет-края купола
-
-// offset определяет и сторону (знак), и уровень (по модулю): 0 — центр
-// (самый верхний уровень), дальше — пары по возрастанию модуля, до
-// самой нижней/широкой пары ближе к куполу. По Y — шаг 70px (больше
-// высоты капсулы 52px, чтобы уровни не пересекались по вертикали
-// независимо от X), нижний уровень поднят на 270px — заметно выше
-// верхнего края купола (220px), с запасом. По X — минимум ~180px от
-// центра в паре (капсулы шириной 312px иначе перекрывают друг друга
-// в одном уровне).
-const METHOD_FAN_OFFSETS = [-72, -54, -36, -18, 0, 18, 36, 54, 72]
-const METHOD_TIER_BY_OFFSET = {
-  0: { x: 0, y: -550 },
-  18: { x: 180, y: -480 },
-  36: { x: 260, y: -410 },
-  54: { x: 340, y: -340 },
-  72: { x: 420, y: -270 },
-}
-
-// Порядок капсул в веере — по длине формулировки: самые короткие у
-// центра/верха, самые длинные — у крайних/нижних пар (там капсулы
-// шире расставлены, больше места). Порядок в METHOD_SKILLS (контент,
-// мобильный список) не меняется — это только раскладка веера.
-const METHOD_FAN_SKILLS = [
-  'межполушарное взаимодействие', // offset -72, крайняя левая
-  'периферическое зрение', // offset -54
-  'понимание текста', // offset -36
-  'внимание', // offset -18
-  'память', // offset 0, центр
-  'концентрация', // offset 18
-  'логическое мышление', // offset 36
-  'навык анализа прочитанного', // offset 54
-  'скорость обработки информации', // offset 72, крайняя правая
-]
-
-function methodFanPosition(offset) {
-  const tier = METHOD_TIER_BY_OFFSET[Math.abs(offset)]
-  const sign = offset < 0 ? -1 : 1
-  return {
-    left: METHOD_ORIGIN_X + sign * tier.x,
-    top: METHOD_ORIGIN_Y + tier.y,
-  }
-}
-
 const PROGRAM_TEXT =
   'Слово «нейро» в названии — не маркетинговый приём, а суть метода. Ребёнок не просто читает тексты, а выполняет упражнения, которые активизируют разные участки мозга и формируют новые нейронные связи:'
 
@@ -330,60 +270,11 @@ export default function NeuroskorochtenieDirection() {
           <p className="mt-3 max-w-3xl text-[15px] leading-relaxed text-[#5B6180] lg:text-body-sm">
             {METHOD_TEXT}
           </p>
-          <p className="mt-4 text-[13px] font-bold uppercase tracking-wide text-brand-navy/50">
+          <p className="mt-4 text-[20px] font-bold uppercase tracking-wide text-brand-purple">
             На занятиях одновременно развиваются
           </p>
 
-          {/* Десктоп: купол снизу по центру + веер капсул вверх от его дуги */}
-          <div
-            className="relative mx-auto mt-8 hidden xl:block"
-            style={{ width: METHOD_DIAGRAM_W, height: METHOD_DIAGRAM_H }}
-          >
-            <div
-              className="absolute flex items-end justify-center bg-brand-purple pb-8 text-center"
-              style={{
-                left: METHOD_ORIGIN_X,
-                bottom: METHOD_DIAGRAM_H - METHOD_ORIGIN_Y,
-                width: METHOD_DOME_R * 2,
-                height: METHOD_DOME_R,
-                transform: 'translateX(-50%)',
-                borderRadius: '9999px 9999px 0 0',
-              }}
-            >
-              <span className="max-w-[220px] text-[16px] font-bold leading-snug text-white">
-                {METHOD_CENTER_LABEL}
-              </span>
-            </div>
-
-            {METHOD_FAN_SKILLS.map((skill, i) => {
-              const offset = METHOD_FAN_OFFSETS[i]
-              const { left, top } = methodFanPosition(offset)
-              const icon = METHOD_ICONS[skill]
-              return (
-                <div
-                  key={skill}
-                  className="absolute"
-                  style={{ left, top, transform: 'translate(-50%, -50%)' }}
-                >
-                  <div className="flex w-[312px] items-center gap-2 whitespace-nowrap rounded-full bg-bg-lavender2 py-2.5 pl-2.5 pr-5 shadow-card">
-                    <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-brand-purple/10">
-                      {icon ? (
-                        <img src={icon} alt="" className="h-4 w-4 object-contain" />
-                      ) : (
-                        <span className="h-2 w-2 rounded-full bg-brand-purple" />
-                      )}
-                    </span>
-                    <span className="text-[14px] font-bold leading-snug text-brand-navy">
-                      {skill}
-                    </span>
-                  </div>
-                </div>
-              )
-            })}
-          </div>
-
-          {/* Планшет/моб: обычный вертикальный список */}
-          <div className="mt-3 flex flex-col gap-2 xl:hidden md:mt-4">
+          <div className="mt-6 grid grid-cols-1 gap-3 sm:grid-cols-3 md:mt-8">
             {METHOD_SKILLS.map((skill) => {
               const icon = METHOD_ICONS[skill]
               return (
