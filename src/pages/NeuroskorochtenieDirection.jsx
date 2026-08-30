@@ -310,7 +310,7 @@ export default function NeuroskorochtenieDirection() {
               </span>
             ))}
 
-            <h2 className="max-w-xl text-[28px] font-bold leading-tight text-white lg:text-h2 lg:font-h2">
+            <h2 className="max-w-2xl text-[28px] font-bold leading-tight text-white lg:text-h2 lg:font-h2">
               Узнайте, подойдёт ли программа вашему ребёнку
             </h2>
             <a
