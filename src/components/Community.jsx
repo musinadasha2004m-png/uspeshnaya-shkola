@@ -52,6 +52,7 @@ function DefaultCta() {
 // под другой заголовок/CTA, с тем же layout и пропорциями.
 export default function Community({
   title = 'Будьте ближе к жизни нашей школы',
+  titleMaxWidth = 'max-w-2xl',
   subtitle = DEFAULT_SUBTITLE,
   decor = DECOR,
   children,
@@ -76,7 +77,7 @@ export default function Community({
           ))}
 
           <div className="relative z-10 flex flex-col items-center gap-4">
-            <h2 className="max-w-2xl text-[28px] font-bold leading-snug text-white">
+            <h2 className={`${titleMaxWidth} text-[28px] font-bold leading-snug text-white`}>
               {title}
             </h2>
 

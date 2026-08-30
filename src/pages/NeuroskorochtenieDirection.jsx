@@ -301,6 +301,7 @@ export default function NeuroskorochtenieDirection() {
           "Будьте ближе к жизни нашей школы" на главной. */}
       <Community
         title="Узнайте, подойдёт ли программа вашему ребёнку"
+        titleMaxWidth="max-w-3xl"
         subtitle={null}
         decor={MID_CTA_DECOR}
       >
