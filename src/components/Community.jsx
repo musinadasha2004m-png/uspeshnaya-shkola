@@ -19,12 +19,48 @@ const DECOR = [
   { src: iconStar, size: 28, circle: 44, style: { bottom: '-8px', right: '24px' } },
 ]
 
-export default function Community() {
+const DEFAULT_SUBTITLE =
+  'Полезные материалы для родителей, новости школы, достижения учеников, советы преподавателей и анонсы мероприятий — всё в наших сообществах.'
+
+function DefaultCta() {
+  return (
+    <div className="flex flex-col gap-3 sm:flex-row">
+      <a
+        href={TELEGRAM_HREF}
+        target="_blank"
+        rel="noreferrer"
+        className="flex items-center justify-center gap-3 rounded-button bg-white px-6 py-2.5 font-button text-button text-brand-purple shadow-card transition-opacity hover:opacity-90"
+      >
+        <TelegramIcon className="h-7 w-7 shrink-0 sm:h-[22px] sm:w-[22px]" />
+        Перейти в Telegram-канал
+      </a>
+      <a
+        href={MAX_HREF}
+        target="_blank"
+        rel="noreferrer"
+        className="flex items-center justify-center gap-3 rounded-button bg-white px-6 py-2.5 font-button text-button text-brand-purple shadow-card transition-opacity hover:opacity-90"
+      >
+        <MaxIcon className="h-7 w-7 shrink-0 sm:h-[22px] sm:w-[22px]" />
+        Перейти в сообщество MAX
+      </a>
+    </div>
+  )
+}
+
+// Компактная фиолетовая плашка-приглашение (по образцу "Будьте ближе к
+// жизни нашей школы") — переиспользуется и на страницах направлений
+// под другой заголовок/CTA, с тем же layout и пропорциями.
+export default function Community({
+  title = 'Будьте ближе к жизни нашей школы',
+  subtitle = DEFAULT_SUBTITLE,
+  decor = DECOR,
+  children,
+}) {
   return (
     <section className="bg-bg-white">
       <Container className="py-6 md:py-10">
         <div className="relative isolate flex flex-col items-center gap-3 rounded-card bg-brand-purple px-4 py-5 text-center md:gap-4 md:p-6">
-          {DECOR.map(({ src, size, circle, style }, i) => (
+          {decor.map(({ src, size, circle, style }, i) => (
             <span
               key={i}
               className="pointer-events-none absolute -z-10 flex items-center justify-center rounded-full bg-white/15"
@@ -41,35 +77,16 @@ export default function Community() {
 
           <div className="relative z-10 flex flex-col items-center gap-4">
             <h2 className="max-w-2xl text-[28px] font-bold leading-snug text-white">
-              Будьте ближе к жизни нашей школы
+              {title}
             </h2>
 
-            <p className="max-w-xl text-caption font-caption leading-snug text-white/80">
-              Полезные материалы для родителей, новости школы, достижения
-              учеников, советы преподавателей и анонсы мероприятий — всё в
-              наших сообществах.
-            </p>
+            {subtitle && (
+              <p className="max-w-xl text-caption font-caption leading-snug text-white/80">
+                {subtitle}
+              </p>
+            )}
 
-            <div className="flex flex-col gap-3 sm:flex-row">
-              <a
-                href={TELEGRAM_HREF}
-                target="_blank"
-                rel="noreferrer"
-                className="flex items-center justify-center gap-3 rounded-button bg-white px-6 py-2.5 font-button text-button text-brand-purple shadow-card transition-opacity hover:opacity-90"
-              >
-                <TelegramIcon className="h-7 w-7 shrink-0 sm:h-[22px] sm:w-[22px]" />
-                Перейти в Telegram-канал
-              </a>
-              <a
-                href={MAX_HREF}
-                target="_blank"
-                rel="noreferrer"
-                className="flex items-center justify-center gap-3 rounded-button bg-white px-6 py-2.5 font-button text-button text-brand-purple shadow-card transition-opacity hover:opacity-90"
-              >
-                <MaxIcon className="h-7 w-7 shrink-0 sm:h-[22px] sm:w-[22px]" />
-                Перейти в сообщество MAX
-              </a>
-            </div>
+            {children ?? <DefaultCta />}
           </div>
         </div>
       </Container>

@@ -2,6 +2,7 @@ import { ArrowRight, Check } from 'lucide-react'
 import { Link } from 'react-router-dom'
 import Header from '../components/Header'
 import Container from '../components/Container'
+import Community from '../components/Community'
 import StepsFlow from '../components/StepsFlow'
 import Testimonials, { CASES } from '../components/Testimonials'
 import ParentReviews, { REVIEWS } from '../components/ParentReviews'
@@ -126,12 +127,12 @@ const RESULTS = [
 const NEURO_CASES = CASES.filter((c) => c.tag === 'Скорочтение')
 const NEURO_REVIEWS = REVIEWS.filter((r) => r.subject === 'Скорочтение')
 
-// Декор для сплошных фиолетовых/синих плашек — по тому же принципу,
-// что в блоке "Будьте ближе к жизни нашей школы" на главной.
+// Тот же формат декора, что ожидает компонент Community (звёзды по
+// углам плашки, частично выступающие за края).
 const MID_CTA_DECOR = [
-  { size: 46, circle: 68, style: { top: '-22px', left: '10%' } },
-  { size: 28, circle: 44, style: { bottom: '-14px', left: '28%' } },
-  { size: 56, circle: 82, style: { bottom: '-28px', right: '8%' } },
+  { src: iconStar, size: 46, circle: 68, style: { top: '-22px', left: '10%' } },
+  { src: iconStar, size: 28, circle: 44, style: { bottom: '-14px', left: '28%' } },
+  { src: iconStar, size: 56, circle: 82, style: { bottom: '-28px', right: '8%' } },
 ]
 
 export default function NeuroskorochtenieDirection() {
@@ -296,33 +297,21 @@ export default function NeuroskorochtenieDirection() {
         </Container>
       </section>
 
-      {/* Акцентная пауза + CTA — по образцу "Будьте ближе к жизни нашей школы" */}
-      <section className="bg-brand-purple">
-        <Container className="py-10 md:py-14">
-          <div className="relative isolate flex flex-col items-center gap-5 rounded-card p-2 text-center">
-            {MID_CTA_DECOR.map(({ size, circle, style }, i) => (
-              <span
-                key={i}
-                className="pointer-events-none absolute -z-10 flex items-center justify-center rounded-full bg-white/15"
-                style={{ width: circle, height: circle, ...style }}
-              >
-                <img src={iconStar} alt="" style={{ width: size, height: size }} className="object-contain" />
-              </span>
-            ))}
-
-            <h2 className="max-w-2xl text-[28px] font-bold leading-tight text-white lg:text-h2 lg:font-h2">
-              Узнайте, подойдёт ли программа вашему ребёнку
-            </h2>
-            <a
-              href="/#faq"
-              className="flex items-center justify-center gap-2 rounded-button bg-white px-8 py-3.5 font-button text-button text-brand-purple transition-opacity hover:opacity-90"
-            >
-              Записаться на консультацию
-              <ArrowRight size={20} strokeWidth={2.2} />
-            </a>
-          </div>
-        </Container>
-      </section>
+      {/* Акцентная пауза + CTA — тот же компонент/пропорции, что
+          "Будьте ближе к жизни нашей школы" на главной. */}
+      <Community
+        title="Узнайте, подойдёт ли программа вашему ребёнку"
+        subtitle={null}
+        decor={MID_CTA_DECOR}
+      >
+        <a
+          href="/#faq"
+          className="flex items-center justify-center gap-2 rounded-button bg-white px-6 py-2.5 font-button text-button text-brand-purple shadow-card transition-opacity hover:opacity-90"
+        >
+          Записаться на консультацию
+          <ArrowRight size={20} strokeWidth={2.2} />
+        </a>
+      </Community>
 
       {/* Путь ребёнка и родителя */}
       <section className="bg-bg-white">
