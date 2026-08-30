@@ -74,30 +74,42 @@ const METHOD_ICONS = {
 
 // Композиция "купол + веер вверх" (десктоп, xl+): внизу по центру —
 // купол-полукруг (флет снизу, дуга сверху, "половина солнца на
-// горизонте"), от его верхней дуги веером расходятся вверх 9 капсул —
-// одна строго по центру (вертикально вверх), остальные 8 — зеркальными
-// парами по бокам, угол от вертикали растёт по мере удаления от
-// центра (крайние пары — самые пологие). offset — отклонение от
-// вертикали в градусах (0 = вверх, "-" влево, "+" вправо); в CSS
-// rotate() это переводится как -90 + offset (0° в rotate() = "вправо").
+// горизонте"), над его дугой веером расходятся 9 капсул — одна строго
+// по центру (выше всех), остальные 8 — зеркальными парами по бокам,
+// шире расходятся по мере удаления от центра. Сами капсулы — строго
+// горизонтальные (без поворота); "веер" здесь — это положение (радиус
+// и разброс по X растут от центра к краям), а не наклон плашек.
+// Явные уровни по Y (не чистая тригонометрия одного радиуса) — иначе
+// соседние капсулы на близких углах почти касаются по высоте и
+// накладываются друг на друга при горизонтальной, нерастянутой форме.
 const METHOD_CENTER_LABEL = 'Нейропсихологический подход'
 const METHOD_DOME_R = 220 // радиус купола = его половина ширины
-// Радиус, на котором стартует внутренний край каждой капсулы — заметно
-// больше радиуса купола (видимый зазор между куполом и веером капсул),
-// одинаковый для всех 9 капсул независимо от угла.
-const METHOD_ANCHOR_R = 300
 const METHOD_ORIGIN_X_RATIO = 0.5 // купол по центру диаграммы
 const METHOD_DIAGRAM_W = 1180
-const METHOD_DIAGRAM_H = 860
+const METHOD_DIAGRAM_H = 680
 const METHOD_ORIGIN_X = METHOD_DIAGRAM_W * METHOD_ORIGIN_X_RATIO
 const METHOD_ORIGIN_Y = METHOD_DIAGRAM_H - 40 // на уровне флет-края купола
 
+// offset определяет и сторону (знак), и уровень (по модулю): 0 — центр
+// (самый верхний уровень), дальше — пары по возрастанию модуля, до
+// самой нижней/широкой пары ближе к куполу. По Y — шаг 70px (больше
+// высоты капсулы 52px, чтобы уровни не пересекались по вертикали
+// независимо от X), нижний уровень поднят на 270px — заметно выше
+// верхнего края купола (220px), с запасом. По X — минимум ~180px от
+// центра в паре (капсулы шириной 312px иначе перекрывают друг друга
+// в одном уровне).
 const METHOD_FAN_OFFSETS = [-72, -54, -36, -18, 0, 18, 36, 54, 72]
+const METHOD_TIER_BY_OFFSET = {
+  0: { x: 0, y: -550 },
+  18: { x: 180, y: -480 },
+  36: { x: 260, y: -410 },
+  54: { x: 340, y: -340 },
+  72: { x: 420, y: -270 },
+}
 
 // Порядок капсул в веере — по длине формулировки: самые короткие у
-// центра/верха (там капсулы почти вертикальные и уже), самые длинные —
-// у крайних/нижних пар (там капсулы почти горизонтальные, для
-// длинного текста больше места). Порядок в METHOD_SKILLS (контент,
+// центра/верха, самые длинные — у крайних/нижних пар (там капсулы
+// шире расставлены, больше места). Порядок в METHOD_SKILLS (контент,
 // мобильный список) не меняется — это только раскладка веера.
 const METHOD_FAN_SKILLS = [
   'межполушарное взаимодействие', // offset -72, крайняя левая
@@ -112,12 +124,11 @@ const METHOD_FAN_SKILLS = [
 ]
 
 function methodFanPosition(offset) {
-  const cssAngle = -90 + offset
-  const rad = (cssAngle * Math.PI) / 180
+  const tier = METHOD_TIER_BY_OFFSET[Math.abs(offset)]
+  const sign = offset < 0 ? -1 : 1
   return {
-    cssAngle,
-    left: METHOD_ORIGIN_X + METHOD_ANCHOR_R * Math.cos(rad),
-    top: METHOD_ORIGIN_Y + METHOD_ANCHOR_R * Math.sin(rad),
+    left: METHOD_ORIGIN_X + sign * tier.x,
+    top: METHOD_ORIGIN_Y + tier.y,
   }
 }
 
@@ -329,7 +340,7 @@ export default function NeuroskorochtenieDirection() {
             style={{ width: METHOD_DIAGRAM_W, height: METHOD_DIAGRAM_H }}
           >
             <div
-              className="absolute flex items-start justify-center bg-brand-purple pt-6 text-center"
+              className="absolute flex items-end justify-center bg-brand-purple pb-8 text-center"
               style={{
                 left: METHOD_ORIGIN_X,
                 bottom: METHOD_DIAGRAM_H - METHOD_ORIGIN_Y,
@@ -346,30 +357,13 @@ export default function NeuroskorochtenieDirection() {
 
             {METHOD_FAN_SKILLS.map((skill, i) => {
               const offset = METHOD_FAN_OFFSETS[i]
-              const { cssAngle, left, top } = methodFanPosition(offset)
+              const { left, top } = methodFanPosition(offset)
               const icon = METHOD_ICONS[skill]
-              // Капсулы слева от центра (offset < 0) наклонены "за
-              // вертикаль" (cssAngle < -90°) — если текст просто
-              // наследует общий поворот капсулы, он окажется вверх
-              // ногами. Разворачиваем ТОЛЬКО текст на 180° вокруг его
-              // собственного центра (это не сдвигает его positions —
-              // поворот на ровно 180° вокруг своего центра сохраняет
-              // рамку) — итоговый угол текста уходит в читаемый
-              // диапазон, а сам текст остаётся выровнен вдоль капсулы
-              // (не горизонтально), поэтому никогда не вылезает за её
-              // узкие границы, как было при полном counter-rotate.
-              const flipText = offset < 0
               return (
                 <div
                   key={skill}
-                  className="absolute flex items-center"
-                  style={{
-                    left,
-                    top,
-                    height: 0,
-                    transform: `rotate(${cssAngle}deg)`,
-                    transformOrigin: 'left center',
-                  }}
+                  className="absolute"
+                  style={{ left, top, transform: 'translate(-50%, -50%)' }}
                 >
                   <div className="flex w-[312px] items-center gap-2 whitespace-nowrap rounded-full bg-bg-lavender2 py-2.5 pl-2.5 pr-5 shadow-card">
                     <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-brand-purple/10">
@@ -379,10 +373,7 @@ export default function NeuroskorochtenieDirection() {
                         <span className="h-2 w-2 rounded-full bg-brand-purple" />
                       )}
                     </span>
-                    <span
-                      className="inline-block text-[14px] font-bold leading-snug text-brand-navy"
-                      style={flipText ? { transform: 'rotate(180deg)' } : undefined}
-                    >
+                    <span className="text-[14px] font-bold leading-snug text-brand-navy">
                       {skill}
                     </span>
                   </div>
