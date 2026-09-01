@@ -6,7 +6,7 @@ import Container from './Container'
 
 const DIRECTIONS = [
   { label: 'Подготовка к школе', href: '#' },
-  { label: 'Предметные репетиторы', href: '#' },
+  { label: 'Предметные репетиторы', href: '/napravleniya/repetitory' },
   { label: 'Нейроскорочтение', href: '/napravleniya/neuroskorochtenie' },
   { label: 'Подготовка к ВПР', href: '#' },
   { label: 'Подготовка к ОГЭ', href: '#' },

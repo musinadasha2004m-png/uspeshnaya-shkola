@@ -2,6 +2,7 @@ import { useEffect } from 'react'
 import { Route, Routes, useLocation } from 'react-router-dom'
 import HomePage from './pages/HomePage'
 import NeuroskorochtenieDirection from './pages/NeuroskorochtenieDirection'
+import RepetitoryDirection from './pages/RepetitoryDirection'
 
 function ScrollToTop() {
   const { pathname, hash } = useLocation()
@@ -21,6 +22,7 @@ function App() {
           path="/napravleniya/neuroskorochtenie"
           element={<NeuroskorochtenieDirection />}
         />
+        <Route path="/napravleniya/repetitory" element={<RepetitoryDirection />} />
       </Routes>
     </>
   )

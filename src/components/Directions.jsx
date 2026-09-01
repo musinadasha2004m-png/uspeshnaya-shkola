@@ -26,7 +26,7 @@ const DIRECTIONS = [
     title: 'Предметные репетиторы',
     description:
       'Определим уровень знаний ребенка, найдем пробелы и составим план обучения.',
-    href: '#',
+    href: '/napravleniya/repetitory',
   },
   {
     icon: Brain,
@@ -42,7 +42,7 @@ const DIRECTIONS = [
     title: 'Подготовка к ВПР',
     description:
       'Разберем структуру проверочной работы и поможем уверенно справиться с заданиями.',
-    href: '#',
+    href: '/napravleniya/repetitory#vpr',
   },
   {
     icon: FileText,
