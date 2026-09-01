@@ -24,6 +24,15 @@ const AVATAR_TINTS = [
   'bg-brand-pink/15 text-brand-pink',
 ]
 
+// Акцент по умолчанию — фиолетовый (главная); на страницах направлений
+// с другой цветовой темой передаётся accent. Синий блок соцсетей и
+// AVATAR_TINTS — самостоятельные декоративные цвета, accent их не
+// затрагивает.
+const ACCENT = {
+  purple: { text: 'text-brand-purple' },
+  green: { text: 'text-brand-navy' },
+}
+
 // Порядок подобран так, чтобы один предмет не шёл дважды подряд —
 // сохраняй именно эту последовательность, не перемешивать.
 export const REVIEWS = [
@@ -117,7 +126,7 @@ function useIsLgUp() {
   return isLg
 }
 
-function ReviewCard({ name, subject, text, tint }) {
+function ReviewCard({ name, subject, text, tint, toggleColor }) {
   const [expanded, setExpanded] = useState(false)
   const textRef = useRef(null)
   const [fullHeight, setFullHeight] = useState(null)
@@ -167,7 +176,7 @@ function ReviewCard({ name, subject, text, tint }) {
         type="button"
         onClick={toggle}
         disabled={!overflowing}
-        className={`mt-2 self-start text-[13px] font-bold text-brand-purple transition-opacity hover:opacity-80 ${overflowing ? '' : 'invisible'}`}
+        className={`mt-2 self-start text-[13px] font-bold ${toggleColor} transition-opacity hover:opacity-80 ${overflowing ? '' : 'invisible'}`}
       >
         {expanded ? 'Свернуть' : 'Развернуть'}
       </button>
@@ -181,7 +190,9 @@ export default function ParentReviews({
   showCta = true,
   showBlueBlock = true,
   sectionBg = 'bg-bg-lavender',
+  accent = 'purple',
 }) {
+  const a = ACCENT[accent] ?? ACCENT.purple
   const scrollerRef = useRef(null)
 
   const scrollByCards = (direction) => {
@@ -227,6 +238,7 @@ export default function ParentReviews({
                 subject={subject}
                 text={text}
                 tint={AVATAR_TINTS[i % AVATAR_TINTS.length]}
+                toggleColor={a.text}
               />
             ))}
 

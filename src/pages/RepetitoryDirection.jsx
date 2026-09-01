@@ -5,6 +5,8 @@ import Container from '../components/Container'
 import StepsFlow from '../components/StepsFlow'
 import Testimonials, { CASES } from '../components/Testimonials'
 import ParentReviews, { REVIEWS } from '../components/ParentReviews'
+import Community from '../components/Community'
+import iconStar from '../assets/icon-star.png'
 
 const SUBTITLE =
   'Если ребёнок теряет уверенность из-за оценок, не понимает объяснения в школе или подолгу сидит над уроками — мы поможем разобраться в ситуации, а не просто временно закрыть пробел перед контрольной.'
@@ -86,6 +88,19 @@ const REPETITORY_REVIEW_SUBJECTS = ['Математика', 'Русский яз
 const REPETITORY_CASES = CASES.filter((c) => REPETITORY_CASE_NAMES.includes(c.name))
 const REPETITORY_REVIEWS = REVIEWS.filter((r) => REPETITORY_REVIEW_SUBJECTS.includes(r.subject))
 
+// Тот же формат декора, что ожидает компонент Community (звёзды по
+// краям плашки, частично выступающие за края).
+const CTA_DECOR_1 = [
+  { src: iconStar, size: 46, circle: 68, style: { top: '-22px', left: '10%' } },
+  { src: iconStar, size: 28, circle: 44, style: { bottom: '-14px', left: '28%' } },
+  { src: iconStar, size: 56, circle: 82, style: { bottom: '-28px', right: '8%' } },
+]
+const CTA_DECOR_2 = [
+  { src: iconStar, size: 52, circle: 76, style: { top: '-24px', right: '12%' } },
+  { src: iconStar, size: 30, circle: 46, style: { bottom: '-16px', right: '30%' } },
+  { src: iconStar, size: 40, circle: 60, style: { top: '-16px', left: '8%' } },
+]
+
 export default function RepetitoryDirection() {
   return (
     <div className="min-h-screen bg-bg-white">
@@ -126,6 +141,16 @@ export default function RepetitoryDirection() {
                 </span>
               </div>
             ))}
+
+            <a
+              href="/#faq"
+              className="animate-card-glow-green flex items-center gap-3 rounded-card bg-brand-green p-4 transition-opacity hover:opacity-90"
+            >
+              <span className="text-[15px] font-bold leading-relaxed text-brand-navy lg:text-body-sm">
+                Похоже на вашего ребёнка?
+              </span>
+              <ArrowRight size={18} strokeWidth={2.5} className="ml-auto shrink-0 text-brand-navy" />
+            </a>
           </div>
           <p className="mt-6 max-w-3xl text-[15px] leading-relaxed text-[#5B6180] lg:text-body-sm">
             Если хотя бы часть этого про вашего ребёнка — вы не одни, и с
@@ -177,6 +202,24 @@ export default function RepetitoryDirection() {
         </Container>
       </section>
 
+      {/* Акцентная пауза + CTA — тот же компонент/пропорции, что
+          "Будьте ближе к жизни нашей школы" на главной, только зелёная. */}
+      <Community
+        title="Хотите разобраться, в чём именно застрял ребёнок?"
+        titleMaxWidth="max-w-3xl"
+        subtitle={null}
+        decor={CTA_DECOR_1}
+        accent="green"
+      >
+        <a
+          href="/#faq"
+          className="flex items-center justify-center gap-2 rounded-button bg-white px-6 py-2.5 font-button text-button text-brand-navy shadow-card transition-opacity hover:opacity-90"
+        >
+          Записаться на консультацию
+          <ArrowRight size={20} strokeWidth={2.2} />
+        </a>
+      </Community>
+
       {/* Как проходят занятия */}
       <section className="bg-bg-white">
         <Container className="py-10 md:py-14">
@@ -186,7 +229,7 @@ export default function RepetitoryDirection() {
           <p className="mt-3 max-w-4xl text-[15px] leading-relaxed text-[#5B6180] lg:text-body-sm">
             {FORMAT_TEXT}
           </p>
-          <StepsFlow steps={PATH_STEPS} />
+          <StepsFlow steps={PATH_STEPS} accent="green" />
         </Container>
       </section>
 
@@ -211,6 +254,23 @@ export default function RepetitoryDirection() {
           </div>
         </Container>
       </section>
+
+      {/* Акцентная пауза + CTA #2 */}
+      <Community
+        title="Остались вопросы про формат занятий?"
+        titleMaxWidth="max-w-3xl"
+        subtitle={null}
+        decor={CTA_DECOR_2}
+        accent="green"
+      >
+        <a
+          href="/#faq"
+          className="flex items-center justify-center gap-2 rounded-button bg-white px-6 py-2.5 font-button text-button text-brand-navy shadow-card transition-opacity hover:opacity-90"
+        >
+          Записаться на консультацию
+          <ArrowRight size={20} strokeWidth={2.2} />
+        </a>
+      </Community>
 
       {/* Подготовка к ВПР — якорь для карточки на главной */}
       <section id="vpr" className="bg-bg-white scroll-mt-20">
@@ -258,6 +318,7 @@ export default function RepetitoryDirection() {
         subtitle="Реальные результаты детей, которые занимались с предметными репетиторами."
         showCta={false}
         sectionBg="bg-bg-white"
+        accent="green"
       />
       <ParentReviews
         items={REPETITORY_REVIEWS}
@@ -265,6 +326,7 @@ export default function RepetitoryDirection() {
         showCta={false}
         showBlueBlock={false}
         sectionBg="bg-bg-lavender"
+        accent="green"
       />
 
       {/* Финальный CTA */}

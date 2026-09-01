@@ -101,13 +101,24 @@ export const CASES = [
 
 const CARD_WIDTH = 300 // px, шаг прокрутки по стрелке = ширина карточки + gap
 
+// Акцент по умолчанию — фиолетовый (главная); на страницах направлений
+// с другой цветовой темой передаётся accent. tintText — цвет текста на
+// светлой подложке тега; для светлых акцентов (зелёный) используем
+// navy вместо самого акцента — иначе недостаточно контрастно.
+const ACCENT = {
+  purple: { solid: 'bg-brand-purple', onSolid: 'text-white', tintBg: 'bg-brand-purple/10', tintText: 'text-brand-purple' },
+  green: { solid: 'bg-brand-green', onSolid: 'text-brand-navy', tintBg: 'bg-brand-green/15', tintText: 'text-brand-navy' },
+}
+
 export default function Testimonials({
   items = CASES,
   title = 'Успехи наших учеников',
   subtitle = 'Более 200 семей уже доверили нам обучение своих детей. Сегодня наши ученики уверенно сдают экзамены, поступают в колледжи и вузы, о которых мечтали, и делают первые шаги к будущей профессии.',
   showCta = true,
   sectionBg = 'bg-bg-lavender',
+  accent = 'purple',
 }) {
+  const a = ACCENT[accent] ?? ACCENT.purple
   const scrollerRef = useRef(null)
 
   const scrollByCards = (direction) => {
@@ -134,7 +145,7 @@ export default function Testimonials({
             type="button"
             onClick={() => scrollByCards(-1)}
             aria-label="Прокрутить влево"
-            className="absolute left-2 top-1/2 z-20 hidden h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full bg-brand-purple text-white shadow-card transition-opacity hover:opacity-90 lg:flex"
+            className={`absolute left-2 top-1/2 z-20 hidden h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full shadow-card transition-opacity hover:opacity-90 lg:flex ${a.solid} ${a.onSolid}`}
           >
             <ChevronLeft size={22} strokeWidth={2.5} />
           </button>
@@ -142,7 +153,7 @@ export default function Testimonials({
             type="button"
             onClick={() => scrollByCards(1)}
             aria-label="Прокрутить вправо"
-            className="absolute right-2 top-1/2 z-20 hidden h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full bg-brand-purple text-white shadow-card transition-opacity hover:opacity-90 lg:flex"
+            className={`absolute right-2 top-1/2 z-20 hidden h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full shadow-card transition-opacity hover:opacity-90 lg:flex ${a.solid} ${a.onSolid}`}
           >
             <ChevronRight size={22} strokeWidth={2.5} />
           </button>
@@ -156,7 +167,7 @@ export default function Testimonials({
                 key={name}
                 className="flex w-[260px] shrink-0 snap-start flex-col rounded-card bg-white p-5 shadow-card sm:w-[280px] lg:w-[300px]"
               >
-                <span className="inline-flex w-fit items-center rounded-full bg-brand-purple/10 px-3 py-1 text-[13px] font-bold text-brand-purple">
+                <span className={`inline-flex w-fit items-center rounded-full px-3 py-1 text-[13px] font-bold ${a.tintBg} ${a.tintText}`}>
                   {tag}
                 </span>
                 <p className="mt-2 text-[15px] font-bold text-brand-navy lg:text-body-sm">
@@ -198,12 +209,12 @@ export default function Testimonials({
             {showCta && (
               <a
                 href="#"
-                className="flex w-[260px] shrink-0 snap-start flex-col items-center justify-center gap-4 rounded-card bg-brand-purple p-5 text-center shadow-card transition-opacity hover:opacity-90 sm:w-[280px] lg:w-[300px]"
+                className={`flex w-[260px] shrink-0 snap-start flex-col items-center justify-center gap-4 rounded-card p-5 text-center shadow-card transition-opacity hover:opacity-90 sm:w-[280px] lg:w-[300px] ${a.solid}`}
               >
-                <p className="text-[18px] font-bold leading-snug text-white">
+                <p className={`text-[18px] font-bold leading-snug ${a.onSolid}`}>
                   Смотреть все истории учеников
                 </p>
-                <span className="flex items-center gap-2 text-[15px] font-bold text-white">
+                <span className={`flex items-center gap-2 text-[15px] font-bold ${a.onSolid}`}>
                   Перейти
                   <ArrowRight size={18} strokeWidth={2.5} />
                 </span>

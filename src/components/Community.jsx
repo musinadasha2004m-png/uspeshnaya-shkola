@@ -22,14 +22,22 @@ const DECOR = [
 const DEFAULT_SUBTITLE =
   'Полезные материалы для родителей, новости школы, достижения учеников, советы преподавателей и анонсы мероприятий — всё в наших сообществах.'
 
-function DefaultCta() {
+// Акцент по умолчанию — фиолетовый (главная); на страницах направлений
+// с другой цветовой темой передаётся accent. Зелёный светлее фиолетового,
+// поэтому текст на нём — navy, а не белый (недостаточно контрастно).
+const ACCENT = {
+  purple: { solid: 'bg-brand-purple', onSolid: 'text-white', onSolidMuted: 'text-white/80', onWhite: 'text-brand-purple' },
+  green: { solid: 'bg-brand-green', onSolid: 'text-brand-navy', onSolidMuted: 'text-brand-navy/70', onWhite: 'text-brand-navy' },
+}
+
+function DefaultCta({ onWhite }) {
   return (
     <div className="flex flex-col gap-3 sm:flex-row">
       <a
         href={TELEGRAM_HREF}
         target="_blank"
         rel="noreferrer"
-        className="flex items-center justify-center gap-3 rounded-button bg-white px-6 py-2.5 font-button text-button text-brand-purple shadow-card transition-opacity hover:opacity-90"
+        className={`flex items-center justify-center gap-3 rounded-button bg-white px-6 py-2.5 font-button text-button shadow-card transition-opacity hover:opacity-90 ${onWhite}`}
       >
         <TelegramIcon className="h-7 w-7 shrink-0 sm:h-[22px] sm:w-[22px]" />
         Перейти в Telegram-канал
@@ -38,7 +46,7 @@ function DefaultCta() {
         href={MAX_HREF}
         target="_blank"
         rel="noreferrer"
-        className="flex items-center justify-center gap-3 rounded-button bg-white px-6 py-2.5 font-button text-button text-brand-purple shadow-card transition-opacity hover:opacity-90"
+        className={`flex items-center justify-center gap-3 rounded-button bg-white px-6 py-2.5 font-button text-button shadow-card transition-opacity hover:opacity-90 ${onWhite}`}
       >
         <MaxIcon className="h-7 w-7 shrink-0 sm:h-[22px] sm:w-[22px]" />
         Перейти в сообщество MAX
@@ -56,11 +64,13 @@ export default function Community({
   subtitle = DEFAULT_SUBTITLE,
   decor = DECOR,
   children,
+  accent = 'purple',
 }) {
+  const a = ACCENT[accent] ?? ACCENT.purple
   return (
     <section className="bg-bg-white">
       <Container className="py-6 md:py-10">
-        <div className="relative isolate flex flex-col items-center gap-3 rounded-card bg-brand-purple px-4 py-5 text-center md:gap-4 md:p-6">
+        <div className={`relative isolate flex flex-col items-center gap-3 rounded-card px-4 py-5 text-center md:gap-4 md:p-6 ${a.solid}`}>
           {decor.map(({ src, size, circle, style }, i) => (
             <span
               key={i}
@@ -77,17 +87,17 @@ export default function Community({
           ))}
 
           <div className="relative z-10 flex flex-col items-center gap-4">
-            <h2 className={`${titleMaxWidth} text-[28px] font-bold leading-snug text-white`}>
+            <h2 className={`${titleMaxWidth} text-[28px] font-bold leading-snug ${a.onSolid}`}>
               {title}
             </h2>
 
             {subtitle && (
-              <p className="max-w-xl text-caption font-caption leading-snug text-white/80">
+              <p className={`max-w-xl text-caption font-caption leading-snug ${a.onSolidMuted}`}>
                 {subtitle}
               </p>
             )}
 
-            {children ?? <DefaultCta />}
+            {children ?? <DefaultCta onWhite={a.onWhite} />}
           </div>
         </div>
       </Container>

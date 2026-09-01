@@ -5,13 +5,29 @@ const COLS_CLASS = {
   6: 'xl:grid-cols-6',
 }
 
+// Акцент по умолчанию — фиолетовый (главная, "Нейроскорочтение"); на
+// страницах направлений с другой цветовой темой передаётся accent.
+// Текст на кружке-номере/кнопке — навy для светлых акцентов (зелёный
+// слишком светлый для белого текста), белый для тёмных.
+const ACCENT = {
+  purple: { bg: 'bg-brand-purple', text: 'text-white', hex: '#8A63F6', shadow: 'rgba(138, 99, 246, 0.35)' },
+  green: { bg: 'bg-brand-green', text: 'text-brand-navy', hex: '#7FD66A', shadow: 'rgba(127, 214, 106, 0.45)' },
+}
+
 // Кружки-номера в ряд на десктопе, соединённые линией (заливается по
 // мере прокрутки), карточка с текстом под каждым номером; на
 // мобильном/планшете — вертикальный список с подсветкой по одной
 // карточке при появлении во вьюпорте. Переиспользуется в блоке "Как
 // проходит обучение" на главной и в блоке "Путь ребёнка и родителя"
 // на страницах направлений.
-export default function StepsFlow({ steps, ctaIndex = -1, ctaLabel, ctaHref = '#' }) {
+export default function StepsFlow({
+  steps,
+  ctaIndex = -1,
+  ctaLabel,
+  ctaHref = '#',
+  accent = 'purple',
+}) {
+  const a = ACCENT[accent] ?? ACCENT.purple
   const wrapRef = useRef(null)
   const cardRefs = useRef([])
   const [lineProgress, setLineProgress] = useState(0)
@@ -68,7 +84,7 @@ export default function StepsFlow({ steps, ctaIndex = -1, ctaLabel, ctaHref = '#
       {/* Горизонтальная линия — десктоп, с заливкой по скроллу */}
       <div className="absolute left-0 right-0 top-[42px] hidden h-px bg-bg-lavender2 xl:block" />
       <div
-        className="absolute left-0 top-[42px] hidden h-px bg-brand-purple transition-[width] duration-500 ease-out xl:block"
+        className={`absolute left-0 top-[42px] hidden h-px transition-[width] duration-500 ease-out xl:block ${a.bg}`}
         style={{ width: `${lineProgress * 100}%` }}
       />
 
@@ -84,14 +100,16 @@ export default function StepsFlow({ steps, ctaIndex = -1, ctaLabel, ctaHref = '#
                 i === ctaIndex ? 'pb-3' : ''
               }`}
               style={{
-                borderColor: highlighted ? '#8A63F6' : 'transparent',
+                borderColor: highlighted ? a.hex : 'transparent',
                 boxShadow: highlighted
-                  ? '0 12px 32px rgba(138, 99, 246, 0.35)'
+                  ? `0 12px 32px ${a.shadow}`
                   : '0 10px 28px rgba(27, 36, 85, 0.12)',
               }}
             >
               <div className="flex w-full items-center gap-3 xl:block">
-                <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-brand-purple text-[14px] font-bold text-white xl:h-11 xl:w-11 xl:text-[18px]">
+                <span
+                  className={`flex h-8 w-8 shrink-0 items-center justify-center rounded-full text-[14px] font-bold xl:h-11 xl:w-11 xl:text-[18px] ${a.bg} ${a.text}`}
+                >
                   {i + 1}
                 </span>
                 <h3 className="text-[18px] font-bold leading-snug text-brand-navy xl:mt-4 xl:text-[22px]">
@@ -104,7 +122,7 @@ export default function StepsFlow({ steps, ctaIndex = -1, ctaLabel, ctaHref = '#
               {i === ctaIndex && (
                 <a
                   href={ctaHref}
-                  className="mt-2 w-full shrink-0 rounded-button bg-brand-purple py-1.5 text-center text-[13px] font-bold leading-none text-white transition-opacity hover:opacity-90"
+                  className={`mt-2 w-full shrink-0 rounded-button py-1.5 text-center text-[13px] font-bold leading-none transition-opacity hover:opacity-90 ${a.bg} ${a.text}`}
                 >
                   {ctaLabel}
                 </a>

@@ -43,8 +43,25 @@
   animation: card-glow 3.2s ease-in-out infinite;
 }
 
+@keyframes card-glow-green {
+  0%,
+  100% {
+    box-shadow: 0 10px 28px rgba(127, 214, 106, 0.35);
+  }
+  50% {
+    box-shadow: 0 12px 40px rgba(127, 214, 106, 0.65);
+  }
+}
+
+.animate-card-glow-green {
+  animation: card-glow-green 3.2s ease-in-out infinite;
+}
+
 @media (prefers-reduced-motion: reduce) {
   .animate-card-glow {
+    animation: none;
+  }
+  .animate-card-glow-green {
     animation: none;
   }
 }
