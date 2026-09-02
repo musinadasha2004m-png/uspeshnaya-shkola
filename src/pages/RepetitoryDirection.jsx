@@ -1,4 +1,4 @@
-import { ArrowRight, Check } from 'lucide-react'
+import { ArrowRight, CheckCircle2, ClipboardCheck, Lightbulb, Puzzle } from 'lucide-react'
 import { Link } from 'react-router-dom'
 import Header from '../components/Header'
 import Container from '../components/Container'
@@ -8,71 +8,115 @@ import ParentReviews, { REVIEWS } from '../components/ParentReviews'
 import Community from '../components/Community'
 import iconStar from '../assets/icon-star.png'
 
+const SHORT_LINE = '1–8 класс · индивидуальные занятия · программа по уровню знаний ребенка'
+
 const SUBTITLE =
-  'Если ребёнок теряет уверенность из-за оценок, не понимает объяснения в школе или подолгу сидит над уроками — мы поможем разобраться в ситуации, а не просто временно закрыть пробел перед контрольной.'
+  'Поможем разобраться в сложных темах, устранить пробелы и уверенно справляться со школьной программой.'
 
-const SIGNS = [
-  'ребёнок стал получать более низкие оценки',
-  'не понимает объяснения учителя в школе',
-  'подолгу сидит над домашними заданиями',
-  'начал избегать сложных заданий или предмета в целом',
-  'потерял интерес к учёбе',
-  'готовится к переходу в старшую школу или к итоговым работам',
-  'допускает много ошибок, хотя вроде бы старается',
+const GRADE_GROUPS = [
+  {
+    title: '1–4 класс',
+    subjects: ['Русский язык', 'Литературное чтение', 'Математика', 'Окружающий мир', 'Иностранный язык (английский)'],
+    text: 'Поможем разобраться со школьной программой, устранить пробелы и уверенно выполнять задания.',
+  },
+  {
+    title: '5–8 класс',
+    subjects: [
+      'Русский язык',
+      'Литература',
+      'Математика',
+      'Алгебра',
+      'Геометрия',
+      'История',
+      'Обществознание',
+      'География',
+      'Биология',
+      'Физика',
+      'Химия',
+      'Английский язык',
+      'Информатика',
+    ],
+    text: 'Поможем разобраться в сложных темах, устранить пробелы в знаниях и уверенно справляться со школьной программой.',
+  },
 ]
 
-const WHO_FOR_TEXT =
-  'Направление — для учеников с 1 по 8 класс: и для начальной школы (1–4 классы), и для средней (5–8 классы). Переход в среднюю школу сам по себе непростой этап — предметов и учителей становится больше, материал сложнее, не все дети быстро адаптируются. Мы работаем с обоими возрастами, но по-разному: в начальной школе закладываем базу и учим не бояться сложных заданий, в средней — помогаем систематизировать знания и подготовиться к следующему этапу.'
-
-const WHAT_WE_DO_TEXT =
-  'Наша задача — не просто повысить оценку к следующей четверти. Мы стремимся к тому, чтобы ребёнок начал понимать предмет и почувствовал себя увереннее на уроках — тогда оценки подтягиваются сами, и это не разовый эффект, а устойчивый результат.'
-
-const TEACHER_ACTIONS = [
-  'объясняет сложные темы простым языком',
-  'находит и закрывает конкретные пробелы в знаниях',
-  'развивает навык самостоятельной работы, а не просто "решает вместе"',
-  'формирует ответственное отношение к учёбе, а не разовую помощь перед контрольной',
+const TASKS = [
+  'не понимает отдельные темы',
+  'отстает от школьной программы',
+  'получает низкие оценки',
+  'допускает много ошибок',
+  'долго делает домашние задания',
+  'потерял интерес к предмету',
+  'не уверен в своих знаниях',
+  'хочет улучшить результат',
 ]
-
-const FORMAT_TEXT =
-  'Формат: индивидуально или в мини-группах — зависит от целей ребёнка и рекомендации педагога после диагностики.'
 
 const PATH_STEPS = [
   {
     title: 'Бесплатная консультация',
-    description: 'Обсуждаем ситуацию, а не сразу предлагаем программу.',
-  },
-  {
-    title: 'Диагностика',
     description:
-      'Определяем реальный уровень знаний и конкретные пробелы, а не общее "надо подтянуть предмет".',
+      'Знакомимся с родителем и ребенком, обсуждаем цели обучения, сложности и задачи, которые необходимо решить.',
   },
   {
-    title: 'Онлайн-занятия',
-    description: 'По индивидуальному плану, под темп и цели именно этого ребёнка.',
+    title: 'Диагностика знаний',
+    description: 'Педагог определяет уровень знаний ребенка и находит темы, в которых есть пробелы или сложности.',
   },
   {
-    title: 'Регулярная обратная связь',
+    title: 'Составляем программу',
     description:
-      'Рассказываем, что проходили, что получается, а что ещё в работе. Не тишина месяцами.',
+      'На основе диагностики определяем, что именно нужно изучить, повторить и закрепить. Программа учитывает уровень знаний, цели и темп обучения ребенка.',
   },
   {
-    title: 'Устойчивый результат',
+    title: 'Занимаемся и закрепляем знания',
     description:
-      'Ребёнок не просто "исправил оценку", а понимает предмет и увереннее чувствует себя на уроках.',
+      'Педагог объясняет сложные темы понятным языком, вместе с ребенком разбирает задания, помогает систематизировать знания и постепенно учит самостоятельно справляться с учебными задачами.',
+  },
+  {
+    title: 'Срез знаний каждую четверть',
+    description:
+      'Проверяем, что ребенок уже освоил, а над чем еще нужно поработать. Родители получают обратную связь о результатах.',
+  },
+  {
+    title: 'При необходимости корректируем программу',
+    description:
+      'Если какие-то темы остаются сложными, возвращаемся к ним, разбираем ошибки и меняем программу занятий с учетом новых результатов.',
+  },
+  {
+    title: 'Уверенные знания',
+    description:
+      'В результате ребенок лучше понимает школьный материал, увереннее выполняет задания и готовится к проверочным и ВПР.',
   },
 ]
 
-const PROMISES = [
-  'Мы не обещаем "пятёрку через месяц" — прогресс всегда индивидуален, и честный педагог не даёт таких гарантий.',
-  'Мы не сажаем детей на поток по одному шаблону — программа строится под конкретного ребёнка.',
-  'Мы не оставляем родителей без обратной связи между занятиями.',
+const RESULT_CARDS = [
+  {
+    icon: Lightbulb,
+    title: 'Понимает сложные темы',
+    description: 'Разбирается в материале, который раньше казался непонятным.',
+  },
+  {
+    icon: Puzzle,
+    title: 'Устраняет пробелы',
+    description: 'Последовательно закрывает темы, которые мешали двигаться дальше.',
+  },
+  {
+    icon: CheckCircle2,
+    title: 'Уверенно выполняет задания',
+    description: 'Учится применять знания самостоятельно, а не ждать подсказки.',
+  },
+  {
+    icon: ClipboardCheck,
+    title: 'Готовится к ВПР',
+    description: 'Закрепляет школьную программу и учится справляться с заданиями проверочных работ.',
+  },
 ]
 
-const VPR_TEXT_1 =
-  'Всероссийские проверочные работы (ВПР) — не экзамен с последствиями для аттестата, но хороший повод спокойно проверить, насколько прочно ребёнок усвоил программу года. Мы не делаем отдельный "интенсив перед ВПР" — вместо этого разбираем структуру и формат проверочной работы прямо в рамках обычных занятий с предметным репетитором, без лишнего стресса и отдельной оплаты нового курса.'
-const VPR_TEXT_2 =
-  'Если ребёнок уже занимается с нами по предмету — подготовка к ВПР органично встраивается в план. Если пришли именно ради ВПР — начнём с диагностики, чтобы понять, какие темы стоит закрыть в первую очередь.'
+const RESULT_CLOSING = 'В итоге ребенок понимает школьную программу, уверенно выполняет задания и готов к ВПР.'
+
+const PARENTS_TEXT_1 =
+  'Педагог поддерживает связь с родителями, рассказывает о результатах обучения и помогает понять, над чем ребенку еще нужно поработать.'
+const PARENTS_TEXT_2 = 'Каждую четверть проводим срез знаний и при необходимости корректируем программу.'
+const PARENTS_TEXT_3 = 'Если у вас появляются вопросы, их всегда можно задать педагогу или администратору.'
 
 const NEURO_CROSSLINK_TEXT =
   'Если сложности не столько в конкретном предмете, сколько в том, что ребёнку в целом трудно долго удерживать внимание, запоминать большие объёмы информации или быстро читать и понимать текст — возможно, дело не только в математике или русском. В этом случае может больше подойти нейроскорочтение — курс, который развивает эти базовые навыки напрямую, а предметные занятия идут уже проще и быстрее.'
@@ -106,39 +150,74 @@ export default function RepetitoryDirection() {
     <div className="min-h-screen bg-bg-white">
       <Header />
 
-      {/* Hero */}
+      {/* Блок 1. Первый экран */}
       <section className="bg-bg-white">
         <Container className="py-10 md:py-14">
           <h1 className="max-w-3xl text-[32px] font-extrabold leading-tight text-brand-navy md:text-[40px] lg:text-h1 lg:font-h1">
-            Домашние задания больше не повод для слёз
+            Предметные репетиторы для школьников
           </h1>
-          <div className="mt-6 max-w-3xl rounded-card border-l-4 border-brand-green bg-brand-green/10 p-5 md:mt-8 md:p-8">
-            <p className="text-[15px] leading-relaxed text-[#5B6180] lg:text-body-sm">
-              {SUBTITLE}
-            </p>
+          <p className="mt-4 max-w-2xl text-[15px] leading-relaxed text-[#5B6180] lg:text-body-sm">
+            {SUBTITLE}
+          </p>
+          <p className="mt-4 text-[14px] font-semibold text-brand-navy/60">{SHORT_LINE}</p>
+          <a
+            href="/#faq"
+            className="mt-6 inline-flex items-center justify-center gap-2 rounded-button bg-brand-green px-8 py-3.5 font-button text-button text-brand-navy shadow-card transition-opacity hover:opacity-90"
+          >
+            Записаться на консультацию
+            <ArrowRight size={20} strokeWidth={2.2} />
+          </a>
+        </Container>
+      </section>
+
+      {/* Блок 2. Выберите класс и предмет */}
+      <section className="bg-bg-lavender">
+        <Container className="py-10 md:py-14">
+          <h2 className="text-[28px] font-bold leading-tight text-brand-navy lg:text-h2 lg:font-h2">
+            Репетиторы для школьников 1–8 класса
+          </h2>
+          <div className="mt-6 grid grid-cols-1 gap-5 md:mt-8 md:grid-cols-2 md:gap-6">
+            {GRADE_GROUPS.map((group) => (
+              <div key={group.title} className="flex flex-col rounded-card bg-white p-6 shadow-card md:p-8">
+                <h3 className="text-[22px] font-bold leading-snug text-brand-navy">{group.title}</h3>
+                <div className="mt-4 flex flex-wrap gap-2">
+                  {group.subjects.map((subject) => (
+                    <span
+                      key={subject}
+                      className="rounded-full bg-brand-green/10 px-3 py-1.5 text-[13px] font-bold text-brand-navy"
+                    >
+                      {subject}
+                    </span>
+                  ))}
+                </div>
+                <p className="mt-4 text-[15px] leading-relaxed text-[#5B6180] lg:text-body-sm">{group.text}</p>
+                <a
+                  href="/#faq"
+                  className="mt-5 inline-flex w-fit items-center justify-center gap-2 rounded-button bg-brand-green px-6 py-2.5 font-button text-button text-brand-navy transition-opacity hover:opacity-90"
+                >
+                  Выбрать предмет
+                  <ArrowRight size={18} strokeWidth={2.5} />
+                </a>
+              </div>
+            ))}
           </div>
         </Container>
       </section>
 
-      {/* Вы узнаёте что-то из этого? */}
-      <section className="bg-bg-lavender">
+      {/* Блок 3. С какими задачами приходят к нам */}
+      <section className="bg-bg-white">
         <Container className="py-10 md:py-14">
           <h2 className="text-[28px] font-bold leading-tight text-brand-navy lg:text-h2 lg:font-h2">
-            Вы узнаёте что-то из этого?
+            Если ребенку сложно с предметом — разберемся вместе
           </h2>
           <p className="mt-4 text-[20px] font-bold uppercase tracking-wide text-brand-green">
-            Чаще всего к нам обращаются, если:
+            Родители обращаются к нам, когда ребенок:
           </p>
           <div className="mt-6 grid grid-cols-1 gap-2 sm:grid-cols-2 md:mt-8">
-            {SIGNS.map((item) => (
-              <div
-                key={item}
-                className="flex items-start gap-3 rounded-card bg-white p-4 shadow-card"
-              >
+            {TASKS.map((item) => (
+              <div key={item} className="flex items-start gap-3 rounded-card bg-white p-4 shadow-card">
                 <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-brand-green" />
-                <span className="text-[15px] leading-relaxed text-[#5B6180] lg:text-body-sm">
-                  {item}
-                </span>
+                <span className="text-[15px] leading-relaxed text-[#5B6180] lg:text-body-sm">{item}</span>
               </div>
             ))}
 
@@ -151,53 +230,6 @@ export default function RepetitoryDirection() {
               </span>
               <ArrowRight size={18} strokeWidth={2.5} className="ml-auto shrink-0 text-brand-navy" />
             </a>
-          </div>
-          <p className="mt-6 max-w-3xl text-[15px] leading-relaxed text-[#5B6180] lg:text-body-sm">
-            Если хотя бы часть этого про вашего ребёнка — вы не одни, и с
-            этим можно разобраться.
-          </p>
-        </Container>
-      </section>
-
-      {/* Кому подходит */}
-      <section className="bg-bg-white">
-        <Container className="py-10 md:py-14">
-          <h2 className="text-[28px] font-bold leading-tight text-brand-navy lg:text-h2 lg:font-h2">
-            Кому подходит
-          </h2>
-          <p className="mt-3 max-w-4xl text-[15px] leading-relaxed text-[#5B6180] lg:text-body-sm">
-            {WHO_FOR_TEXT}
-          </p>
-        </Container>
-      </section>
-
-      {/* Что мы на самом деле делаем */}
-      <section className="bg-bg-lavender">
-        <Container className="py-10 md:py-14">
-          <h2 className="text-[28px] font-bold leading-tight text-brand-navy lg:text-h2 lg:font-h2">
-            Что мы на самом деле делаем
-          </h2>
-          <p className="mt-3 max-w-4xl text-[15px] leading-relaxed text-[#5B6180] lg:text-body-sm">
-            {WHAT_WE_DO_TEXT}
-          </p>
-          <p className="mt-4 text-[20px] font-bold uppercase tracking-wide text-brand-green">
-            Педагог
-          </p>
-          <div className="mt-6 rounded-card bg-white p-5 shadow-card md:mt-8 md:p-8">
-            <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
-              {TEACHER_ACTIONS.map((item) => (
-                <div key={item} className="flex items-start gap-2">
-                  <Check
-                    size={18}
-                    strokeWidth={3}
-                    className="mt-0.5 shrink-0 text-brand-green"
-                  />
-                  <span className="text-[15px] leading-relaxed text-[#5B6180] lg:text-body-sm">
-                    {item}
-                  </span>
-                </div>
-              ))}
-            </div>
           </div>
         </Container>
       </section>
@@ -220,38 +252,38 @@ export default function RepetitoryDirection() {
         </a>
       </Community>
 
-      {/* Как проходят занятия */}
-      <section className="bg-bg-white">
+      {/* Блок 4. Как проходят занятия */}
+      <section className="bg-bg-lavender">
         <Container className="py-10 md:py-14">
           <h2 className="text-[28px] font-bold leading-tight text-brand-navy lg:text-h2 lg:font-h2">
-            Как проходят занятия
+            Как мы помогаем ребенку разобраться в предмете
           </h2>
-          <p className="mt-3 max-w-4xl text-[15px] leading-relaxed text-[#5B6180] lg:text-body-sm">
-            {FORMAT_TEXT}
-          </p>
           <StepsFlow steps={PATH_STEPS} accent="green" />
         </Container>
       </section>
 
-      {/* Чему мы принципиально не обещаем — сдержанный, "честный" тон:
-          светлый фон, зелёная рамка, без ярких заливок и иконок. */}
-      <section className="bg-bg-lavender">
+      {/* Блок 5. Что получает ребенок — якорь для карточки "Подготовка к ВПР" на главной */}
+      <section id="vpr" className="bg-bg-white scroll-mt-20">
         <Container className="py-10 md:py-14">
-          <div className="mx-auto max-w-3xl rounded-card border-2 border-brand-green bg-white p-6 md:p-8">
-            <h2 className="text-[24px] font-bold leading-tight text-brand-navy lg:text-h3 lg:font-h3">
-              Чему мы принципиально не обещаем
-            </h2>
-            <div className="mt-5 flex flex-col gap-3">
-              {PROMISES.map((item) => (
-                <div key={item} className="flex items-start gap-3">
-                  <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-brand-green" />
-                  <span className="text-[15px] leading-relaxed text-[#5B6180] lg:text-body-sm">
-                    {item}
-                  </span>
+          <h2 className="text-[28px] font-bold leading-tight text-brand-navy lg:text-h2 lg:font-h2">
+            Не просто хорошие оценки — понимание предмета
+          </h2>
+          <div className="mt-6 grid grid-cols-1 gap-4 sm:grid-cols-2 md:mt-8">
+            {RESULT_CARDS.map(({ icon: Icon, title, description }) => (
+              <div key={title} className="flex gap-4 rounded-card bg-white p-5 shadow-card">
+                <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-brand-green">
+                  <Icon size={20} strokeWidth={2} className="text-brand-navy" />
+                </span>
+                <div>
+                  <h3 className="text-[18px] font-bold leading-snug text-brand-navy">{title}</h3>
+                  <p className="mt-1 text-[15px] leading-relaxed text-[#5B6180]">{description}</p>
                 </div>
-              ))}
-            </div>
+              </div>
+            ))}
           </div>
+          <p className="mt-6 max-w-3xl text-[15px] font-bold leading-relaxed text-brand-navy lg:text-body-sm">
+            {RESULT_CLOSING}
+          </p>
         </Container>
       </section>
 
@@ -272,24 +304,27 @@ export default function RepetitoryDirection() {
         </a>
       </Community>
 
-      {/* Подготовка к ВПР — якорь для карточки на главной */}
-      <section id="vpr" className="bg-bg-white scroll-mt-20">
+      {/* Блок 6. Родители всегда знают о результатах */}
+      <section className="bg-bg-lavender">
         <Container className="py-10 md:py-14">
           <h2 className="text-[28px] font-bold leading-tight text-brand-navy lg:text-h2 lg:font-h2">
-            Готовимся к ВПР с теми же педагогами
+            Вы знаете, как продвигается ребенок
           </h2>
           <p className="mt-3 max-w-4xl text-[15px] leading-relaxed text-[#5B6180] lg:text-body-sm">
-            {VPR_TEXT_1}
+            {PARENTS_TEXT_1}
           </p>
           <p className="mt-3 max-w-4xl text-[15px] leading-relaxed text-[#5B6180] lg:text-body-sm">
-            {VPR_TEXT_2}
+            {PARENTS_TEXT_2}
+          </p>
+          <p className="mt-3 max-w-4xl text-[15px] leading-relaxed text-[#5B6180] lg:text-body-sm">
+            {PARENTS_TEXT_3}
           </p>
         </Container>
       </section>
 
-      {/* Если дело не только в предмете — компактная карточка-переход
+      {/* Блок 7. Если дело не только в предмете — компактная карточка-переход
           на страницу "Нейроскорочтение" */}
-      <section className="bg-bg-lavender">
+      <section className="bg-bg-white">
         <Container className="py-10 md:py-14">
           <div className="mx-auto flex max-w-3xl flex-col items-start gap-4 rounded-card bg-white p-6 shadow-card sm:flex-row sm:items-center sm:justify-between md:p-8">
             <div>
@@ -311,13 +346,13 @@ export default function RepetitoryDirection() {
         </Container>
       </section>
 
-      {/* Реальные истории — переиспользуем карусели с главной, отфильтрованные по тегам предмета */}
+      {/* Блок 8. Реальные истории — переиспользуем карусели с главной, отфильтрованные по тегам предмета */}
       <Testimonials
         items={REPETITORY_CASES}
         title="Истории учеников"
         subtitle="Реальные результаты детей, которые занимались с предметными репетиторами."
         showCta={false}
-        sectionBg="bg-bg-white"
+        sectionBg="bg-bg-lavender"
         accent="green"
       />
       <ParentReviews
@@ -325,20 +360,18 @@ export default function RepetitoryDirection() {
         title="Отзывы родителей"
         showCta={false}
         showBlueBlock={false}
-        sectionBg="bg-bg-lavender"
+        sectionBg="bg-bg-white"
         accent="green"
       />
 
-      {/* Финальный CTA */}
+      {/* Блок 9. Финальный CTA */}
       <section className="bg-brand-green">
         <Container className="py-10 text-center md:py-14">
           <h2 className="text-[28px] font-bold leading-tight text-brand-navy lg:text-h2 lg:font-h2">
-            Разберёмся в ситуации вместе
+            Не знаете, какой предмет нужно подтянуть?
           </h2>
           <p className="mx-auto mt-3 max-w-xl text-[15px] leading-relaxed text-brand-navy/80 lg:text-body-sm">
-            Запишитесь на бесплатную консультацию — обсудим, что
-            происходит, и предложим план, а не готовое решение "для
-            всех".
+            Оставьте заявку на бесплатную консультацию. Разберемся в ситуации ребенка и поможем подобрать подходящие занятия.
           </p>
           <a
             href="/#faq"

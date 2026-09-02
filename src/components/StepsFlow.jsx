@@ -3,7 +3,13 @@ import { useEffect, useRef, useState } from 'react'
 const COLS_CLASS = {
   5: 'xl:grid-cols-5',
   6: 'xl:grid-cols-6',
+  7: 'xl:grid-cols-4',
 }
+
+// Раскладки с числом карточек, не помещающимся в один ряд (сейчас
+// только 7 → 4+3), не рисуют горизонтальную соединительную линию —
+// она рассчитана на один ряд и не будет совпадать со второй строкой.
+const MULTI_ROW_COUNTS = new Set([7])
 
 // Акцент по умолчанию — фиолетовый (главная, "Нейроскорочтение"); на
 // страницах направлений с другой цветовой темой передаётся accent.
@@ -75,18 +81,24 @@ export default function StepsFlow({
   }, [])
 
   const colsClass = COLS_CLASS[steps.length] || 'xl:grid-cols-6'
+  const oneRow = !MULTI_ROW_COUNTS.has(steps.length)
 
   return (
     <div ref={wrapRef} className="relative mt-8 md:mt-12">
       {/* Вертикальная линия — мобайл/планшет (статичная, без заливки) */}
       <div className="absolute bottom-6 left-8 top-6 w-px bg-bg-lavender2 xl:hidden" />
 
-      {/* Горизонтальная линия — десктоп, с заливкой по скроллу */}
-      <div className="absolute left-0 right-0 top-[42px] hidden h-px bg-bg-lavender2 xl:block" />
-      <div
-        className={`absolute left-0 top-[42px] hidden h-px transition-[width] duration-500 ease-out xl:block ${a.bg}`}
-        style={{ width: `${lineProgress * 100}%` }}
-      />
+      {/* Горизонтальная линия — десктоп, с заливкой по скроллу; только
+          для раскладок в один ряд, иначе не совпадает со второй строкой */}
+      {oneRow && (
+        <>
+          <div className="absolute left-0 right-0 top-[42px] hidden h-px bg-bg-lavender2 xl:block" />
+          <div
+            className={`absolute left-0 top-[42px] hidden h-px transition-[width] duration-500 ease-out xl:block ${a.bg}`}
+            style={{ width: `${lineProgress * 100}%` }}
+          />
+        </>
+      )}
 
       <div className={`grid grid-cols-1 gap-4 xl:gap-4 ${colsClass}`}>
         {steps.map((step, i) => {
