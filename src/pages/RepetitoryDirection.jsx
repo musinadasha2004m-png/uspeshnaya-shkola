@@ -18,12 +18,13 @@ import iconLiterature from '../assets/icon-literature.png'
 // 72°, старт сверху) вокруг пустого центра — по той же схеме, что
 // иконки вокруг фото мальчика в Hero на главной, только без фото и на
 // полную окружность (там нижняя дуга оставалась пустой под силуэт).
+// Радиус уменьшен (было 42%), чтобы иконки были ближе друг к другу.
 const HERO_ICONS = [
-  { src: iconRuler, left: '50%', top: '8%', rotate: -6, delay: 0, duration: 4.6 },
-  { src: iconFlask, left: '89.9%', top: '37%', rotate: 8, delay: 0.5, duration: 5 },
-  { src: iconGlobe, left: '74.7%', top: '84%', rotate: -8, delay: 1, duration: 4.8 },
-  { src: iconAtom, left: '25.3%', top: '84%', rotate: 10, delay: 1.5, duration: 5.2 },
-  { src: iconBiology, left: '10.1%', top: '37%', rotate: -10, delay: 0.8, duration: 4.4 },
+  { src: iconRuler, left: '50%', top: '18%', rotate: -6, delay: 0, duration: 4.6 },
+  { src: iconFlask, left: '80.4%', top: '40.1%', rotate: 8, delay: 0.5, duration: 5 },
+  { src: iconGlobe, left: '68.8%', top: '75.9%', rotate: -8, delay: 1, duration: 4.8 },
+  { src: iconAtom, left: '31.2%', top: '75.9%', rotate: 10, delay: 1.5, duration: 5.2 },
+  { src: iconBiology, left: '19.6%', top: '40.1%', rotate: -10, delay: 0.8, duration: 4.4 },
 ]
 
 const SHORT_LINE = '1–8 класс · индивидуальные занятия · программа по уровню знаний ребенка'
@@ -166,26 +167,24 @@ export default function RepetitoryDirection() {
 
       {/* Блок 1. Первый экран */}
       <section className="bg-bg-white">
-        <Container className="grid gap-10 py-10 md:py-14 lg:grid-cols-2 lg:items-center lg:gap-12">
-          <div>
-            <h1 className="text-[32px] font-extrabold leading-tight text-brand-navy md:text-[40px] lg:text-h1 lg:font-h1">
-              Предметные репетиторы для школьников
-            </h1>
-            <p className="mt-4 max-w-2xl text-[15px] leading-relaxed text-[#5B6180] lg:text-body-sm">
-              {SUBTITLE}
-            </p>
-            <p className="mt-4 text-[14px] font-semibold text-brand-navy/60">{SHORT_LINE}</p>
-            <a
-              href="/#faq"
-              className="mt-6 inline-flex items-center justify-center gap-2 rounded-button bg-brand-green px-8 py-3.5 font-button text-button text-white shadow-card transition-opacity hover:opacity-90"
-            >
-              Записаться на консультацию
-              <ArrowRight size={20} strokeWidth={2.2} />
-            </a>
-          </div>
+        <Container className="py-10 md:py-14">
+          <h1 className="max-w-3xl text-[32px] font-extrabold leading-tight text-brand-navy md:text-[40px] lg:text-h1 lg:font-h1">
+            Предметные репетиторы для школьников
+          </h1>
+          <p className="mt-4 max-w-2xl text-[15px] leading-relaxed text-[#5B6180] lg:text-body-sm">
+            {SUBTITLE}
+          </p>
+          <p className="mt-4 text-[14px] font-semibold text-brand-navy/60">{SHORT_LINE}</p>
+          <a
+            href="/#faq"
+            className="mt-6 inline-flex items-center justify-center gap-2 rounded-button bg-brand-green px-8 py-3.5 font-button text-button text-white shadow-card transition-opacity hover:opacity-90"
+          >
+            Записаться на консультацию
+            <ArrowRight size={20} strokeWidth={2.2} />
+          </a>
 
           {/* Иконки предметов по кругу — пустой центр, мягкая подложка */}
-          <div className="relative mx-auto aspect-square w-full max-w-[300px] sm:max-w-[360px] lg:max-w-[420px]">
+          <div className="relative mx-auto mt-10 aspect-square w-full max-w-[340px] sm:max-w-[400px] md:mt-12">
             <div className="absolute inset-[8%] rounded-full bg-brand-green/10" />
             <div className="absolute inset-[10%] rounded-full border border-dashed border-brand-green/30" />
 
@@ -203,7 +202,7 @@ export default function RepetitoryDirection() {
                     src={src}
                     alt=""
                     style={{ transform: `rotate(${rotate}deg)` }}
-                    className="h-auto w-[52px] max-w-none drop-shadow-[0_8px_16px_rgba(27,36,85,0.12)] sm:w-[60px] lg:w-[68px]"
+                    className="h-auto w-[68px] max-w-none drop-shadow-[0_8px_16px_rgba(27,36,85,0.12)] sm:w-[80px] lg:w-[92px]"
                   />
                 </div>
               </div>
