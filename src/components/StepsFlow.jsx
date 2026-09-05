@@ -36,6 +36,7 @@ export default function StepsFlow({
   accent = 'purple',
   inlineNumbers = false,
   trailingCard,
+  equalHeight = false,
 }) {
   const a = ACCENT[accent] ?? ACCENT.purple
   const wrapRef = useRef(null)
@@ -115,7 +116,7 @@ export default function StepsFlow({
               data-index={i}
               className={`relative z-10 flex flex-col items-start rounded-card border-2 bg-white p-4 text-left transition-all duration-500 ease-out md:p-5 ${
                 i === ctaIndex ? 'pb-3' : ''
-              }`}
+              } ${equalHeight ? 'xl:h-[400px]' : ''}`}
               style={{
                 borderColor: highlighted ? a.hex : 'transparent',
                 boxShadow: highlighted
@@ -125,7 +126,7 @@ export default function StepsFlow({
             >
               {inlineNumbers ? (
                 <h3 className="flex items-baseline gap-1.5 text-[18px] font-bold leading-snug text-brand-navy">
-                  <span className={`shrink-0 ${a.numText}`}>{i + 1}.</span>
+                  <span className={`shrink-0 text-[22px] font-extrabold ${a.numText}`}>{i + 1}.</span>
                   {step.title}
                 </h3>
               ) : (

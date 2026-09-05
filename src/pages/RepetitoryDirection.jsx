@@ -1,4 +1,4 @@
-import { ArrowRight, CheckCircle2, ClipboardCheck, Lightbulb, Puzzle } from 'lucide-react'
+import { ArrowRight, Check, CheckCircle2, ClipboardCheck, Lightbulb, Puzzle } from 'lucide-react'
 import { Link } from 'react-router-dom'
 import Header from '../components/Header'
 import Container from '../components/Container'
@@ -113,10 +113,11 @@ const RESULT_CARDS = [
 
 const RESULT_CLOSING = 'В итоге ребёнок понимает школьную программу, уверенно выполняет задания и готов к ВПР!'
 
-const PARENTS_TEXT_1 =
-  'Педагог поддерживает связь с родителями, рассказывает о результатах обучения и помогает понять, над чем ребенку еще нужно поработать.'
-const PARENTS_TEXT_2 = 'Каждую четверть проводим срез знаний и при необходимости корректируем программу.'
-const PARENTS_TEXT_3 = 'Если у вас появляются вопросы, их всегда можно задать педагогу или администратору.'
+const PARENTS_POINTS = [
+  'Педагог поддерживает связь с родителями, рассказывает о результатах обучения и помогает понять, над чем ребенку еще нужно поработать.',
+  'Каждую четверть проводим срез знаний и при необходимости корректируем программу.',
+  'Если у вас появляются вопросы, их всегда можно задать педагогу или администратору.',
+]
 
 const NEURO_CROSSLINK_TEXT =
   'Если сложности не столько в конкретном предмете, сколько в том, что ребёнку в целом трудно долго удерживать внимание, запоминать большие объёмы информации или быстро читать и понимать текст — возможно, дело не только в математике или русском. В этом случае может больше подойти нейроскорочтение — курс, который развивает эти базовые навыки напрямую, а предметные занятия идут уже проще и быстрее.'
@@ -234,19 +235,6 @@ export default function RepetitoryDirection() {
         </Container>
       </section>
 
-      {/* Длинная кнопка-переход к диагностике — без карточки/плашки */}
-      <section className="bg-bg-white">
-        <Container className="flex justify-center py-6 md:py-10">
-          <a
-            href="/#faq"
-            className="inline-flex items-center justify-center gap-2 rounded-button bg-brand-green px-10 py-4 text-center font-button text-button text-white shadow-card transition-opacity hover:opacity-90 md:px-14"
-          >
-            Хотите разобраться, в чём именно застрял ребёнок?
-            <ArrowRight size={20} strokeWidth={2.2} className="shrink-0" />
-          </a>
-        </Container>
-      </section>
-
       {/* Блок 4. Как проходят занятия */}
       <section className="bg-bg-lavender">
         <Container className="py-10 md:py-14">
@@ -257,13 +245,14 @@ export default function RepetitoryDirection() {
             steps={PATH_STEPS}
             accent="green"
             inlineNumbers
+            equalHeight
             trailingCard={
               <a
                 href="/#faq"
-                className="animate-card-glow-green relative z-10 flex flex-col items-start justify-center gap-3 rounded-card border-2 border-transparent bg-brand-green p-4 text-left transition-opacity hover:opacity-90 md:p-5"
+                className="animate-card-glow-green relative z-10 flex min-h-[160px] flex-col items-start justify-between gap-3 rounded-card border-2 border-transparent bg-brand-green p-4 text-left transition-opacity hover:opacity-90 md:p-5 xl:h-[400px]"
               >
-                <p className="text-[16px] font-bold leading-snug text-white">
-                  Остались вопросы о занятиях?
+                <p className="text-[15px] font-bold leading-relaxed text-white">
+                  Хотите разобраться, в чём именно проблема у вашего ребёнка, и как с ней справиться? Напишите нам
                 </p>
                 <span className="inline-flex items-center gap-2 rounded-button bg-white px-4 py-2 text-[13px] font-bold text-brand-green">
                   Записаться на консультацию
@@ -305,6 +294,7 @@ export default function RepetitoryDirection() {
         title="Переживаете, что ребёнку не подойдёт онлайн-формат?"
         titleMaxWidth="max-w-3xl"
         subtitle="Запишитесь на диагностику — мы проверим уровень знаний ребёнка, ответим на все вопросы, а ребёнок попробует занятие в онлайн-формате на деле. Такой формат интересен даже дошкольникам и младшим школьникам: во время урока мы постоянно меняем виды активности, задания подаются в увлекательном формате прямо на экране, а ребёнок фактически учится играя. Благодаря сосредоточенности и живому интересу информация усваивается гораздо лучше."
+        subtitleMaxWidth="max-w-none w-full px-2"
         decor={CTA_DECOR_2}
         accent="green"
       >
@@ -323,15 +313,16 @@ export default function RepetitoryDirection() {
           <h2 className="text-[28px] font-bold leading-tight text-brand-navy lg:text-h2 lg:font-h2">
             Вы знаете, как продвигается ребенок
           </h2>
-          <p className="mt-3 max-w-4xl text-[15px] leading-relaxed text-[#5B6180] lg:text-body-sm">
-            {PARENTS_TEXT_1}
-          </p>
-          <p className="mt-3 max-w-4xl text-[15px] leading-relaxed text-[#5B6180] lg:text-body-sm">
-            {PARENTS_TEXT_2}
-          </p>
-          <p className="mt-3 max-w-4xl text-[15px] leading-relaxed text-[#5B6180] lg:text-body-sm">
-            {PARENTS_TEXT_3}
-          </p>
+          <div className="mt-6 max-w-4xl rounded-card bg-white p-5 shadow-card md:mt-8 md:p-8">
+            <div className="flex flex-col gap-3">
+              {PARENTS_POINTS.map((point) => (
+                <div key={point} className="flex items-start gap-2">
+                  <Check size={18} strokeWidth={3} className="mt-0.5 shrink-0 text-brand-green" />
+                  <span className="text-[15px] leading-relaxed text-[#5B6180] lg:text-body-sm">{point}</span>
+                </div>
+              ))}
+            </div>
+          </div>
         </Container>
       </section>
 

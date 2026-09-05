@@ -25,12 +25,13 @@ const AVATAR_TINTS = [
 ]
 
 // Акцент по умолчанию — фиолетовый (главная); на страницах направлений
-// с другой цветовой темой передаётся accent. Синий блок соцсетей и
-// AVATAR_TINTS — самостоятельные декоративные цвета, accent их не
-// затрагивает.
+// с другой цветовой темой передаётся accent. Синий блок соцсетей —
+// самостоятельный декоративный цвет, accent его не затрагивает.
+// avatarTint: null — обычная многоцветная ротация (главная); для
+// зелёной темы аватарки все одного (зелёного) цвета, в тон странице.
 const ACCENT = {
-  purple: { text: 'text-brand-purple' },
-  green: { text: 'text-brand-navy' },
+  purple: { text: 'text-brand-purple', arrowBg: 'bg-brand-blue', arrowText: 'text-white', avatarTint: null },
+  green: { text: 'text-brand-navy', arrowBg: 'bg-brand-green', arrowText: 'text-white', avatarTint: 'bg-brand-green/20 text-brand-navy' },
 }
 
 // Порядок подобран так, чтобы один предмет не шёл дважды подряд —
@@ -214,7 +215,7 @@ export default function ParentReviews({
             type="button"
             onClick={() => scrollByCards(-1)}
             aria-label="Прокрутить влево"
-            className="absolute left-2 top-1/2 z-20 hidden h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full bg-brand-blue text-white shadow-card transition-opacity hover:opacity-90 lg:flex"
+            className={`absolute left-2 top-1/2 z-20 hidden h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full shadow-card transition-opacity hover:opacity-90 lg:flex ${a.arrowBg} ${a.arrowText}`}
           >
             <ChevronLeft size={22} strokeWidth={2.5} />
           </button>
@@ -222,7 +223,7 @@ export default function ParentReviews({
             type="button"
             onClick={() => scrollByCards(1)}
             aria-label="Прокрутить вправо"
-            className="absolute right-2 top-1/2 z-20 hidden h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full bg-brand-blue text-white shadow-card transition-opacity hover:opacity-90 lg:flex"
+            className={`absolute right-2 top-1/2 z-20 hidden h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full shadow-card transition-opacity hover:opacity-90 lg:flex ${a.arrowBg} ${a.arrowText}`}
           >
             <ChevronRight size={22} strokeWidth={2.5} />
           </button>
@@ -237,7 +238,7 @@ export default function ParentReviews({
                 name={name}
                 subject={subject}
                 text={text}
-                tint={AVATAR_TINTS[i % AVATAR_TINTS.length]}
+                tint={a.avatarTint ?? AVATAR_TINTS[i % AVATAR_TINTS.length]}
                 toggleColor={a.text}
               />
             ))}

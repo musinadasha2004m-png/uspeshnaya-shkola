@@ -62,6 +62,7 @@ export default function Community({
   title = 'Будьте ближе к жизни нашей школы',
   titleMaxWidth = 'max-w-2xl',
   subtitle = DEFAULT_SUBTITLE,
+  subtitleMaxWidth = 'max-w-xl',
   decor = DECOR,
   children,
   accent = 'purple',
@@ -92,7 +93,7 @@ export default function Community({
             </h2>
 
             {subtitle && (
-              <p className={`max-w-xl text-caption font-caption leading-snug ${a.onSolidMuted}`}>
+              <p className={`${subtitleMaxWidth} text-caption font-caption leading-snug ${a.onSolidMuted}`}>
                 {subtitle}
               </p>
             )}
