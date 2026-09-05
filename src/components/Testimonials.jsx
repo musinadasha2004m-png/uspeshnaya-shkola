@@ -103,11 +103,12 @@ const CARD_WIDTH = 300 // px, шаг прокрутки по стрелке = ш
 
 // Акцент по умолчанию — фиолетовый (главная); на страницах направлений
 // с другой цветовой темой передаётся accent. tintText — цвет текста на
-// светлой подложке тега; для светлых акцентов (зелёный) используем
-// navy вместо самого акцента — иначе недостаточно контрастно.
+// светлой (тонированной) подложке тега, там используем navy — иначе
+// недостаточно контрастно; onSolid — текст на сплошной заливке акцентом,
+// по явному решению клиента всегда белый.
 const ACCENT = {
   purple: { solid: 'bg-brand-purple', onSolid: 'text-white', tintBg: 'bg-brand-purple/10', tintText: 'text-brand-purple' },
-  green: { solid: 'bg-brand-green', onSolid: 'text-brand-navy', tintBg: 'bg-brand-green/15', tintText: 'text-brand-navy' },
+  green: { solid: 'bg-brand-green', onSolid: 'text-white', tintBg: 'bg-brand-green/15', tintText: 'text-brand-navy' },
 }
 
 export default function Testimonials({

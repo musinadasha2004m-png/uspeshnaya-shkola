@@ -111,7 +111,7 @@ const RESULT_CARDS = [
   },
 ]
 
-const RESULT_CLOSING = 'В итоге ребенок понимает школьную программу, уверенно выполняет задания и готов к ВПР.'
+const RESULT_CLOSING = 'В итоге ребёнок понимает школьную программу, уверенно выполняет задания и готов к ВПР!'
 
 const PARENTS_TEXT_1 =
   'Педагог поддерживает связь с родителями, рассказывает о результатах обучения и помогает понять, над чем ребенку еще нужно поработать.'
@@ -134,11 +134,6 @@ const REPETITORY_REVIEWS = REVIEWS.filter((r) => REPETITORY_REVIEW_SUBJECTS.incl
 
 // Тот же формат декора, что ожидает компонент Community (звёзды по
 // краям плашки, частично выступающие за края).
-const CTA_DECOR_1 = [
-  { src: iconStar, size: 46, circle: 68, style: { top: '-22px', left: '10%' } },
-  { src: iconStar, size: 28, circle: 44, style: { bottom: '-14px', left: '28%' } },
-  { src: iconStar, size: 56, circle: 82, style: { bottom: '-28px', right: '8%' } },
-]
 const CTA_DECOR_2 = [
   { src: iconStar, size: 52, circle: 76, style: { top: '-24px', right: '12%' } },
   { src: iconStar, size: 30, circle: 46, style: { bottom: '-16px', right: '30%' } },
@@ -162,7 +157,7 @@ export default function RepetitoryDirection() {
           <p className="mt-4 text-[14px] font-semibold text-brand-navy/60">{SHORT_LINE}</p>
           <a
             href="/#faq"
-            className="mt-6 inline-flex items-center justify-center gap-2 rounded-button bg-brand-green px-8 py-3.5 font-button text-button text-brand-navy shadow-card transition-opacity hover:opacity-90"
+            className="mt-6 inline-flex items-center justify-center gap-2 rounded-button bg-brand-green px-8 py-3.5 font-button text-button text-white shadow-card transition-opacity hover:opacity-90"
           >
             Записаться на консультацию
             <ArrowRight size={20} strokeWidth={2.2} />
@@ -190,14 +185,19 @@ export default function RepetitoryDirection() {
                     </span>
                   ))}
                 </div>
-                <p className="mt-4 text-[15px] leading-relaxed text-[#5B6180] lg:text-body-sm">{group.text}</p>
-                <a
-                  href="/#faq"
-                  className="mt-5 inline-flex w-fit items-center justify-center gap-2 rounded-button bg-brand-green px-6 py-2.5 font-button text-button text-brand-navy transition-opacity hover:opacity-90"
-                >
-                  Выбрать предмет
-                  <ArrowRight size={18} strokeWidth={2.5} />
-                </a>
+                {/* mt-auto прижимает текст и кнопку к низу карточки, чтобы
+                    кнопки обеих карточек были на одной линии независимо
+                    от того, сколько места заняли чипы предметов выше */}
+                <div className="mt-auto pt-4">
+                  <p className="text-[15px] leading-relaxed text-[#5B6180] lg:text-body-sm">{group.text}</p>
+                  <a
+                    href="/#faq"
+                    className="mt-5 inline-flex w-fit items-center justify-center gap-2 rounded-button bg-brand-green px-6 py-2.5 font-button text-button text-white transition-opacity hover:opacity-90"
+                  >
+                    Выбрать предмет
+                    <ArrowRight size={18} strokeWidth={2.5} />
+                  </a>
+                </div>
               </div>
             ))}
           </div>
@@ -225,32 +225,27 @@ export default function RepetitoryDirection() {
               href="/#faq"
               className="animate-card-glow-green flex items-center gap-3 rounded-card bg-brand-green p-4 transition-opacity hover:opacity-90"
             >
-              <span className="text-[15px] font-bold leading-relaxed text-brand-navy lg:text-body-sm">
+              <span className="text-[15px] font-bold leading-relaxed text-white lg:text-body-sm">
                 Похоже на вашего ребёнка?
               </span>
-              <ArrowRight size={18} strokeWidth={2.5} className="ml-auto shrink-0 text-brand-navy" />
+              <ArrowRight size={18} strokeWidth={2.5} className="ml-auto shrink-0 text-white" />
             </a>
           </div>
         </Container>
       </section>
 
-      {/* Акцентная пауза + CTA — тот же компонент/пропорции, что
-          "Будьте ближе к жизни нашей школы" на главной, только зелёная. */}
-      <Community
-        title="Хотите разобраться, в чём именно застрял ребёнок?"
-        titleMaxWidth="max-w-3xl"
-        subtitle={null}
-        decor={CTA_DECOR_1}
-        accent="green"
-      >
-        <a
-          href="/#faq"
-          className="flex items-center justify-center gap-2 rounded-button bg-white px-6 py-2.5 font-button text-button text-brand-navy shadow-card transition-opacity hover:opacity-90"
-        >
-          Записаться на консультацию
-          <ArrowRight size={20} strokeWidth={2.2} />
-        </a>
-      </Community>
+      {/* Длинная кнопка-переход к диагностике — без карточки/плашки */}
+      <section className="bg-bg-white">
+        <Container className="flex justify-center py-6 md:py-10">
+          <a
+            href="/#faq"
+            className="inline-flex items-center justify-center gap-2 rounded-button bg-brand-green px-10 py-4 text-center font-button text-button text-white shadow-card transition-opacity hover:opacity-90 md:px-14"
+          >
+            Хотите разобраться, в чём именно застрял ребёнок?
+            <ArrowRight size={20} strokeWidth={2.2} className="shrink-0" />
+          </a>
+        </Container>
+      </section>
 
       {/* Блок 4. Как проходят занятия */}
       <section className="bg-bg-lavender">
@@ -258,7 +253,25 @@ export default function RepetitoryDirection() {
           <h2 className="text-[28px] font-bold leading-tight text-brand-navy lg:text-h2 lg:font-h2">
             Как мы помогаем ребенку разобраться в предмете
           </h2>
-          <StepsFlow steps={PATH_STEPS} accent="green" />
+          <StepsFlow
+            steps={PATH_STEPS}
+            accent="green"
+            inlineNumbers
+            trailingCard={
+              <a
+                href="/#faq"
+                className="animate-card-glow-green relative z-10 flex flex-col items-start justify-center gap-3 rounded-card border-2 border-transparent bg-brand-green p-4 text-left transition-opacity hover:opacity-90 md:p-5"
+              >
+                <p className="text-[16px] font-bold leading-snug text-white">
+                  Остались вопросы о занятиях?
+                </p>
+                <span className="inline-flex items-center gap-2 rounded-button bg-white px-4 py-2 text-[13px] font-bold text-brand-green">
+                  Записаться на консультацию
+                  <ArrowRight size={16} strokeWidth={2.5} />
+                </span>
+              </a>
+            }
+          />
         </Container>
       </section>
 
@@ -272,7 +285,7 @@ export default function RepetitoryDirection() {
             {RESULT_CARDS.map(({ icon: Icon, title, description }) => (
               <div key={title} className="flex gap-4 rounded-card bg-white p-5 shadow-card">
                 <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-brand-green">
-                  <Icon size={20} strokeWidth={2} className="text-brand-navy" />
+                  <Icon size={20} strokeWidth={2} className="text-white" />
                 </span>
                 <div>
                   <h3 className="text-[18px] font-bold leading-snug text-brand-navy">{title}</h3>
@@ -281,7 +294,7 @@ export default function RepetitoryDirection() {
               </div>
             ))}
           </div>
-          <p className="mt-6 max-w-3xl text-[15px] font-bold leading-relaxed text-brand-navy lg:text-body-sm">
+          <p className="mt-6 text-[20px] font-extrabold leading-snug text-brand-navy md:text-[24px] lg:text-[28px]">
             {RESULT_CLOSING}
           </p>
         </Container>
@@ -289,9 +302,9 @@ export default function RepetitoryDirection() {
 
       {/* Акцентная пауза + CTA #2 */}
       <Community
-        title="Остались вопросы про формат занятий?"
+        title="Переживаете, что ребёнку не подойдёт онлайн-формат?"
         titleMaxWidth="max-w-3xl"
-        subtitle={null}
+        subtitle="Запишитесь на диагностику — мы проверим уровень знаний ребёнка, ответим на все вопросы, а ребёнок попробует занятие в онлайн-формате на деле. Такой формат интересен даже дошкольникам и младшим школьникам: во время урока мы постоянно меняем виды активности, задания подаются в увлекательном формате прямо на экране, а ребёнок фактически учится играя. Благодаря сосредоточенности и живому интересу информация усваивается гораздо лучше."
         decor={CTA_DECOR_2}
         accent="green"
       >
@@ -326,7 +339,7 @@ export default function RepetitoryDirection() {
           на страницу "Нейроскорочтение" */}
       <section className="bg-bg-white">
         <Container className="py-10 md:py-14">
-          <div className="mx-auto flex max-w-3xl flex-col items-start gap-4 rounded-card bg-white p-6 shadow-card sm:flex-row sm:items-center sm:justify-between md:p-8">
+          <div className="flex flex-col items-start gap-4 rounded-card bg-white p-6 shadow-card sm:flex-row sm:items-center sm:justify-between md:p-8">
             <div>
               <h3 className="text-[20px] font-bold leading-snug text-brand-navy">
                 Если дело не только в предмете
@@ -337,7 +350,7 @@ export default function RepetitoryDirection() {
             </div>
             <Link
               to="/napravleniya/neuroskorochtenie"
-              className="flex shrink-0 items-center gap-2 rounded-button bg-brand-green px-6 py-2.5 font-button text-button text-brand-navy transition-opacity hover:opacity-90"
+              className="flex shrink-0 items-center gap-2 rounded-button bg-brand-green px-6 py-2.5 font-button text-button text-white transition-opacity hover:opacity-90"
             >
               Узнать о нейроскорочтении
               <ArrowRight size={18} strokeWidth={2.5} />
@@ -367,10 +380,10 @@ export default function RepetitoryDirection() {
       {/* Блок 9. Финальный CTA */}
       <section className="bg-brand-green">
         <Container className="py-10 text-center md:py-14">
-          <h2 className="text-[28px] font-bold leading-tight text-brand-navy lg:text-h2 lg:font-h2">
+          <h2 className="text-[28px] font-bold leading-tight text-white lg:text-h2 lg:font-h2">
             Не знаете, какой предмет нужно подтянуть?
           </h2>
-          <p className="mx-auto mt-3 max-w-xl text-[15px] leading-relaxed text-brand-navy/80 lg:text-body-sm">
+          <p className="mx-auto mt-3 max-w-xl text-[15px] leading-relaxed text-white/80 lg:text-body-sm">
             Оставьте заявку на бесплатную консультацию. Разберемся в ситуации ребенка и поможем подобрать подходящие занятия.
           </p>
           <a

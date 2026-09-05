@@ -23,11 +23,11 @@ const DEFAULT_SUBTITLE =
   'Полезные материалы для родителей, новости школы, достижения учеников, советы преподавателей и анонсы мероприятий — всё в наших сообществах.'
 
 // Акцент по умолчанию — фиолетовый (главная); на страницах направлений
-// с другой цветовой темой передаётся accent. Зелёный светлее фиолетового,
-// поэтому текст на нём — navy, а не белый (недостаточно контрастно).
+// с другой цветовой темой передаётся accent. По явному решению клиента
+// текст на зелёном — белый (ниже WCAG AA, чем navy, но так решил клиент).
 const ACCENT = {
   purple: { solid: 'bg-brand-purple', onSolid: 'text-white', onSolidMuted: 'text-white/80', onWhite: 'text-brand-purple' },
-  green: { solid: 'bg-brand-green', onSolid: 'text-brand-navy', onSolidMuted: 'text-brand-navy/70', onWhite: 'text-brand-navy' },
+  green: { solid: 'bg-brand-green', onSolid: 'text-white', onSolidMuted: 'text-white/80', onWhite: 'text-brand-navy' },
 }
 
 function DefaultCta({ onWhite }) {

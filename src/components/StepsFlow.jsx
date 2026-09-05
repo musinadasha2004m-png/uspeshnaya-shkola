@@ -4,20 +4,22 @@ const COLS_CLASS = {
   5: 'xl:grid-cols-5',
   6: 'xl:grid-cols-6',
   7: 'xl:grid-cols-4',
+  8: 'xl:grid-cols-4',
 }
 
-// Раскладки с числом карточек, не помещающимся в один ряд (сейчас
-// только 7 → 4+3), не рисуют горизонтальную соединительную линию —
-// она рассчитана на один ряд и не будет совпадать со второй строкой.
-const MULTI_ROW_COUNTS = new Set([7])
+// Раскладки с числом карточек, не помещающимся в один ряд (7 → 4+3,
+// 8 → 4+4), не рисуют горизонтальную соединительную линию — она
+// рассчитана на один ряд и не будет совпадать со второй строкой.
+const MULTI_ROW_COUNTS = new Set([7, 8])
 
 // Акцент по умолчанию — фиолетовый (главная, "Нейроскорочтение"); на
 // страницах направлений с другой цветовой темой передаётся accent.
-// Текст на кружке-номере/кнопке — навy для светлых акцентов (зелёный
-// слишком светлый для белого текста), белый для тёмных.
+// По явному решению клиента текст на кружке-номере/кнопке — всегда
+// белый (для зелёного это ниже WCAG AA на обычном тексте, но клиент
+// предпочёл белый чёрному/navy ради читаемости на глаз).
 const ACCENT = {
-  purple: { bg: 'bg-brand-purple', text: 'text-white', hex: '#8A63F6', shadow: 'rgba(138, 99, 246, 0.35)' },
-  green: { bg: 'bg-brand-green', text: 'text-brand-navy', hex: '#7FD66A', shadow: 'rgba(127, 214, 106, 0.45)' },
+  purple: { bg: 'bg-brand-purple', text: 'text-white', numText: 'text-brand-purple', hex: '#8A63F6', shadow: 'rgba(138, 99, 246, 0.35)' },
+  green: { bg: 'bg-brand-green', text: 'text-white', numText: 'text-brand-green', hex: '#7FD66A', shadow: 'rgba(127, 214, 106, 0.45)' },
 }
 
 // Кружки-номера в ряд на десктопе, соединённые линией (заливается по
@@ -32,6 +34,8 @@ export default function StepsFlow({
   ctaLabel,
   ctaHref = '#',
   accent = 'purple',
+  inlineNumbers = false,
+  trailingCard,
 }) {
   const a = ACCENT[accent] ?? ACCENT.purple
   const wrapRef = useRef(null)
@@ -80,8 +84,9 @@ export default function StepsFlow({
     return () => observer.disconnect()
   }, [])
 
-  const colsClass = COLS_CLASS[steps.length] || 'xl:grid-cols-6'
-  const oneRow = !MULTI_ROW_COUNTS.has(steps.length)
+  const totalCount = steps.length + (trailingCard ? 1 : 0)
+  const colsClass = COLS_CLASS[totalCount] || 'xl:grid-cols-6'
+  const oneRow = !MULTI_ROW_COUNTS.has(totalCount)
 
   return (
     <div ref={wrapRef} className="relative mt-8 md:mt-12">
@@ -118,16 +123,23 @@ export default function StepsFlow({
                   : '0 10px 28px rgba(27, 36, 85, 0.12)',
               }}
             >
-              <div className="flex w-full items-center gap-3 xl:block">
-                <span
-                  className={`flex h-8 w-8 shrink-0 items-center justify-center rounded-full text-[14px] font-bold xl:h-11 xl:w-11 xl:text-[18px] ${a.bg} ${a.text}`}
-                >
-                  {i + 1}
-                </span>
-                <h3 className="text-[18px] font-bold leading-snug text-brand-navy xl:mt-4 xl:text-[22px]">
+              {inlineNumbers ? (
+                <h3 className="flex items-baseline gap-1.5 text-[18px] font-bold leading-snug text-brand-navy">
+                  <span className={`shrink-0 ${a.numText}`}>{i + 1}.</span>
                   {step.title}
                 </h3>
-              </div>
+              ) : (
+                <div className="flex w-full items-center gap-3 xl:block">
+                  <span
+                    className={`flex h-8 w-8 shrink-0 items-center justify-center rounded-full text-[14px] font-bold xl:h-11 xl:w-11 xl:text-[18px] ${a.bg} ${a.text}`}
+                  >
+                    {i + 1}
+                  </span>
+                  <h3 className="text-[18px] font-bold leading-snug text-brand-navy xl:mt-4 xl:text-[22px]">
+                    {step.title}
+                  </h3>
+                </div>
+              )}
               <p className="mt-2 text-[15px] leading-relaxed text-[#5B6180] xl:mt-1 xl:text-body-sm">
                 {step.description}
               </p>
@@ -142,6 +154,7 @@ export default function StepsFlow({
             </div>
           )
         })}
+        {trailingCard}
       </div>
     </div>
   )
