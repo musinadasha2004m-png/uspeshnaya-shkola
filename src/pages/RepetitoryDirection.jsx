@@ -7,6 +7,24 @@ import Testimonials, { CASES } from '../components/Testimonials'
 import ParentReviews, { REVIEWS } from '../components/ParentReviews'
 import Community from '../components/Community'
 import iconStar from '../assets/icon-star.png'
+import iconRuler from '../assets/icon-ruler.png'
+import iconFlask from '../assets/icon-flask.png'
+import iconGlobe from '../assets/icon-globe.png'
+import iconAtom from '../assets/icon-atom.png'
+import iconBiology from '../assets/icon-biology.png'
+import iconLiterature from '../assets/icon-literature.png'
+
+// 5 иконок предметов равномерно по окружности (пятиугольником, шаг
+// 72°, старт сверху) вокруг пустого центра — по той же схеме, что
+// иконки вокруг фото мальчика в Hero на главной, только без фото и на
+// полную окружность (там нижняя дуга оставалась пустой под силуэт).
+const HERO_ICONS = [
+  { src: iconRuler, left: '50%', top: '8%', rotate: -6, delay: 0, duration: 4.6 },
+  { src: iconFlask, left: '89.9%', top: '37%', rotate: 8, delay: 0.5, duration: 5 },
+  { src: iconGlobe, left: '74.7%', top: '84%', rotate: -8, delay: 1, duration: 4.8 },
+  { src: iconAtom, left: '25.3%', top: '84%', rotate: 10, delay: 1.5, duration: 5.2 },
+  { src: iconBiology, left: '10.1%', top: '37%', rotate: -10, delay: 0.8, duration: 4.4 },
+]
 
 const SHORT_LINE = '1–8 класс · индивидуальные занятия · программа по уровню знаний ребенка'
 
@@ -148,21 +166,49 @@ export default function RepetitoryDirection() {
 
       {/* Блок 1. Первый экран */}
       <section className="bg-bg-white">
-        <Container className="py-10 md:py-14">
-          <h1 className="max-w-3xl text-[32px] font-extrabold leading-tight text-brand-navy md:text-[40px] lg:text-h1 lg:font-h1">
-            Предметные репетиторы для школьников
-          </h1>
-          <p className="mt-4 max-w-2xl text-[15px] leading-relaxed text-[#5B6180] lg:text-body-sm">
-            {SUBTITLE}
-          </p>
-          <p className="mt-4 text-[14px] font-semibold text-brand-navy/60">{SHORT_LINE}</p>
-          <a
-            href="/#faq"
-            className="mt-6 inline-flex items-center justify-center gap-2 rounded-button bg-brand-green px-8 py-3.5 font-button text-button text-white shadow-card transition-opacity hover:opacity-90"
-          >
-            Записаться на консультацию
-            <ArrowRight size={20} strokeWidth={2.2} />
-          </a>
+        <Container className="grid gap-10 py-10 md:py-14 lg:grid-cols-2 lg:items-center lg:gap-12">
+          <div>
+            <h1 className="text-[32px] font-extrabold leading-tight text-brand-navy md:text-[40px] lg:text-h1 lg:font-h1">
+              Предметные репетиторы для школьников
+            </h1>
+            <p className="mt-4 max-w-2xl text-[15px] leading-relaxed text-[#5B6180] lg:text-body-sm">
+              {SUBTITLE}
+            </p>
+            <p className="mt-4 text-[14px] font-semibold text-brand-navy/60">{SHORT_LINE}</p>
+            <a
+              href="/#faq"
+              className="mt-6 inline-flex items-center justify-center gap-2 rounded-button bg-brand-green px-8 py-3.5 font-button text-button text-white shadow-card transition-opacity hover:opacity-90"
+            >
+              Записаться на консультацию
+              <ArrowRight size={20} strokeWidth={2.2} />
+            </a>
+          </div>
+
+          {/* Иконки предметов по кругу — пустой центр, мягкая подложка */}
+          <div className="relative mx-auto aspect-square w-full max-w-[300px] sm:max-w-[360px] lg:max-w-[420px]">
+            <div className="absolute inset-[8%] rounded-full bg-brand-green/10" />
+            <div className="absolute inset-[10%] rounded-full border border-dashed border-brand-green/30" />
+
+            {HERO_ICONS.map(({ src, left, top, rotate, delay, duration }, i) => (
+              <div
+                key={i}
+                className="absolute z-10"
+                style={{ left, top, transform: 'translate(-50%, -50%)' }}
+              >
+                <div
+                  className="animate-hero-float"
+                  style={{ animationDelay: `${delay}s`, animationDuration: `${duration}s` }}
+                >
+                  <img
+                    src={src}
+                    alt=""
+                    style={{ transform: `rotate(${rotate}deg)` }}
+                    className="h-auto w-[52px] max-w-none drop-shadow-[0_8px_16px_rgba(27,36,85,0.12)] sm:w-[60px] lg:w-[68px]"
+                  />
+                </div>
+              </div>
+            ))}
+          </div>
         </Container>
       </section>
 
@@ -314,14 +360,21 @@ export default function RepetitoryDirection() {
           <h2 className="text-[28px] font-bold leading-tight text-brand-navy lg:text-h2 lg:font-h2">
             Вы знаете, как продвигается ребенок
           </h2>
-          <div className="mt-6 max-w-4xl rounded-card bg-white p-5 shadow-card md:mt-8 md:p-8">
-            <div className="flex flex-col gap-3">
-              {PARENTS_POINTS.map((point) => (
-                <div key={point} className="flex items-start gap-2">
-                  <Check size={18} strokeWidth={3} className="mt-0.5 shrink-0 text-brand-green" />
-                  <span className="text-[15px] leading-relaxed text-[#5B6180] lg:text-body-sm">{point}</span>
-                </div>
-              ))}
+          <div className="mt-6 flex max-w-4xl flex-col items-center gap-5 sm:flex-row sm:items-start md:mt-8">
+            <img
+              src={iconLiterature}
+              alt=""
+              className="w-24 shrink-0 object-contain sm:w-28 md:w-32"
+            />
+            <div className="w-full rounded-card bg-white p-5 shadow-card md:p-8">
+              <div className="flex flex-col gap-3">
+                {PARENTS_POINTS.map((point) => (
+                  <div key={point} className="flex items-start gap-2">
+                    <Check size={18} strokeWidth={3} className="mt-0.5 shrink-0 text-brand-green" />
+                    <span className="text-[15px] leading-relaxed text-[#5B6180] lg:text-body-sm">{point}</span>
+                  </div>
+                ))}
+              </div>
             </div>
           </div>
         </Container>
