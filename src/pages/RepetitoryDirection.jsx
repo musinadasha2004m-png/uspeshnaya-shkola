@@ -167,24 +167,30 @@ export default function RepetitoryDirection() {
 
       {/* Блок 1. Первый экран */}
       <section className="bg-bg-white">
-        <Container className="py-10 md:py-14">
-          <h1 className="max-w-3xl text-[32px] font-extrabold leading-tight text-brand-navy md:text-[40px] lg:text-h1 lg:font-h1">
-            Предметные репетиторы для школьников
-          </h1>
-          <p className="mt-4 max-w-2xl text-[15px] leading-relaxed text-[#5B6180] lg:text-body-sm">
-            {SUBTITLE}
-          </p>
-          <p className="mt-4 text-[14px] font-semibold text-brand-navy/60">{SHORT_LINE}</p>
-          <a
-            href="/#faq"
-            className="mt-6 inline-flex items-center justify-center gap-2 rounded-button bg-brand-green px-8 py-3.5 font-button text-button text-white shadow-card transition-opacity hover:opacity-90"
-          >
-            Записаться на консультацию
-            <ArrowRight size={20} strokeWidth={2.2} />
-          </a>
+        <Container className="grid gap-10 py-10 md:py-14 xl:grid-cols-[1fr_360px] xl:items-center xl:gap-10">
+          <div>
+            <h1 className="max-w-3xl text-[32px] font-extrabold leading-tight text-brand-navy md:text-[40px] lg:text-h1 lg:font-h1">
+              Предметные репетиторы для школьников
+            </h1>
+            <p className="mt-4 max-w-2xl text-[15px] leading-relaxed text-[#5B6180] lg:text-body-sm">
+              {SUBTITLE}
+            </p>
+            <p className="mt-4 text-[14px] font-semibold text-brand-navy/60">{SHORT_LINE}</p>
+            <a
+              href="/#faq"
+              className="mt-6 inline-flex items-center justify-center gap-2 rounded-button bg-brand-green px-8 py-3.5 font-button text-button text-white shadow-card transition-opacity hover:opacity-90"
+            >
+              Записаться на консультацию
+              <ArrowRight size={20} strokeWidth={2.2} />
+            </a>
+          </div>
 
-          {/* Иконки предметов по кругу — пустой центр, мягкая подложка */}
-          <div className="relative mx-auto mt-10 aspect-square w-full max-w-[340px] sm:max-w-[400px] md:mt-12">
+          {/* Иконки предметов по кругу — пустой центр, мягкая подложка.
+              На узких экранах (< xl) не помещаются рядом с текстом без
+              переноса заголовка на 3 строки — там уходят под текст;
+              с xl (1280px+) места достаточно, чтобы встать на уровне
+              текста сбоку. */}
+          <div className="relative mx-auto aspect-square w-full max-w-[340px] sm:max-w-[400px] xl:max-w-[340px]">
             <div className="absolute inset-[8%] rounded-full bg-brand-green/10" />
             <div className="absolute inset-[10%] rounded-full border border-dashed border-brand-green/30" />
 
@@ -202,7 +208,7 @@ export default function RepetitoryDirection() {
                     src={src}
                     alt=""
                     style={{ transform: `rotate(${rotate}deg)` }}
-                    className="h-auto w-[68px] max-w-none drop-shadow-[0_8px_16px_rgba(27,36,85,0.12)] sm:w-[80px] lg:w-[92px]"
+                    className="h-auto w-[68px] max-w-none drop-shadow-[0_8px_16px_rgba(27,36,85,0.12)] sm:w-[80px] lg:w-[92px] xl:w-[80px]"
                   />
                 </div>
               </div>
