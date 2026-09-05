@@ -249,9 +249,9 @@ export default function RepetitoryDirection() {
             trailingCard={
               <a
                 href="/#faq"
-                className="animate-card-glow-green relative z-10 flex min-h-[160px] flex-col items-start justify-between gap-3 rounded-card border-2 border-transparent bg-brand-green p-4 text-left transition-opacity hover:opacity-90 md:p-5 xl:h-[400px]"
+                className="animate-card-glow-green relative z-10 flex min-h-[160px] flex-col items-start justify-between gap-3 rounded-card border-2 border-transparent bg-brand-green px-4 py-3 text-left transition-opacity hover:opacity-90 md:px-5 md:py-4 xl:h-[392px]"
               >
-                <p className="text-[15px] font-bold leading-relaxed text-white">
+                <p className="text-[17px] font-bold leading-relaxed text-white">
                   Хотите разобраться, в чём именно проблема у вашего ребёнка, и как с ней справиться? Напишите нам
                 </p>
                 <span className="inline-flex items-center gap-2 rounded-button bg-white px-4 py-2 text-[13px] font-bold text-brand-green">
@@ -295,6 +295,7 @@ export default function RepetitoryDirection() {
         titleMaxWidth="max-w-3xl"
         subtitle="Запишитесь на диагностику — мы проверим уровень знаний ребёнка, ответим на все вопросы, а ребёнок попробует занятие в онлайн-формате на деле. Такой формат интересен даже дошкольникам и младшим школьникам: во время урока мы постоянно меняем виды активности, задания подаются в увлекательном формате прямо на экране, а ребёнок фактически учится играя. Благодаря сосредоточенности и живому интересу информация усваивается гораздо лучше."
         subtitleMaxWidth="max-w-none w-full px-2"
+        subtitleSize="text-[18px] md:text-[20px] font-medium"
         decor={CTA_DECOR_2}
         accent="green"
       >

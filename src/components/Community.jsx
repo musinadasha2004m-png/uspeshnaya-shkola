@@ -63,6 +63,7 @@ export default function Community({
   titleMaxWidth = 'max-w-2xl',
   subtitle = DEFAULT_SUBTITLE,
   subtitleMaxWidth = 'max-w-xl',
+  subtitleSize = 'text-caption font-caption',
   decor = DECOR,
   children,
   accent = 'purple',
@@ -93,7 +94,7 @@ export default function Community({
             </h2>
 
             {subtitle && (
-              <p className={`${subtitleMaxWidth} text-caption font-caption leading-snug ${a.onSolidMuted}`}>
+              <p className={`${subtitleMaxWidth} ${subtitleSize} leading-snug ${a.onSolidMuted}`}>
                 {subtitle}
               </p>
             )}

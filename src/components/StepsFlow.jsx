@@ -114,9 +114,9 @@ export default function StepsFlow({
               key={step.title}
               ref={(el) => (cardRefs.current[i] = el)}
               data-index={i}
-              className={`relative z-10 flex flex-col items-start rounded-card border-2 bg-white p-4 text-left transition-all duration-500 ease-out md:p-5 ${
-                i === ctaIndex ? 'pb-3' : ''
-              } ${equalHeight ? 'xl:h-[400px]' : ''}`}
+              className={`relative z-10 flex flex-col items-start rounded-card border-2 bg-white text-left transition-all duration-500 ease-out ${
+                equalHeight ? 'px-4 py-3 md:px-5 md:py-4' : 'p-4 md:p-5'
+              } ${i === ctaIndex ? 'pb-3' : ''} ${equalHeight ? 'xl:h-[392px]' : ''}`}
               style={{
                 borderColor: highlighted ? a.hex : 'transparent',
                 boxShadow: highlighted
