@@ -14,18 +14,17 @@ import iconAtom from '../assets/icon-atom.png'
 import iconBiology from '../assets/icon-biology.png'
 import iconLiterature from '../assets/icon-literature.png'
 
-// 5 иконок предметов вокруг пустого центра — пятиугольником по углам
-// (шаг 72°, старт сверху), но на разном расстоянии от центра (не
-// строгая окружность), чтобы композиция не выглядела как ровный
-// штамп. По той же схеме, что иконки вокруг фото мальчика в Hero на
-// главной, только без фото и на полную "окружность" (там нижняя дуга
-// оставалась пустой под силуэт).
+// 5 иконок предметов равномерно по окружности (пятиугольником, шаг
+// 72°, старт сверху, один общий радиус) вокруг пустого центра — по
+// той же схеме, что иконки вокруг фото мальчика в Hero на главной,
+// только без фото и на полную окружность (там нижняя дуга оставалась
+// пустой под силуэт).
 const HERO_ICONS = [
-  { src: iconRuler, left: '50%', top: '22%', rotate: -6, delay: 0, duration: 4.6 },
-  { src: iconFlask, left: '88%', top: '37.6%', rotate: 8, delay: 0.5, duration: 5 },
-  { src: iconGlobe, left: '68.8%', top: '75.9%', rotate: -8, delay: 1, duration: 4.8 },
-  { src: iconAtom, left: '24.1%', top: '85.6%', rotate: 10, delay: 1.5, duration: 5.2 },
-  { src: iconBiology, left: '27.2%', top: '42.6%', rotate: -10, delay: 0.8, duration: 4.4 },
+  { src: iconRuler, left: '50%', top: '14%', rotate: -6, delay: 0, duration: 4.6 },
+  { src: iconFlask, left: '84.2%', top: '38.9%', rotate: 8, delay: 0.5, duration: 5 },
+  { src: iconGlobe, left: '71.2%', top: '79.1%', rotate: -8, delay: 1, duration: 4.8 },
+  { src: iconAtom, left: '28.8%', top: '79.1%', rotate: 10, delay: 1.5, duration: 5.2 },
+  { src: iconBiology, left: '15.8%', top: '38.9%', rotate: -10, delay: 0.8, duration: 4.4 },
 ]
 
 const SHORT_LINE = '1–8 класс · индивидуальные занятия · программа по уровню знаний ребенка'
@@ -188,35 +187,18 @@ export default function RepetitoryDirection() {
               Записаться на консультацию
               <ArrowRight size={20} strokeWidth={2.2} />
             </a>
-
-            {/* Книга + пара звёзд — декоративный акцент в пустом месте
-                под кнопкой, каждая иконка на своей бледно-зелёной
-                круглой подложке, в духе декора плашек Community. */}
-            <div className="relative mt-10 h-32 w-32 sm:h-36 sm:w-36 xl:mt-12">
-              <div className="flex h-full w-full items-center justify-center rounded-full bg-brand-green/10">
-                <img
-                  src={iconLiterature}
-                  alt=""
-                  className="h-20 w-20 object-contain sm:h-24 sm:w-24"
-                />
-              </div>
-              <span className="absolute -right-3 -top-3 flex h-10 w-10 items-center justify-center rounded-full bg-brand-green/15">
-                <img src={iconStar} alt="" className="h-6 w-6 object-contain" />
-              </span>
-              <span className="absolute -bottom-2 -left-4 flex h-7 w-7 items-center justify-center rounded-full bg-brand-green/15">
-                <img src={iconStar} alt="" className="h-4 w-4 object-contain" />
-              </span>
-            </div>
           </div>
 
-          {/* Иконки предметов по кругу — пустой центр, мягкая подложка.
+          {/* Иконки предметов по кругу — пустой центр, мягкая подложка,
+              пара маленьких звёзд-акцентов на своих подложках рядом.
               На узких экранах (< xl) не помещаются рядом с текстом без
               переноса заголовка на 3 строки — там уходят под текст;
               с xl (1280px+) занимают весь остаток строки и центрируются
               в нём (а не в узкой колонке), поэтому оказываются ровно
-              посередине свободного места справа от текста. */}
+              посередине свободного места справа от текста, на уровне
+              (по вертикали) текстового блока. */}
           <div className="xl:flex-1">
-            <div className="relative mx-auto aspect-square w-full max-w-[340px] sm:max-w-[420px] xl:max-w-[400px]">
+            <div className="relative mx-auto aspect-square w-full max-w-[380px] sm:max-w-[460px] xl:max-w-[440px]">
               <div className="absolute inset-[8%] rounded-full bg-brand-green/10" />
               <div className="absolute inset-[10%] rounded-full border border-dashed border-brand-green/30" />
 
@@ -234,11 +216,18 @@ export default function RepetitoryDirection() {
                       src={src}
                       alt=""
                       style={{ transform: `rotate(${rotate}deg)` }}
-                      className="h-auto w-[84px] max-w-none drop-shadow-[0_8px_16px_rgba(27,36,85,0.12)] sm:w-[100px] lg:w-[116px] xl:w-[104px]"
+                      className="h-auto w-[96px] max-w-none drop-shadow-[0_8px_16px_rgba(27,36,85,0.12)] sm:w-[112px] lg:w-[132px] xl:w-[120px]"
                     />
                   </div>
                 </div>
               ))}
+
+              <span className="absolute -right-4 -top-4 flex h-12 w-12 items-center justify-center rounded-full bg-brand-green/15">
+                <img src={iconStar} alt="" className="h-7 w-7 object-contain" />
+              </span>
+              <span className="absolute -bottom-3 -left-5 flex h-9 w-9 items-center justify-center rounded-full bg-brand-green/15">
+                <img src={iconStar} alt="" className="h-5 w-5 object-contain" />
+              </span>
             </div>
           </div>
         </Container>
@@ -392,14 +381,35 @@ export default function RepetitoryDirection() {
           <h2 className="text-[28px] font-bold leading-tight text-brand-navy lg:text-h2 lg:font-h2">
             Вы знаете, как продвигается ребенок
           </h2>
-          <div className="mt-6 max-w-4xl rounded-card bg-white p-5 shadow-card md:mt-8 md:p-8">
-            <div className="flex flex-col gap-3">
-              {PARENTS_POINTS.map((point) => (
-                <div key={point} className="flex items-start gap-2">
-                  <Check size={18} strokeWidth={3} className="mt-0.5 shrink-0 text-brand-green" />
-                  <span className="text-[15px] leading-relaxed text-[#5B6180] lg:text-body-sm">{point}</span>
-                </div>
-              ))}
+          <div className="mt-6 flex flex-col items-center gap-8 md:mt-8 xl:flex-row xl:items-center xl:justify-between xl:gap-10">
+            <div className="w-full max-w-4xl rounded-card bg-white p-5 shadow-card md:p-8">
+              <div className="flex flex-col gap-3">
+                {PARENTS_POINTS.map((point) => (
+                  <div key={point} className="flex items-start gap-2">
+                    <Check size={18} strokeWidth={3} className="mt-0.5 shrink-0 text-brand-green" />
+                    <span className="text-[15px] leading-relaxed text-[#5B6180] lg:text-body-sm">{point}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* Книга + пара звёзд — перенесены из Hero, здесь книга
+                заметно крупнее, каждая иконка на своей бледно-зелёной
+                круглой подложке, в духе декора плашек Community. */}
+            <div className="relative h-40 w-40 shrink-0 sm:h-44 sm:w-44 xl:h-48 xl:w-48">
+              <div className="flex h-full w-full items-center justify-center rounded-full bg-brand-green/10">
+                <img
+                  src={iconLiterature}
+                  alt=""
+                  className="h-28 w-28 object-contain sm:h-32 sm:w-32 xl:h-36 xl:w-36"
+                />
+              </div>
+              <span className="absolute -right-3 -top-3 flex h-11 w-11 items-center justify-center rounded-full bg-brand-green/15">
+                <img src={iconStar} alt="" className="h-7 w-7 object-contain" />
+              </span>
+              <span className="absolute -bottom-2 -left-4 flex h-8 w-8 items-center justify-center rounded-full bg-brand-green/15">
+                <img src={iconStar} alt="" className="h-5 w-5 object-contain" />
+              </span>
             </div>
           </div>
         </Container>
