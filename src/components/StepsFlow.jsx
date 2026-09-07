@@ -20,6 +20,7 @@ const MULTI_ROW_COUNTS = new Set([7, 8])
 const ACCENT = {
   purple: { bg: 'bg-brand-purple', text: 'text-white', numText: 'text-brand-purple', hex: '#8A63F6', shadow: 'rgba(138, 99, 246, 0.35)' },
   green: { bg: 'bg-brand-green', text: 'text-white', numText: 'text-brand-green', hex: '#7FD66A', shadow: 'rgba(127, 214, 106, 0.45)' },
+  yellow: { bg: 'bg-brand-yellow', text: 'text-brand-navy', numText: 'text-brand-yellow', hex: '#FFD54A', shadow: 'rgba(255, 213, 74, 0.45)' },
 }
 
 // Кружки-номера в ряд на десктопе, соединённые линией (заливается по

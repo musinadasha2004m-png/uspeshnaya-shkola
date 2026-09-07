@@ -18,7 +18,7 @@ const DIRECTIONS = [
     tint: 'bg-brand-blue',
     title: 'Подготовка к школе',
     description: 'Занятия онлайн интересны и познавательны даже детям 5–7 лет.',
-    href: '#',
+    href: '/napravleniya/podgotovka-k-shkole',
   },
   {
     icon: BookOpen,

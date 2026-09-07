@@ -5,7 +5,7 @@ import { LogoMark, MaxIcon, TelegramIcon, WhatsAppIcon } from './icons'
 import Container from './Container'
 
 const DIRECTIONS = [
-  { label: 'Подготовка к школе', href: '#' },
+  { label: 'Подготовка к школе', href: '/napravleniya/podgotovka-k-shkole' },
   { label: 'Предметные репетиторы', href: '/napravleniya/repetitory' },
   { label: 'Нейроскорочтение', href: '/napravleniya/neuroskorochtenie' },
   { label: 'Подготовка к ВПР', href: '#' },

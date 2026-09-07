@@ -3,6 +3,7 @@ import { Route, Routes, useLocation } from 'react-router-dom'
 import HomePage from './pages/HomePage'
 import NeuroskorochtenieDirection from './pages/NeuroskorochtenieDirection'
 import RepetitoryDirection from './pages/RepetitoryDirection'
+import PodgotovkaKShkoleDirection from './pages/PodgotovkaKShkoleDirection'
 
 function ScrollToTop() {
   const { pathname, hash } = useLocation()
@@ -23,6 +24,10 @@ function App() {
           element={<NeuroskorochtenieDirection />}
         />
         <Route path="/napravleniya/repetitory" element={<RepetitoryDirection />} />
+        <Route
+          path="/napravleniya/podgotovka-k-shkole"
+          element={<PodgotovkaKShkoleDirection />}
+        />
       </Routes>
     </>
   )
