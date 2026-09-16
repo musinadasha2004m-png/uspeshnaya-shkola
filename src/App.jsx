@@ -8,7 +8,18 @@ import PodgotovkaKShkoleDirection from './pages/PodgotovkaKShkoleDirection'
 function ScrollToTop() {
   const { pathname, hash } = useLocation()
   useEffect(() => {
-    if (!hash) window.scrollTo(0, 0)
+    if (!hash) {
+      window.scrollTo(0, 0)
+      return
+    }
+    // Переход по хэшу через React Router — клиентский, без перезагрузки
+    // страницы, поэтому браузер сам к якорю не проматывает (это работает
+    // только при обычной навигации). Ждём кадр, чтобы новый маршрут успел
+    // отрендериться, и скроллим вручную.
+    const id = hash.slice(1)
+    requestAnimationFrame(() => {
+      document.getElementById(id)?.scrollIntoView()
+    })
   }, [pathname, hash])
   return null
 }
