@@ -132,6 +132,21 @@ const RESULT_CARDS = [
 
 const RESULT_CLOSING = 'В итоге ребёнок понимает школьную программу, уверенно выполняет задания и готов к ВПР!'
 
+const VPR_HEADING = 'Готовимся к ВПР в рамках обычных занятий — без отдельного курса'
+const VPR_TEXT_1 =
+  'Всероссийские проверочные работы (ВПР) проводятся ежегодно с 4 по 8 класс и не влияют на итоговую аттестацию — это скорее срез, который показывает, насколько прочно ребёнок усвоил программу года. Но для многих детей сам факт "проверочной работы" всё равно связан с волнением, особенно если раньше не было похожего опыта.'
+const VPR_TEXT_2 =
+  'Мы не считаем, что ради этого нужен отдельный дорогой интенсив. Если ребёнок уже занимается у нас по предмету — педагог просто добавляет подготовку к ВПР в план занятий: разбирает формат заданий, знакомит со структурой работы, повторяет темы, которые чаще всего вызывают сложности именно в проверочных. Всё это — в рамках обычных занятий, без дополнительной оплаты и лишнего стресса.'
+const VPR_TEXT_3 =
+  'Если вы обращаетесь именно ради подготовки к ВПР, а не для постоянных занятий по предмету — начнём с бесплатной диагностики: посмотрим, какие темы стоит закрепить в первую очередь, и предложим короткий план под конкретную проверочную работу.'
+const VPR_CHECKLIST = [
+  'знакомство со структурой и форматом заданий ВПР',
+  'разбор типичных заданий по предмету',
+  'повторение тем, которые чаще всего вызывают сложности',
+  'пробные варианты в формате, близком к настоящему',
+  'разбор ошибок и работа над слабыми местами',
+]
+
 const PARENTS_POINTS = [
   'Педагог поддерживает связь с родителями, рассказывает о результатах обучения и помогает понять, над чем ребенку еще нужно поработать.',
   'Каждую четверть проводим срез знаний и при необходимости корректируем программу.',
@@ -331,8 +346,8 @@ export default function RepetitoryDirection() {
         </Container>
       </section>
 
-      {/* Блок 5. Что получает ребенок — якорь для карточки "Подготовка к ВПР" на главной */}
-      <section id="vpr" className="bg-bg-white scroll-mt-20">
+      {/* Блок 5. Что получает ребенок */}
+      <section className="bg-bg-white">
         <Container className="py-10 md:py-14">
           <h2 className="text-[28px] font-bold leading-tight text-brand-navy lg:text-h2 lg:font-h2">
             Не просто хорошие оценки — понимание предмета
@@ -410,6 +425,37 @@ export default function RepetitoryDirection() {
               <span className="absolute -bottom-2 -left-4 flex h-8 w-8 items-center justify-center rounded-full bg-brand-green/15">
                 <img src={iconStar} alt="" className="h-5 w-5 object-contain" />
               </span>
+            </div>
+          </div>
+        </Container>
+      </section>
+
+      {/* Подготовка к ВПР — якорь для карточки "Подготовка к ВПР" на главной */}
+      <section id="vpr" className="bg-bg-lavender scroll-mt-20">
+        <Container className="py-10 md:py-14">
+          <h2 className="text-[28px] font-bold leading-tight text-brand-navy lg:text-h2 lg:font-h2">
+            {VPR_HEADING}
+          </h2>
+          <p className="mt-3 max-w-5xl text-[15px] leading-relaxed text-[#5B6180] lg:text-body-sm">
+            {VPR_TEXT_1}
+          </p>
+          <p className="mt-3 max-w-5xl text-[15px] leading-relaxed text-[#5B6180] lg:text-body-sm">
+            {VPR_TEXT_2}
+          </p>
+          <p className="mt-3 max-w-5xl text-[15px] leading-relaxed text-[#5B6180] lg:text-body-sm">
+            {VPR_TEXT_3}
+          </p>
+          <p className="mt-4 text-[20px] font-bold uppercase tracking-wide text-brand-green">
+            Что входит в подготовку
+          </p>
+          <div className="mt-6 rounded-card bg-white p-5 shadow-card md:mt-8 md:p-8">
+            <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
+              {VPR_CHECKLIST.map((item) => (
+                <div key={item} className="flex items-start gap-2">
+                  <Check size={18} strokeWidth={3} className="mt-0.5 shrink-0 text-brand-green" />
+                  <span className="text-[15px] leading-relaxed text-[#5B6180] lg:text-body-sm">{item}</span>
+                </div>
+              ))}
             </div>
           </div>
         </Container>
