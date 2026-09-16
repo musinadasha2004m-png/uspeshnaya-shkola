@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom'
 import Header from '../components/Header'
 import Container from '../components/Container'
 import StepsFlow from '../components/StepsFlow'
+import Community from '../components/Community'
 
 const SUBTITLE =
   'Мы готовим не к оценкам, а к самому процессу учёбы — чтобы в сентябре ребёнок не терялся среди новых правил и требований, а с первых дней чувствовал себя уверенно и с интересом шёл в школу.'
@@ -63,6 +64,7 @@ const NEURO_TEXT_1 =
   'Подготовка к школе закладывает основу, а нейроскорочтение — хороший следующий шаг, который многие наши ученики проходят уже после поступления в первый класс. Там продолжают развиваться те же важные навыки: внимание, память, мышление — и добавляется ещё один, который часто недооценивают: усидчивость.'
 const NEURO_TEXT_2 =
   'Многим детям физически сложно высидеть несколько уроков подряд — и именно из-за этого начинает страдать успеваемость, даже если с пониманием материала всё в порядке. Мы работаем над этим заранее, а не ждём, когда это станет проблемой в школе.'
+const NEURO_SUBTITLE = `${NEURO_TEXT_1} ${NEURO_TEXT_2}`
 
 const ONLINE_TEXT_1 =
   'Формат подходит и по-настоящему увлекает даже дошкольников — программа разнообразная и построена так, чтобы ребёнку было интересно: игровые задания, частая смена активности, никакой скучной "учёбы за партой".'
@@ -158,30 +160,26 @@ export default function PodgotovkaKShkoleDirection() {
         </Container>
       </section>
 
-      {/* Блок 4. Переход на "Нейроскорочтение" */}
-      <section className="bg-bg-white">
-        <Container className="py-10 md:py-14">
-          <h2 className="text-[28px] font-bold leading-tight text-brand-navy lg:text-h2 lg:font-h2">
-            А что после того, как ребёнок пойдёт в школу?
-          </h2>
-          <p className="mt-3 max-w-5xl text-[15px] leading-relaxed text-[#5B6180] lg:text-body-sm">
-            {NEURO_TEXT_1}
-          </p>
-          <p className="mt-3 max-w-5xl text-[15px] leading-relaxed text-[#5B6180] lg:text-body-sm">
-            {NEURO_TEXT_2}
-          </p>
-          <Link
-            to="/napravleniya/neuroskorochtenie"
-            className="mt-5 inline-flex items-center gap-2 rounded-button bg-brand-yellow px-6 py-2.5 font-button text-button text-brand-navy transition-opacity hover:opacity-90"
-          >
-            Узнать о нейроскорочтении
-            <ArrowRight size={18} strokeWidth={2.5} />
-          </Link>
-        </Container>
-      </section>
+      {/* Блок 4. Переход на "Нейроскорочтение" — фиолетовая акцентная
+          плашка (не в жёлтой теме страницы): цвет-подсказка на то, что
+          ведёт именно на страницу "Нейроскорочтение". */}
+      <Community
+        title="А что после того, как ребёнок пойдёт в школу?"
+        titleMaxWidth="max-w-3xl"
+        subtitle={NEURO_SUBTITLE}
+        subtitleMaxWidth="max-w-3xl"
+      >
+        <Link
+          to="/napravleniya/neuroskorochtenie"
+          className="flex items-center justify-center gap-2 rounded-button bg-white px-6 py-2.5 font-button text-button text-brand-purple shadow-card transition-opacity hover:opacity-90"
+        >
+          Узнать о нейроскорочтении
+          <ArrowRight size={20} strokeWidth={2.2} />
+        </Link>
+      </Community>
 
       {/* Блок 5. Почему онлайн-формат подходит дошкольникам */}
-      <section className="bg-bg-lavender">
+      <section className="bg-bg-lavender2">
         <Container className="py-10 md:py-14">
           <h2 className="text-[28px] font-bold leading-tight text-brand-navy lg:text-h2 lg:font-h2">
             Онлайн — это не сложно, даже в 5–6 лет
