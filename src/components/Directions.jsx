@@ -10,6 +10,7 @@ import {
 } from 'lucide-react'
 import { Link } from 'react-router-dom'
 import Container from './Container'
+import { CONSULTATION_LINK_PROPS } from '../links'
 import iconBackpack from '../assets/icon-backpack.png'
 
 const DIRECTIONS = [
@@ -142,7 +143,7 @@ export default function Directions() {
             </p>
 
             <a
-              href="#"
+              {...CONSULTATION_LINK_PROPS}
               className="mt-3 inline-flex items-center gap-1.5 text-[13px] font-bold text-white transition-all hover:gap-2.5 lg:text-caption"
             >
               Записаться на консультацию

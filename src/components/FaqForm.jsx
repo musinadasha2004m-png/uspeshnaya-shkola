@@ -1,12 +1,12 @@
 import { useLayoutEffect, useRef, useState } from 'react'
-import { CheckCircle2, Plus } from 'lucide-react'
+import { Plus } from 'lucide-react'
 import Container from './Container'
 import { TelegramIcon, MaxIcon } from './icons'
 import iconStar from '../assets/icon-star.png'
+import { CONSULTATION_HREF, CONSULTATION_LINK_PROPS } from '../links'
 
 const TELEGRAM_HREF = 'https://t.me/DariaYSPESHNO'
-const MAX_HREF =
-  'https://max.ru/u/f9LHodD0cOIAsGNqHrsBHmBuQ_E92Z2BhD2_J4ybwT0oPafu1hB_p2op9YA'
+const MAX_HREF = CONSULTATION_HREF
 
 // Декор по тому же принципу, что в фиолетовой/розовой/синей плашках —
 // звёзды со светлой круглой подложкой, частично выступающие за края.
@@ -49,23 +49,6 @@ const FAQ_ITEMS = [
   },
 ]
 
-const DIRECTIONS = [
-  'Подготовка к школе',
-  'Предметные репетиторы',
-  'Нейроскорочтение',
-  'Подготовка к ВПР',
-  'Подготовка к ОГЭ',
-  'Подготовка к ЕГЭ',
-  'Профориентация',
-]
-
-const PHONE_CHARS_RE = /^[0-9+\-\s()]+$/
-
-function isValidPhone(value) {
-  if (!PHONE_CHARS_RE.test(value)) return false
-  return value.replace(/\D/g, '').length >= 10
-}
-
 function FaqItem({ question, answer, isOpen, onToggle }) {
   const contentRef = useRef(null)
   const [height, setHeight] = useState(0)
@@ -104,142 +87,6 @@ function FaqItem({ question, answer, isOpen, onToggle }) {
           {answer}
         </p>
       </div>
-    </div>
-  )
-}
-
-function Field({ label, name, value, onChange, error, type = 'text', placeholder, className = '' }) {
-  return (
-    <label className={`flex flex-col gap-1.5 text-left ${className}`}>
-      <span className="text-[13px] font-bold text-brand-navy/70">{label}</span>
-      <input
-        type={type}
-        name={name}
-        value={value}
-        onChange={onChange}
-        placeholder={placeholder}
-        className={`rounded-button border bg-bg-white px-4 py-3 text-[15px] text-brand-navy outline-none transition-colors placeholder:text-brand-navy/30 focus:border-brand-purple ${
-          error ? 'border-brand-pink' : 'border-bg-lavender2'
-        }`}
-      />
-      {error && <span className="text-[12px] font-medium text-brand-pink">{error}</span>}
-    </label>
-  )
-}
-
-function SelectField({ label, name, value, onChange, error, options, placeholder, className = '' }) {
-  return (
-    <label className={`flex flex-col gap-1.5 text-left ${className}`}>
-      <span className="text-[13px] font-bold text-brand-navy/70">{label}</span>
-      <select
-        name={name}
-        value={value}
-        onChange={onChange}
-        className={`rounded-button border bg-bg-white px-4 py-3 text-[15px] text-brand-navy outline-none transition-colors ${
-          value ? '' : 'text-brand-navy/30'
-        } ${error ? 'border-brand-pink' : 'border-bg-lavender2'}`}
-      >
-        <option value="" disabled>
-          {placeholder}
-        </option>
-        {options.map((opt) => (
-          <option key={opt} value={opt} className="text-brand-navy">
-            {opt}
-          </option>
-        ))}
-      </select>
-      {error && <span className="text-[12px] font-medium text-brand-pink">{error}</span>}
-    </label>
-  )
-}
-
-const EMPTY_VALUES = { phone: '', grade: '', direction: '' }
-
-function ConsultForm() {
-  const [values, setValues] = useState(EMPTY_VALUES)
-  const [errors, setErrors] = useState({})
-  const [status, setStatus] = useState('idle') // idle | success
-  const [visible, setVisible] = useState(true)
-
-  const handleChange = (e) => {
-    const { name, value } = e.target
-    setValues((v) => ({ ...v, [name]: value }))
-  }
-
-  const validate = () => {
-    const errs = {}
-    if (!isValidPhone(values.phone)) errs.phone = 'Введите корректный номер телефона'
-    if (!values.grade.trim()) errs.grade = 'Укажите класс ребенка'
-    if (!values.direction) errs.direction = 'Выберите направление'
-    return errs
-  }
-
-  const handleSubmit = (e) => {
-    e.preventDefault()
-    const errs = validate()
-    setErrors(errs)
-    if (Object.keys(errs).length > 0) return
-
-    setVisible(false)
-    setTimeout(() => {
-      setStatus('success')
-      setValues(EMPTY_VALUES)
-      setErrors({})
-      setVisible(true)
-    }, 250)
-  }
-
-  return (
-    <div
-      className={`transition-opacity duration-300 ease-in-out ${
-        visible ? 'opacity-100' : 'opacity-0'
-      }`}
-    >
-      {status === 'idle' ? (
-        <form onSubmit={handleSubmit} noValidate className="grid gap-4 sm:grid-cols-2">
-          <Field
-            label="Телефон"
-            name="phone"
-            type="tel"
-            value={values.phone}
-            onChange={handleChange}
-            error={errors.phone}
-            placeholder="+7 999 123-45-67"
-          />
-          <Field
-            label="Класс ребенка"
-            name="grade"
-            value={values.grade}
-            onChange={handleChange}
-            error={errors.grade}
-            placeholder="Например, 5 класс"
-          />
-          <SelectField
-            label="Направление обучения"
-            name="direction"
-            value={values.direction}
-            onChange={handleChange}
-            error={errors.direction}
-            options={DIRECTIONS}
-            placeholder="Выберите направление"
-            className="sm:col-span-2"
-          />
-
-          <button
-            type="submit"
-            className="mt-1 flex items-center justify-center rounded-button bg-brand-purple px-8 py-3.5 font-button text-button text-white transition-opacity hover:opacity-90 sm:col-span-2"
-          >
-            Записаться на консультацию
-          </button>
-        </form>
-      ) : (
-        <div className="flex flex-col items-center justify-center gap-3 rounded-card bg-bg-lavender3 px-6 py-14 text-center">
-          <CheckCircle2 size={44} strokeWidth={2} className="text-brand-green" />
-          <p className="max-w-xs text-[18px] font-bold leading-snug text-brand-navy">
-            Спасибо! Мы свяжемся с вами в ближайшее время
-          </p>
-        </div>
-      )}
     </div>
   )
 }
@@ -324,7 +171,12 @@ export default function FaqForm() {
           </div>
 
           <div className="mt-6 md:mt-8">
-            <ConsultForm />
+            <a
+              {...CONSULTATION_LINK_PROPS}
+              className="inline-flex w-full items-center justify-center rounded-button bg-brand-purple px-8 py-3.5 font-button text-button text-white transition-opacity hover:opacity-90 sm:w-auto"
+            >
+              Записаться на консультацию
+            </a>
           </div>
 
           <div className="mt-8 border-t border-bg-lavender2 pt-6 text-center md:mt-10">

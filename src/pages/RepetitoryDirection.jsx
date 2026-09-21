@@ -6,6 +6,7 @@ import StepsFlow from '../components/StepsFlow'
 import Testimonials, { CASES } from '../components/Testimonials'
 import ParentReviews, { REVIEWS } from '../components/ParentReviews'
 import Community from '../components/Community'
+import { CONSULTATION_LINK_PROPS } from '../links'
 import iconStar from '../assets/icon-star.png'
 import iconRuler from '../assets/icon-ruler.png'
 import iconFlask from '../assets/icon-flask.png'
@@ -196,7 +197,7 @@ export default function RepetitoryDirection() {
             </p>
             <p className="mt-4 text-[14px] font-semibold text-brand-navy/60">{SHORT_LINE}</p>
             <a
-              href="/#faq"
+              {...CONSULTATION_LINK_PROPS}
               className="mt-6 inline-flex items-center justify-center gap-2 rounded-button bg-brand-green px-8 py-3.5 font-button text-button text-white shadow-card transition-opacity hover:opacity-90"
             >
               Записаться на консультацию
@@ -276,7 +277,7 @@ export default function RepetitoryDirection() {
                 <div className="mt-auto pt-4">
                   <p className="text-[15px] leading-relaxed text-[#5B6180] lg:text-body-sm">{group.text}</p>
                   <a
-                    href="/#faq"
+                    {...CONSULTATION_LINK_PROPS}
                     className="mt-5 inline-flex w-fit items-center justify-center gap-2 rounded-button bg-brand-green px-6 py-2.5 font-button text-button text-white transition-opacity hover:opacity-90"
                   >
                     Выбрать предмет
@@ -307,7 +308,7 @@ export default function RepetitoryDirection() {
             ))}
 
             <a
-              href="/#faq"
+              {...CONSULTATION_LINK_PROPS}
               className="animate-card-glow-green flex items-center gap-3 rounded-card bg-brand-green p-4 transition-opacity hover:opacity-90"
             >
               <span className="text-[15px] font-bold leading-relaxed text-white lg:text-body-sm">
@@ -332,7 +333,7 @@ export default function RepetitoryDirection() {
             equalHeight
             trailingCard={
               <a
-                href="/#faq"
+                {...CONSULTATION_LINK_PROPS}
                 className="animate-card-glow-green relative z-10 flex min-h-[160px] flex-col items-start justify-between gap-3 rounded-card border-2 border-transparent bg-brand-green px-4 py-3 text-left transition-opacity hover:opacity-90 md:px-5 md:py-4 xl:h-[392px]"
               >
                 <p className="text-[17px] font-bold leading-relaxed text-white">
@@ -384,7 +385,7 @@ export default function RepetitoryDirection() {
         accent="green"
       >
         <a
-          href="/#faq"
+          {...CONSULTATION_LINK_PROPS}
           className="flex items-center justify-center gap-2 rounded-button bg-white px-6 py-2.5 font-button text-button text-brand-navy shadow-card transition-opacity hover:opacity-90"
         >
           Записаться на консультацию
@@ -515,7 +516,7 @@ export default function RepetitoryDirection() {
             Оставьте заявку на бесплатную консультацию. Разберемся в ситуации ребенка и поможем подобрать подходящие занятия.
           </p>
           <a
-            href="/#faq"
+            {...CONSULTATION_LINK_PROPS}
             className="mt-6 inline-flex items-center justify-center gap-2 rounded-button bg-white px-8 py-3.5 font-button text-button text-brand-navy shadow-card transition-opacity hover:opacity-90"
           >
             Записаться на консультацию

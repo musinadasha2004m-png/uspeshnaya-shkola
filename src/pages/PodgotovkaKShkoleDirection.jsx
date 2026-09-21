@@ -4,6 +4,7 @@ import Header from '../components/Header'
 import Container from '../components/Container'
 import StepsFlow from '../components/StepsFlow'
 import Community from '../components/Community'
+import { CONSULTATION_LINK_PROPS } from '../links'
 
 const SUBTITLE =
   'Мы готовим не к оценкам, а к самому процессу учёбы — чтобы в сентябре ребёнок не терялся среди новых правил и требований, а с первых дней чувствовал себя уверенно и с интересом шёл в школу.'
@@ -109,7 +110,7 @@ export default function PodgotovkaKShkoleDirection() {
             ))}
 
             <a
-              href="/#faq"
+              {...CONSULTATION_LINK_PROPS}
               className="animate-card-glow-yellow flex items-center gap-3 rounded-card bg-brand-yellow p-4 transition-opacity hover:opacity-90"
             >
               <span className="text-[15px] font-bold leading-relaxed text-brand-navy lg:text-body-sm">
@@ -203,7 +204,7 @@ export default function PodgotovkaKShkoleDirection() {
             Запишитесь на бесплатную консультацию — расскажем, с чего лучше начать именно вашему ребёнку.
           </p>
           <a
-            href="/#faq"
+            {...CONSULTATION_LINK_PROPS}
             className="mt-6 inline-flex items-center justify-center gap-2 rounded-button bg-white px-8 py-3.5 font-button text-button text-brand-navy shadow-card transition-opacity hover:opacity-90"
           >
             Записаться на консультацию

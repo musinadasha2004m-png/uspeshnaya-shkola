@@ -130,7 +130,7 @@ export default function Testimonials({
   }
 
   return (
-    <section className={sectionBg}>
+    <section id="testimonials" className={sectionBg}>
       <Container className="py-10 md:py-14">
         <h2 className="max-w-2xl text-[28px] font-bold leading-tight text-brand-navy lg:text-h2 lg:font-h2">
           {title}

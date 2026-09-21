@@ -1,5 +1,6 @@
 import { ArrowRight, Calendar, TrendingUp, Users } from 'lucide-react'
 import Container from './Container'
+import { CONSULTATION_LINK_PROPS } from '../links'
 import heroBoy from '../assets/hero-boy.png'
 import iconBrain from '../assets/icon-brain.png'
 import iconLightbulb from '../assets/icon-lightbulb.png'
@@ -84,13 +85,13 @@ export default function Hero() {
           </div>
 
           <div className="mt-5 flex flex-col gap-4 sm:flex-row">
-            <button
-              type="button"
+            <a
+              {...CONSULTATION_LINK_PROPS}
               className="flex items-center justify-center gap-2 rounded-button bg-brand-purple px-8 py-3.5 font-button text-button text-white transition-opacity hover:opacity-90"
             >
               Записаться на консультацию
               <ArrowRight size={20} strokeWidth={2.2} />
-            </button>
+            </a>
             <button
               type="button"
               className="flex items-center justify-center gap-2 rounded-button border border-bg-lavender2 bg-bg-white px-8 py-3.5 font-button text-button text-brand-navy transition-colors hover:bg-bg-lavender3"

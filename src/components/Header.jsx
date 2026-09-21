@@ -3,12 +3,13 @@ import { Link } from 'react-router-dom'
 import { ChevronDown, Menu, Phone, X } from 'lucide-react'
 import { LogoMark, MaxIcon, TelegramIcon, WhatsAppIcon } from './icons'
 import Container from './Container'
+import { CONSULTATION_LINK_PROPS } from '../links'
 
 const DIRECTIONS = [
   { label: 'Подготовка к школе', href: '/napravleniya/podgotovka-k-shkole' },
   { label: 'Предметные репетиторы', href: '/napravleniya/repetitory' },
   { label: 'Нейроскорочтение', href: '/napravleniya/neuroskorochtenie' },
-  { label: 'Подготовка к ВПР', href: '#' },
+  { label: 'Подготовка к ВПР', href: '/napravleniya/repetitory#vpr' },
   { label: 'Подготовка к ОГЭ', href: '#' },
   { label: 'Подготовка к ЕГЭ', href: '#' },
   { label: 'Профориентация', href: '#' },
@@ -17,8 +18,8 @@ const DIRECTIONS = [
 const NAV_LINKS = [
   { label: 'Главная', href: '/' },
   { label: 'О школе', href: '#about' },
-  { label: 'Успехи учеников', href: '#testimonials' },
-  { label: 'FAQ', href: '#faq' },
+  { label: 'Успехи учеников', href: '/#testimonials' },
+  { label: 'FAQ', href: '/#faq' },
   { label: 'Контакты', href: '#contact' },
 ]
 
@@ -59,6 +60,20 @@ function SocialIcons({ size = 32 }) {
         <MaxIcon width={size} height={size} />
       </a>
     </div>
+  )
+}
+
+// Внутренние пути ("/…") — через роутер, иначе якорь вроде /#faq с
+// другой страницы не сработает без перезагрузки; "#…" и внешние — обычный <a>.
+function NavItem({ href, className, children }) {
+  return href.startsWith('/') ? (
+    <Link to={href} className={className}>
+      {children}
+    </Link>
+  ) : (
+    <a href={href} className={className}>
+      {children}
+    </a>
   )
 }
 
@@ -150,22 +165,22 @@ export default function Header() {
           </div>
 
           {NAV_LINKS.slice(1).map((item) => (
-            <a
+            <NavItem
               key={item.label}
               href={item.href}
               className="font-caption text-caption text-brand-navy transition-colors hover:text-brand-purple"
             >
               {item.label}
-            </a>
+            </NavItem>
           ))}
         </nav>
 
-        <button
-          type="button"
+        <a
+          {...CONSULTATION_LINK_PROPS}
           className="hidden shrink-0 self-center rounded-button bg-brand-purple px-5 py-2.5 text-sm font-semibold leading-none text-white transition-opacity hover:opacity-90 xl:inline-block"
         >
           Записаться на консультацию
-        </button>
+        </a>
 
         <button
           type="button"
@@ -228,22 +243,22 @@ export default function Header() {
             </div>
 
             {NAV_LINKS.slice(1).map((item) => (
-              <a
+              <NavItem
                 key={item.label}
                 href={item.href}
                 className="font-caption text-caption text-brand-navy"
               >
                 {item.label}
-              </a>
+              </NavItem>
             ))}
           </nav>
 
-          <button
-            type="button"
-            className="mt-5 w-full rounded-button bg-brand-purple px-6 py-3 font-button text-button text-white"
+          <a
+            {...CONSULTATION_LINK_PROPS}
+            className="mt-5 block w-full rounded-button bg-brand-purple px-6 py-3 text-center font-button text-button text-white"
           >
             Записаться на консультацию
-          </button>
+          </a>
 
           <div className="mt-5 flex items-center justify-between border-t border-bg-lavender2 pt-4">
             <a

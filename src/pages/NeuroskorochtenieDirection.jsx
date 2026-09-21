@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom'
 import Header from '../components/Header'
 import Container from '../components/Container'
 import Community from '../components/Community'
+import { CONSULTATION_LINK_PROPS } from '../links'
 import StepsFlow from '../components/StepsFlow'
 import Testimonials, { CASES } from '../components/Testimonials'
 import ParentReviews, { REVIEWS } from '../components/ParentReviews'
@@ -231,7 +232,7 @@ export default function NeuroskorochtenieDirection() {
             ))}
 
             <a
-              href="/#faq"
+              {...CONSULTATION_LINK_PROPS}
               className="animate-card-glow flex items-center gap-3 rounded-card bg-brand-purple p-4 transition-opacity hover:opacity-90"
             >
               <span className="text-[15px] font-bold leading-relaxed text-white lg:text-body-sm">
@@ -306,7 +307,7 @@ export default function NeuroskorochtenieDirection() {
         decor={MID_CTA_DECOR}
       >
         <a
-          href="/#faq"
+          {...CONSULTATION_LINK_PROPS}
           className="flex items-center justify-center gap-2 rounded-button bg-white px-6 py-2.5 font-button text-button text-brand-purple shadow-card transition-opacity hover:opacity-90"
         >
           Записаться на консультацию
@@ -379,7 +380,7 @@ export default function NeuroskorochtenieDirection() {
 
           <div className="mt-6 flex justify-center md:mt-8">
             <a
-              href="/#faq"
+              {...CONSULTATION_LINK_PROPS}
               className="flex items-center justify-center gap-2 rounded-button bg-brand-purple px-8 py-3.5 font-button text-button text-white transition-opacity hover:opacity-90"
             >
               Записаться на консультацию
@@ -432,7 +433,7 @@ export default function NeuroskorochtenieDirection() {
             программа вашему ребёнку, и ответим на все вопросы.
           </p>
           <a
-            href="/#faq"
+            {...CONSULTATION_LINK_PROPS}
             className="mt-6 inline-flex items-center justify-center gap-2 rounded-button bg-white px-8 py-3.5 font-button text-button text-brand-purple transition-opacity hover:opacity-90"
           >
             Записаться на консультацию
