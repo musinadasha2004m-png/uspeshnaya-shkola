@@ -32,6 +32,7 @@ const AVATAR_TINTS = [
 const ACCENT = {
   purple: { text: 'text-brand-purple', arrowBg: 'bg-brand-blue', arrowText: 'text-white', avatarTint: null },
   green: { text: 'text-brand-navy', arrowBg: 'bg-brand-green', arrowText: 'text-white', avatarTint: 'bg-brand-green/20 text-brand-navy' },
+  blue: { text: 'text-brand-navy', arrowBg: 'bg-brand-blue', arrowText: 'text-white', avatarTint: 'bg-brand-blue/15 text-brand-navy' },
 }
 
 // Порядок подобран так, чтобы один предмет не шёл дважды подряд —

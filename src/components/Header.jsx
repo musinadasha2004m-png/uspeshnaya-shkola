@@ -11,7 +11,7 @@ const DIRECTIONS = [
   { label: 'Нейроскорочтение', href: '/napravleniya/neuroskorochtenie' },
   { label: 'Подготовка к ВПР', href: '/napravleniya/repetitory#vpr' },
   { label: 'Подготовка к ОГЭ', href: '#' },
-  { label: 'Подготовка к ЕГЭ', href: '#' },
+  { label: 'Подготовка к ЕГЭ', href: '/napravleniya/podgotovka-k-ege' },
   { label: 'Профориентация', href: '#' },
 ]
 

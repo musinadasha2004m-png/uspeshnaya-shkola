@@ -4,6 +4,7 @@ import HomePage from './pages/HomePage'
 import NeuroskorochtenieDirection from './pages/NeuroskorochtenieDirection'
 import RepetitoryDirection from './pages/RepetitoryDirection'
 import PodgotovkaKShkoleDirection from './pages/PodgotovkaKShkoleDirection'
+import PodgotovkaKEgeDirection from './pages/PodgotovkaKEgeDirection'
 
 function ScrollToTop() {
   const { pathname, hash } = useLocation()
@@ -38,6 +39,10 @@ function App() {
         <Route
           path="/napravleniya/podgotovka-k-shkole"
           element={<PodgotovkaKShkoleDirection />}
+        />
+        <Route
+          path="/napravleniya/podgotovka-k-ege"
+          element={<PodgotovkaKEgeDirection />}
         />
       </Routes>
     </>

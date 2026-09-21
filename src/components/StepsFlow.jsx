@@ -21,6 +21,7 @@ const ACCENT = {
   purple: { bg: 'bg-brand-purple', text: 'text-white', numText: 'text-brand-purple', hex: '#8A63F6', shadow: 'rgba(138, 99, 246, 0.35)' },
   green: { bg: 'bg-brand-green', text: 'text-white', numText: 'text-brand-green', hex: '#7FD66A', shadow: 'rgba(127, 214, 106, 0.45)' },
   yellow: { bg: 'bg-brand-yellow', text: 'text-brand-navy', numText: 'text-brand-yellow', hex: '#FFD54A', shadow: 'rgba(255, 213, 74, 0.45)' },
+  blue: { bg: 'bg-brand-blue', text: 'text-white', numText: 'text-brand-blue', hex: '#6C8BFF', shadow: 'rgba(108, 139, 255, 0.4)' },
 }
 
 // Кружки-номера в ряд на десктопе, соединённые линией (заливается по

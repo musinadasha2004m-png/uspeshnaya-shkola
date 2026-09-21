@@ -58,7 +58,7 @@ const DIRECTIONS = [
     title: 'Подготовка к ЕГЭ',
     description:
       'Поможем получить высокий балл и уверенно поступить в выбранный вуз.',
-    href: '#',
+    href: '/napravleniya/podgotovka-k-ege',
   },
   {
     icon: Compass,

@@ -109,6 +109,7 @@ const CARD_WIDTH = 300 // px, шаг прокрутки по стрелке = ш
 const ACCENT = {
   purple: { solid: 'bg-brand-purple', onSolid: 'text-white', tintBg: 'bg-brand-purple/10', tintText: 'text-brand-purple' },
   green: { solid: 'bg-brand-green', onSolid: 'text-white', tintBg: 'bg-brand-green/15', tintText: 'text-brand-navy' },
+  blue: { solid: 'bg-brand-blue', onSolid: 'text-white', tintBg: 'bg-brand-blue/10', tintText: 'text-brand-navy' },
 }
 
 export default function Testimonials({
