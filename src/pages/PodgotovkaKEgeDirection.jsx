@@ -73,7 +73,7 @@ export default function PodgotovkaKEgeDirection() {
       <section className="bg-bg-white">
         <Container className="py-10 md:py-14">
           <h1 className="max-w-4xl text-[32px] font-extrabold leading-tight text-brand-navy md:text-[40px] lg:text-h1 lg:font-h1">
-            Готовим к ЕГЭ так, чтобы можно было выдохнуть — и родителям, и ребёнку
+            Подготовка к ЕГЭ
           </h1>
           <p className="mt-4 max-w-2xl text-[15px] leading-relaxed text-[#5B6180] lg:text-body-sm">
             {SUBTITLE}
