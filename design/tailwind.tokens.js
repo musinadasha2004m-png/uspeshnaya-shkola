@@ -23,7 +23,7 @@ module.exports = {
         },
       },
       fontFamily: {
-        sans: ['Manrope', 'sans-serif'],
+        sans: ['Manrope Variable', 'Manrope', 'sans-serif'],
       },
       fontSize: {
         h1: ['56px', { fontWeight: '800' }],

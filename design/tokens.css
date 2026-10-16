@@ -20,7 +20,7 @@
   --color-text-inverse: #FFFFFF;
 
   /* --- Типографика --- */
-  --font-family-base: 'Manrope', sans-serif;
+  --font-family-base: 'Manrope Variable', 'Manrope', sans-serif;
 
   --font-size-h1: 56px;
   --font-weight-h1: 800; /* ExtraBold */
